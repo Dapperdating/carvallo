@@ -3,8 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Carvallo Motors | Auto selezionate e youngtimer</title>
-    <meta name="description" content="Carvallo Motors vende auto usate e selezionate. Carvallo Selected cura vintage, youngtimer e vetture speciali.">
+    <title>Carvallo Motors | Auto usate selezionate a Busto Arsizio</title>
+    <meta name="description" content="Carvallo Motors a Busto Arsizio vende auto usate, seminuove e youngtimer selezionate. Carvallo Selected cura vetture vintage, sportive e configurazioni speciali.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="theme-color" content="#0f0f10">
+    <link rel="canonical" href="https://www.carvallo-motors.com/">
+    <link rel="icon" type="image/png" href="https://www.carvallo-motors.com/favicon.png">
+    <link rel="apple-touch-icon" href="https://www.carvallo-motors.com/favicon.png">
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Carvallo Motors">
+    <meta property="og:title" content="Carvallo Motors | Auto usate selezionate a Busto Arsizio">
+    <meta property="og:description" content="Auto usate, seminuove, vintage e youngtimer selezionate. Motors per l'usato concreto, Selected per vetture speciali.">
+    <meta property="og:url" content="https://www.carvallo-motors.com/">
+    <meta property="og:image" content="https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Carvallo Motors | Auto usate selezionate a Busto Arsizio">
+    <meta name="twitter:description" content="Auto usate, seminuove, vintage e youngtimer selezionate.">
+    <meta name="twitter:image" content="https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,9 +28,56 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="data/cars.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "AutoDealer",
+            "@id": "https://www.carvallo-motors.com/#dealer",
+            "name": "Carvallo Motors",
+            "alternateName": "Corradi Real Estate SRL",
+            "url": "https://www.carvallo-motors.com/",
+            "logo": "https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png",
+            "image": "https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png",
+            "description": "Venditore auto usate, seminuove, vintage e youngtimer selezionate a Busto Arsizio.",
+            "email": "info@carvallo-motors.com",
+            "telephone": "+393923139899",
+            "vatID": "4043740127",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Via Quintino Sella 144",
+              "postalCode": "21010",
+              "addressLocality": "Busto Arsizio",
+              "addressRegion": "VA",
+              "addressCountry": "IT"
+            },
+            "sameAs": [
+              "https://instagram.com/carvallomotors",
+              "https://www.facebook.com/profile.php?id=61579240555253"
+            ],
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "09:00",
+              "closes": "20:00"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.carvallo-motors.com/#website",
+            "name": "Carvallo Motors",
+            "alternateName": "Carvallo Selected",
+            "url": "https://www.carvallo-motors.com/",
+            "publisher": { "@id": "https://www.carvallo-motors.com/#dealer" }
+          }
+        ]
+      }
+    </script>
     <script defer src="script.js"></script>
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <header class="site-header" data-elevate>
       <a class="brand" href="#top" aria-label="Carvallo Motors home">
         <img class="brand-logo" src="assets/logos/carvallo-motors-logo.png" alt="Carvallo Motors">
@@ -32,7 +95,7 @@
     </header>
 
     <main id="top">
-      <section class="hero">
+      <section class="hero" data-animate="hero">
         <div class="hero-media" role="img" aria-label="BMW M4 CS Carvallo Motors"></div>
         <div class="hero-content">
           <p class="eyebrow">Carvallo Motors</p>
@@ -45,7 +108,7 @@
         </div>
       </section>
 
-      <section class="split-band" id="motors">
+      <section class="split-band reveal" id="motors">
         <div>
           <p class="eyebrow">01 / Motors</p>
           <h2>Usato concreto, rapido da capire.</h2>
@@ -53,23 +116,32 @@
         <p>Carvallo Motors e' la sezione per auto normali, usate e seminuove: selezione pulita, informazioni chiare, contatto diretto e possibilita' di valutare la propria auto.</p>
       </section>
 
-      <section class="selected-band" id="selected">
+      <section class="selected-band reveal" id="selected">
         <div class="selected-copy">
           <img class="division-logo selected-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo Selected">
           <p class="eyebrow">02 / Selected</p>
-          <h2>Vintage, youngtimer e configurazioni da guardare due volte.</h2>
-          <p>Selected ha un tono piu' curatoriale: poche vetture, piu' storia, piu' attenzione alla provenienza e alla particolarita' della configurazione.</p>
+          <h2>Una selezione piu' rara, trattata come una collezione.</h2>
+          <p>Selected e' il lato curatoriale di Carvallo: youngtimer, vintage, cabrio, sportive e configurazioni che meritano piu' contesto di una semplice scheda.</p>
+          <div class="selected-points" aria-label="Punti forti Carvallo Selected">
+            <span>Provenienza</span>
+            <span>Configurazione</span>
+            <span>Storia</span>
+          </div>
         </div>
         <div class="selected-panel">
-          <span>Curated stock</span>
+          <span>Carvallo Selected</span>
           <strong>Youngtimer, classiche e sportive moderne.</strong>
+          <a class="button ghost light" href="auto.html">Scopri Selected</a>
         </div>
       </section>
 
-      <section class="inventory" id="stock">
+      <section class="inventory inventory-preview reveal" id="stock">
         <div class="section-heading">
-          <p class="eyebrow">Auto disponibili</p>
-          <h2>Ultimi arrivi</h2>
+          <div>
+            <p class="eyebrow">Auto disponibili</p>
+            <h2>Showroom digitale</h2>
+            <p class="section-copy">Poche informazioni, quelle giuste: foto grandi, prezzo chiaro, stato immediato e contatto diretto.</p>
+          </div>
           <a class="button ghost" href="auto.html">Catalogo completo</a>
         </div>
         <div class="car-grid" id="car-grid" data-limit="3" aria-live="polite"></div>

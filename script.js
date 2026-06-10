@@ -47,33 +47,83 @@ function statusClass(status) {
   return status === "sold" ? "muted" : "";
 }
 
+function schemaPrice(value) {
+  if (!value) return undefined;
+  const match = String(value).match(/[\d.,]+/);
+  if (!match) return undefined;
+  return match[0].replace(/\./g, "").replace(",", ".");
+}
+
 function carCard(car) {
   const title = `${car.make || ""} ${car.model || ""}`.trim();
   const division = car.division === "selected" ? "Selected" : "Motors";
   const price = car.price_label || "Prezzo su richiesta";
   return `
-    <article class="car-card" data-division="${car.division}" data-status="${car.status}">
+    <article class="car-card" data-division="${car.division}" data-status="${car.status}" itemscope itemtype="https://schema.org/Vehicle">
       <figure>
-        <img src="${car.image_url || ""}" alt="${title}" loading="lazy">
+        <img src="${car.image_url || ""}" alt="${title}" loading="lazy" itemprop="image">
       </figure>
       <div class="car-body">
         <div class="car-top">
           <span class="badge ${car.division === "selected" ? "selected" : ""}">${division}</span>
           <strong class="${statusClass(car.status)}">${statusLabel(car.status)}</strong>
         </div>
-        <h3 class="car-title">${title}</h3>
-        <p class="car-price">${price}</p>
+        <h3 class="car-title" itemprop="name">${title}</h3>
+        <p class="car-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer"><span itemprop="price">${price}</span></p>
         <p class="car-meta">
           <span>${car.year || "Anno n/d"}</span>
           <span>${formatKm(car.mileage_km)}</span>
           <span>${car.fuel || "Alimentazione n/d"}</span>
           <span>${car.transmission || "Cambio n/d"}</span>
         </p>
-        <p class="car-desc">${car.short_description || ""}</p>
+        <p class="car-desc" itemprop="description">${car.short_description || ""}</p>
         <a class="button ghost" href="${contacts.whatsappBase}?text=${encodeURIComponent(`Ciao, vorrei informazioni su ${title}`)}">Richiedi info</a>
       </div>
     </article>
   `;
+}
+
+function updateScrollProgress() {
+  const progress = document.querySelector(".scroll-progress");
+  if (!progress) return;
+
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
+}
+
+function updateHeaderState() {
+  document.querySelectorAll(".site-header").forEach((header) => {
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+  });
+}
+
+function bindMotion() {
+  const revealItems = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window)) {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.18 });
+
+  revealItems.forEach((item) => observer.observe(item));
+}
+
+function bindChromeEffects() {
+  updateScrollProgress();
+  updateHeaderState();
+  window.addEventListener("scroll", () => {
+    updateScrollProgress();
+    updateHeaderState();
+  }, { passive: true });
 }
 
 function matchesSearch(car) {
@@ -111,6 +161,55 @@ async function renderCars() {
   grid.innerHTML = visible.length
     ? visible.map(carCard).join("")
     : "<p class=\"empty-state\">Nessuna auto trovata con questi filtri.</p>";
+  injectCatalogStructuredData(visible);
+}
+
+function injectCatalogStructuredData(cars) {
+  if (!document.body.classList.contains("catalog-page")) return;
+
+  const previous = document.querySelector("#vehicle-jsonld");
+  if (previous) previous.remove();
+
+  const vehicles = cars.slice(0, 24).map((car, index) => {
+    const title = `${car.make || ""} ${car.model || ""}`.trim();
+    return {
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Vehicle",
+        "name": title,
+        "brand": car.make,
+        "model": car.model,
+        "vehicleModelDate": car.year || undefined,
+        "mileageFromOdometer": car.mileage_km ? {
+          "@type": "QuantitativeValue",
+          "value": car.mileage_km,
+          "unitCode": "KMT"
+        } : undefined,
+        "fuelType": car.fuel || undefined,
+        "vehicleTransmission": car.transmission || undefined,
+        "image": car.image_url || undefined,
+        "description": car.short_description || undefined,
+        "offers": {
+          "@type": "Offer",
+          "availability": car.status === "sold" ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+          "priceCurrency": "EUR",
+          "price": schemaPrice(car.price_label)
+        }
+      }
+    };
+  });
+
+  const script = document.createElement("script");
+  script.id = "vehicle-jsonld";
+  script.type = "application/ld+json";
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Catalogo auto Carvallo Motors",
+    "itemListElement": vehicles
+  });
+  document.head.appendChild(script);
 }
 
 function bindFilters() {
@@ -165,6 +264,9 @@ async function submitLead(event) {
 }
 
 function initSite() {
+  document.body.classList.add("is-ready");
+  bindMotion();
+  bindChromeEffects();
   bindFilters();
   renderCars();
   document.querySelectorAll("[data-form]").forEach((form) => form.addEventListener("submit", submitLead));
