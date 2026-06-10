@@ -24,5 +24,9 @@ Le tabelle hanno RLS attivo. Le auto pubblicate sono leggibili pubblicamente, i 
 - Framework preset: `None`
 - Build command: vuoto
 - Output directory: `/`
+- Project creato: `carvallo-website`
+- Preview domain: `https://carvallo-website.pages.dev`
 
 Quando il dominio sara' su Cloudflare, collega `carvallo-motors.com` al progetto Pages.
+
+Nota: il progetto Pages e' stato creato via Cloudflare API, ma il deploy richiede il collegamento di una repo GitHub o Wrangler/direct upload. In questa macchina `gh`, `npm`, `npx` e `wrangler` non sono disponibili.
