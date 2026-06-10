@@ -131,8 +131,21 @@ nav a:hover::after {
   height: 42px;
   border: 1px solid var(--line);
   border-radius: 50%;
-  font-size: 12px;
-  font-weight: 800;
+  color: var(--ink);
+  transition: color 220ms ease, background 220ms ease, border-color 220ms ease, transform 220ms var(--ease);
+}
+
+.icon-button:hover {
+  color: var(--white);
+  background: var(--ink);
+  border-color: var(--ink);
+  transform: translateY(-2px);
+}
+
+.whatsapp-icon {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
 }
 
 .hero {
@@ -569,7 +582,7 @@ h2 {
   color: var(--white);
   background:
     linear-gradient(100deg, rgba(15, 15, 16, 0.92), rgba(15, 15, 16, 0.72)),
-    url("https://static.wixstatic.com/media/81db15_cb115c78d85a4145a7437a63a5868db0~mv2.jpeg/v1/fill/w_1800,h_950,al_c,q_85,enc_avif,quality_auto/81db15_cb115c78d85a4145a7437a63a5868db0~mv2.jpeg");
+    url("https://static.wixstatic.com/media/60133d_583a7ae029d44664a7bb218f4b669ad0~mv2.jpg/v1/fill/w_1800,h_950,al_c,q_85,enc_avif,quality_auto/60133d_583a7ae029d44664a7bb218f4b669ad0~mv2.jpg");
   background-position: center;
   background-size: cover;
 }
