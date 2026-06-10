@@ -1,0 +1,2 @@
+window.CARVALLO_SUPABASE_URL = "";
+window.CARVALLO_SUPABASE_ANON_KEY = "";

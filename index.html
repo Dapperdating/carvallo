@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carvallo Motors | Auto selezionate e youngtimer</title>
+    <meta name="description" content="Carvallo Motors vende auto usate e selezionate. Carvallo Selected cura vintage, youngtimer e vetture speciali.">
+    <link rel="preload" href="assets/fonts/Oceanwide-Semibold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="data/cars.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-elevate>
+      <a class="brand" href="#top" aria-label="Carvallo Motors home">
+        <span class="brand-mark">CV</span>
+        <span>
+          <strong>Carvallo</strong>
+          <small>Motors & Selected</small>
+        </span>
+      </a>
+      <nav aria-label="Navigazione principale">
+        <a href="#motors">Motors</a>
+        <a href="#selected">Selected</a>
+        <a href="#stock">Auto</a>
+        <a href="#valutazione">Valutazione</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
+      <a class="icon-button" href="https://wa.me/393923139899?text=Ciao%2C%20vorrei%20pi%C3%B9%20informazioni" aria-label="WhatsApp" title="WhatsApp">
+        <span>WA</span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-media" role="img" aria-label="BMW M4 CS Carvallo Motors"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Carvallo Motors</p>
+          <h1>Auto scelte bene, vendute senza rumore.</h1>
+          <p class="hero-copy">Due anime, una sola cura: Motors per le auto di tutti i giorni, Selected per vintage, youngtimer e pezzi con carattere.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#stock">Vedi auto</a>
+            <a class="button ghost" href="#valutazione">Valuta la tua</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="split-band" id="motors">
+        <div>
+          <p class="eyebrow">01 / Motors</p>
+          <h2>Usato concreto, rapido da capire.</h2>
+        </div>
+        <p>Carvallo Motors e' la sezione per auto normali, usate e seminuove: selezione pulita, informazioni chiare, contatto diretto e possibilita' di valutare la propria auto.</p>
+      </section>
+
+      <section class="selected-band" id="selected">
+        <div class="selected-copy">
+          <p class="eyebrow">02 / Selected</p>
+          <h2>Vintage, youngtimer e configurazioni da guardare due volte.</h2>
+          <p>Selected ha un tono piu' curatoriale: poche vetture, piu' storia, piu' attenzione alla provenienza e alla particolarita' della configurazione.</p>
+        </div>
+        <div class="selected-panel">
+          <span>Curated stock</span>
+          <strong>Youngtimer, classiche e sportive moderne.</strong>
+        </div>
+      </section>
+
+      <section class="inventory" id="stock">
+        <div class="section-heading">
+          <p class="eyebrow">Auto disponibili</p>
+          <h2>Catalogo</h2>
+          <div class="filters" role="tablist" aria-label="Filtra catalogo">
+            <button class="filter active" data-filter="all" type="button">Tutte</button>
+            <button class="filter" data-filter="motors" type="button">Motors</button>
+            <button class="filter" data-filter="selected" type="button">Selected</button>
+          </div>
+        </div>
+        <div class="car-grid" id="car-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="valuation" id="valutazione">
+        <div>
+          <p class="eyebrow">Valutazione gratuita</p>
+          <h2>Mandaci i dati della tua auto.</h2>
+          <p>Uno dei membri del team ti inviera' una valutazione dettagliata. Le auto accompagnano ogni storia della nostra vita, ma venderle dovrebbe essere semplice.</p>
+        </div>
+        <form class="lead-form" data-form="valuation">
+          <label>Nome<input name="name" autocomplete="name" required></label>
+          <label>Telefono<input name="phone" autocomplete="tel" required></label>
+          <label>Email<input type="email" name="email" autocomplete="email"></label>
+          <label>Auto<textarea name="message" rows="4" placeholder="Marca, modello, anno, km, condizioni"></textarea></label>
+          <button class="button primary" type="submit">Invia richiesta</button>
+          <p class="form-status" role="status"></p>
+        </form>
+      </section>
+
+      <section class="contact-band" id="contatti">
+        <div>
+          <p class="eyebrow">Contatti</p>
+          <h2>Parliamo dell'auto giusta.</h2>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:info@carvallo-motors.com">info@carvallo-motors.com</a>
+          <a href="https://wa.me/393923139899?text=Ciao%2C%20vorrei%20pi%C3%B9%20informazioni">WhatsApp +39 392 313 9899</a>
+          <a href="https://instagram.com/carvallomotors">Instagram @carvallomotors</a>
+          <a href="https://www.facebook.com/profile.php?id=61579240555253">Facebook</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>Carvallo Motors</span>
+      <a href="admin.html">Admin</a>
+    </footer>
+  </body>
+</html>

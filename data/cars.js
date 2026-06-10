@@ -1,0 +1,53 @@
+window.CARVALLO_SEED_CARS = [
+  {
+    id: "bmw-m4-cs",
+    slug: "bmw-m4-cs",
+    division: "selected",
+    status: "available",
+    make: "BMW",
+    model: "M4 CS",
+    year: 2024,
+    mileage_km: 0,
+    fuel: "Benzina",
+    transmission: "Automatico",
+    price_label: "Prezzo su richiesta",
+    short_description: "Coupe ad alte prestazioni, impostazione da collezione moderna e presenza scenica.",
+    description: "Una sportiva contemporanea scelta per chi cerca un oggetto speciale, non solo un mezzo di trasporto.",
+    image_url: "https://static.wixstatic.com/media/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg/v1/fill/w_1800,h_1200,al_c,q_88,enc_avif,quality_auto/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg",
+    featured: true
+  },
+  {
+    id: "classic-heritage",
+    slug: "classic-heritage",
+    division: "selected",
+    status: "incoming",
+    make: "Carvallo",
+    model: "Selected Heritage",
+    year: null,
+    mileage_km: null,
+    fuel: "Da definire",
+    transmission: "Da definire",
+    price_label: "In arrivo",
+    short_description: "Youngtimer e vetture d'epoca selezionate per storia, condizioni e configurazione.",
+    description: "La sezione Selected raccoglie auto con carattere, pedigree e una selezione piu' curatoriale.",
+    image_url: "https://static.wixstatic.com/media/9b6c7d_8352a6ee5a454a98a5278f9628ccc4ca.png/v1/fill/w_1200,h_970,al_c,q_85,enc_avif,quality_auto/9b6c7d_8352a6ee5a454a98a5278f9628ccc4ca.png",
+    featured: false
+  },
+  {
+    id: "motors-stock-1",
+    slug: "motors-stock-1",
+    division: "motors",
+    status: "available",
+    make: "Carvallo",
+    model: "Motors Stock",
+    year: null,
+    mileage_km: null,
+    fuel: "Selezione usato",
+    transmission: "Variabile",
+    price_label: "Contattaci",
+    short_description: "Auto normali, controllate e pronte per chi cerca una scelta concreta.",
+    description: "Carvallo Motors lavora su vetture usate e seminuove con valutazione, ritiro e consulenza rapida.",
+    image_url: "https://static.wixstatic.com/media/60133d_8b8f95be297e4aa09144524df5fcf772~mv2.jpg/v1/fill/w_1800,h_1200,al_c,q_88,enc_avif,quality_auto/60133d_8b8f95be297e4aa09144524df5fcf772~mv2.jpg",
+    featured: true
+  }
+];

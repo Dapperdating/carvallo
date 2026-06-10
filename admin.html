@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | Carvallo Motors</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script defer src="admin.js"></script>
+  </head>
+  <body class="admin-page">
+    <header class="site-header compact">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">CV</span>
+        <span><strong>Admin</strong><small>Carvallo</small></span>
+      </a>
+      <a class="button ghost" href="index.html">Sito</a>
+    </header>
+    <main class="admin-shell">
+      <section class="admin-intro">
+        <p class="eyebrow">Catalogo</p>
+        <h1>Carica una vettura</h1>
+        <p>Accedi con Supabase Auth. Il salvataggio funziona solo per utenti presenti nella tabella `admin_users`.</p>
+      </section>
+
+      <section class="admin-login" id="login-panel">
+        <label>Email<input id="login-email" type="email" autocomplete="email"></label>
+        <button class="button primary" id="login-button" type="button">Ricevi magic link</button>
+        <p class="form-status" id="login-status"></p>
+      </section>
+
+      <form class="admin-form" id="car-form">
+        <div class="form-grid">
+          <label>Divisione
+            <select name="division">
+              <option value="motors">Motors</option>
+              <option value="selected">Selected</option>
+            </select>
+          </label>
+          <label>Stato
+            <select name="status">
+              <option value="available">Disponibile</option>
+              <option value="incoming">In arrivo</option>
+              <option value="sold">Venduta</option>
+            </select>
+          </label>
+          <label>Marca<input name="make" required></label>
+          <label>Modello<input name="model" required></label>
+          <label>Anno<input name="year" type="number" min="1900" max="2100"></label>
+          <label>Km<input name="mileage_km" type="number" min="0"></label>
+          <label>Alimentazione<input name="fuel"></label>
+          <label>Cambio<input name="transmission"></label>
+          <label>Prezzo<input name="price_label" placeholder="€ 32.900 oppure Prezzo su richiesta"></label>
+          <label>Slug<input name="slug" placeholder="bmw-m4-cs"></label>
+        </div>
+        <label>Immagine URL<input name="image_url" placeholder="https://..."></label>
+        <label>Descrizione breve<textarea name="short_description" rows="3"></textarea></label>
+        <label>Descrizione completa<textarea name="description" rows="5"></textarea></label>
+        <label class="checkbox"><input name="featured" type="checkbox"> In evidenza</label>
+        <button class="button primary" type="submit">Salva auto</button>
+        <p class="form-status" id="admin-status"></p>
+      </form>
+    </main>
+  </body>
+</html>
