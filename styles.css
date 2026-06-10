@@ -880,10 +880,11 @@ textarea {
     right: 0;
     left: 0;
     gap: 12px;
-    padding: 12px 14px;
-    background: linear-gradient(180deg, rgba(15, 15, 16, 0.52), rgba(15, 15, 16, 0));
-    border-bottom: 0;
-    backdrop-filter: none;
+    padding: 10px 14px;
+    background: rgba(245, 242, 236, 0.68);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 12px 36px rgba(15, 15, 16, 0.08);
+    backdrop-filter: blur(18px);
   }
 
   .site-header.is-scrolled {
@@ -895,12 +896,12 @@ textarea {
   }
 
   .site-header .brand {
-    padding: 6px 9px 6px 6px;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    border-radius: 8px;
-    background: rgba(245, 242, 236, 0.88);
-    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.14);
-    backdrop-filter: blur(12px);
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .site-header.is-scrolled .brand {
@@ -911,16 +912,16 @@ textarea {
   }
 
   .brand-logo {
-    width: min(48vw, 174px);
+    width: min(46vw, 166px);
   }
 
   .icon-button {
     width: 42px;
     min-width: 42px;
     height: 42px;
-    background: rgba(245, 242, 236, 0.88);
-    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.12);
-    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.34);
+    box-shadow: none;
+    backdrop-filter: blur(10px);
   }
 
   .hero {
