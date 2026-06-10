@@ -876,24 +876,57 @@ textarea {
   }
 
   .site-header {
+    position: fixed;
+    right: 0;
+    left: 0;
     gap: 12px;
     padding: 12px 14px;
+    background: linear-gradient(180deg, rgba(15, 15, 16, 0.52), rgba(15, 15, 16, 0));
+    border-bottom: 0;
+    backdrop-filter: none;
+  }
+
+  .site-header.is-scrolled {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: rgba(245, 242, 236, 0.9);
+    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.12);
+    backdrop-filter: blur(14px);
+  }
+
+  .site-header .brand {
+    padding: 6px 9px 6px 6px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 8px;
+    background: rgba(245, 242, 236, 0.88);
+    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.14);
+    backdrop-filter: blur(12px);
+  }
+
+  .site-header.is-scrolled .brand {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
   .brand-logo {
-    width: min(52vw, 184px);
+    width: min(48vw, 174px);
   }
 
   .icon-button {
     width: 42px;
     min-width: 42px;
     height: 42px;
+    background: rgba(245, 242, 236, 0.88);
+    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.12);
+    backdrop-filter: blur(12px);
   }
 
   .hero {
     min-height: 640px;
     align-items: end;
-    padding: 26px 18px 108px;
+    padding: 120px 18px 108px;
   }
 
   .hero-media {
@@ -1050,7 +1083,7 @@ textarea {
   .catalog-hero {
     min-height: 520px;
     align-content: end;
-    padding: 42px 18px 28px;
+    padding: 120px 18px 28px;
     background:
       linear-gradient(180deg, rgba(15, 15, 16, 0.34), rgba(15, 15, 16, 0.92)),
       url("https://static.wixstatic.com/media/60133d_583a7ae029d44664a7bb218f4b669ad0~mv2.jpg/v1/fill/w_900,h_1300,al_c,q_82,enc_avif,quality_auto/60133d_583a7ae029d44664a7bb218f4b669ad0~mv2.jpg");
