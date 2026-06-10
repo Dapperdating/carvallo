@@ -143,9 +143,11 @@ nav a:hover::after {
 }
 
 .whatsapp-icon {
-  width: 22px;
-  height: 22px;
+  display: block;
+  width: 21px;
+  height: 21px;
   fill: currentColor;
+  transform: translate(0.5px, 0.5px);
 }
 
 .hero {
