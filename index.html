@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Carvallo Motors | Auto selezionate e youngtimer</title>
     <meta name="description" content="Carvallo Motors vende auto usate e selezionate. Carvallo Selected cura vintage, youngtimer e vetture speciali.">
-    <link rel="preload" href="assets/fonts/Oceanwide-Semibold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
@@ -15,11 +17,7 @@
   <body>
     <header class="site-header" data-elevate>
       <a class="brand" href="#top" aria-label="Carvallo Motors home">
-        <span class="brand-mark">CV</span>
-        <span>
-          <strong>Carvallo</strong>
-          <small>Motors & Selected</small>
-        </span>
+        <img class="brand-logo" src="assets/logos/carvallo-motors-logo.png" alt="Carvallo Motors">
       </a>
       <nav aria-label="Navigazione principale">
         <a href="#motors">Motors</a>
@@ -57,6 +55,7 @@
 
       <section class="selected-band" id="selected">
         <div class="selected-copy">
+          <img class="division-logo selected-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo Selected">
           <p class="eyebrow">02 / Selected</p>
           <h2>Vintage, youngtimer e configurazioni da guardare due volte.</h2>
           <p>Selected ha un tono piu' curatoriale: poche vetture, piu' storia, piu' attenzione alla provenienza e alla particolarita' della configurazione.</p>
@@ -111,7 +110,7 @@
     </main>
 
     <footer class="site-footer">
-      <span>Carvallo Motors</span>
+      <img class="footer-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo">
       <a href="admin.html">Admin</a>
     </footer>
   </body>
