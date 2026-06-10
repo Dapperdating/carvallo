@@ -32,6 +32,11 @@ body {
   font-family: Montserrat, Arial, sans-serif;
 }
 
+.mobile-copy,
+.mobile-dock {
+  display: none;
+}
+
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -821,12 +826,115 @@ textarea {
 }
 
 @media (max-width: 880px) {
+  body {
+    padding-bottom: 76px;
+  }
+
   nav {
     display: none;
   }
 
+  .mobile-dock {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+    padding: 6px;
+    border: 1px solid rgba(15, 15, 16, 0.14);
+    border-radius: 8px;
+    background: rgba(245, 242, 236, 0.94);
+    box-shadow: 0 18px 55px rgba(15, 15, 16, 0.18);
+    backdrop-filter: blur(16px);
+  }
+
+  .mobile-dock a {
+    min-height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 5px;
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .mobile-dock a:last-child {
+    color: var(--white);
+    background: var(--ink);
+  }
+
+  .desktop-copy {
+    display: none;
+  }
+
+  .mobile-copy {
+    display: block;
+  }
+
+  .site-header {
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .brand-logo {
+    width: min(52vw, 184px);
+  }
+
+  .icon-button {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+  }
+
   .hero {
-    min-height: 720px;
+    min-height: 640px;
+    align-items: end;
+    padding: 26px 18px 108px;
+  }
+
+  .hero-media {
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.88)), url("https://static.wixstatic.com/media/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg/v1/fill/w_900,h_1300,al_c,q_82,enc_avif,quality_auto/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg");
+    background-position: 60% center;
+    animation: none;
+    transform: none;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    padding-bottom: 0;
+  }
+
+  h1 {
+    max-width: 100%;
+    font-size: clamp(42px, 16vw, 70px);
+  }
+
+  h2 {
+    font-size: clamp(34px, 12vw, 54px);
+  }
+
+  .hero-copy {
+    max-width: 28ch;
+    margin-top: 16px;
+    font-size: 17px;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .button,
+  .filter {
+    min-height: 48px;
+    padding: 0 14px;
+    font-size: 14px;
   }
 
   .split-band,
@@ -835,6 +943,50 @@ textarea {
   .selected-band,
   .catalog-hero {
     grid-template-columns: 1fr;
+  }
+
+  .split-band,
+  .valuation,
+  .contact-band,
+  .selected-band,
+  .inventory {
+    padding: 46px 18px;
+  }
+
+  .split-band p,
+  .selected-copy p,
+  .valuation p {
+    font-size: 17px;
+  }
+
+  .selected-band {
+    gap: 26px;
+  }
+
+  .division-logo {
+    width: min(76vw, 300px);
+    margin-bottom: 24px;
+  }
+
+  .selected-points {
+    grid-template-columns: 1fr;
+    margin-top: 24px;
+  }
+
+  .selected-points span {
+    min-height: 56px;
+    justify-items: start;
+    padding: 0 16px;
+  }
+
+  .selected-panel {
+    min-height: 420px;
+    padding: 22px;
+    transform: none;
+  }
+
+  .selected-panel:hover {
+    transform: translateY(-3px);
   }
 
   .section-heading {
@@ -849,23 +1001,182 @@ textarea {
     grid-template-columns: 1fr;
   }
 
+  .inventory-preview .car-grid {
+    display: flex;
+    gap: 14px;
+    margin-right: -18px;
+    margin-left: -18px;
+    padding: 0 18px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .inventory-preview .car-card {
+    min-width: min(82vw, 340px);
+    scroll-snap-align: start;
+  }
+
+  .car-card {
+    border-radius: 7px;
+  }
+
+  .car-card figure {
+    aspect-ratio: 5 / 4;
+  }
+
+  .car-body {
+    padding: 16px;
+  }
+
+  .car-title {
+    font-size: 20px;
+  }
+
+  .car-desc {
+    min-height: 0;
+    font-size: 14px;
+  }
+
+  .car-meta {
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .car-meta span {
+    padding: 5px 7px;
+  }
+
+  .catalog-hero {
+    min-height: 520px;
+    align-content: end;
+    padding: 42px 18px 28px;
+    background:
+      linear-gradient(180deg, rgba(15, 15, 16, 0.34), rgba(15, 15, 16, 0.92)),
+      url("https://static.wixstatic.com/media/60133d_583a7ae029d44664a7bb218f4b669ad0~mv2.jpg/v1/fill/w_900,h_1300,al_c,q_82,enc_avif,quality_auto/60133d_583a7ae029d44664a7bb218f4b669ad0~mv2.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+
+  .catalog-hero h1 {
+    font-size: clamp(46px, 17vw, 76px);
+  }
+
+  .catalog-hero p:last-child {
+    max-width: 28ch;
+    font-size: 17px;
+  }
+
   .catalog-tools,
   .site-footer {
     grid-template-columns: 1fr;
   }
 
-  .selected-points,
+  .catalog-tools {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    gap: 10px;
+    margin: -18px -18px 24px;
+    padding: 14px 18px;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+
+  .catalog-tools .filters {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .catalog-tools .filter {
+    min-width: max-content;
+    scroll-snap-align: start;
+  }
+
+  .search-label {
+    min-width: 0;
+  }
+
   .catalog-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
   }
 
   .catalog-stats span + span {
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    border-left: 0;
+    border-top: 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .catalog-stats span {
+    min-height: 82px;
+    padding: 10px 6px;
+    font-size: 10px;
+  }
+
+  .catalog-stats strong {
+    font-size: 28px;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .lead-form,
+  .admin-login,
+  .admin-form {
+    gap: 12px;
+  }
+
+  input,
+  textarea,
+  select {
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  .contact-links {
+    font-size: clamp(26px, 9vw, 42px);
+  }
+
+  .site-footer {
+    padding-bottom: 104px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero {
+    min-height: 600px;
+    padding-bottom: 96px;
+  }
+
+  .hero-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-dock {
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+  }
+
+  .mobile-dock a {
+    min-height: 44px;
+    font-size: 10px;
+  }
+
+  .catalog-stats span {
+    min-height: 72px;
+    font-size: 9px;
+  }
+
+  .catalog-stats strong {
+    font-size: 24px;
   }
 }
 
