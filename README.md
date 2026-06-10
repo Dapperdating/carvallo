@@ -12,12 +12,18 @@ Apri `http://localhost:4173`.
 
 ## Supabase
 
-1. Applica `supabase/schema.sql` al progetto Supabase.
-2. Inserisci le auto nella tabella `cars`.
-3. Carica immagini pubbliche in `car_images` o usa URL esterni.
-4. Configura `window.CARVALLO_SUPABASE_URL` e `window.CARVALLO_SUPABASE_ANON_KEY` in `config.js`.
+1. Crea o seleziona il progetto Supabase dedicato a Carvallo.
+2. Applica `supabase/schema.sql` al progetto Supabase.
+3. Configura `window.CARVALLO_SUPABASE_URL` e `window.CARVALLO_SUPABASE_ANON_KEY` in `config.js`.
+4. Inserisci nella tabella `admin_users` le email autorizzate a caricare auto.
 
-Le tabelle hanno RLS attivo. Le auto pubblicate sono leggibili pubblicamente, i lead sono inseribili pubblicamente, l'admin richiede un utente autenticato presente in `admin_users`.
+```sql
+insert into public.admin_users (email, role)
+values ('nome@carvallo-motors.com', 'owner')
+on conflict (email) do update set role = excluded.role;
+```
+
+Le tabelle hanno RLS attivo. Le auto pubblicate sono leggibili pubblicamente, i lead sono inseribili pubblicamente, l'admin richiede un utente autenticato con email presente in `admin_users`. Lo schema crea anche il bucket pubblico `car-images` e permette upload, update e delete immagini solo agli admin autorizzati.
 
 ## Cloudflare Pages
 

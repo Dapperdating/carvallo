@@ -22,7 +22,7 @@
       <nav aria-label="Navigazione principale">
         <a href="#motors">Motors</a>
         <a href="#selected">Selected</a>
-        <a href="#stock">Auto</a>
+        <a href="auto.html">Auto</a>
         <a href="#valutazione">Valutazione</a>
         <a href="#contatti">Contatti</a>
       </nav>
@@ -39,7 +39,7 @@
           <h1>Auto scelte bene, vendute senza rumore.</h1>
           <p class="hero-copy">Due anime, una sola cura: Motors per le auto di tutti i giorni, Selected per vintage, youngtimer e pezzi con carattere.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#stock">Vedi auto</a>
+            <a class="button primary" href="auto.html">Vedi auto</a>
             <a class="button ghost" href="#valutazione">Valuta la tua</a>
           </div>
         </div>
@@ -69,14 +69,10 @@
       <section class="inventory" id="stock">
         <div class="section-heading">
           <p class="eyebrow">Auto disponibili</p>
-          <h2>Catalogo</h2>
-          <div class="filters" role="tablist" aria-label="Filtra catalogo">
-            <button class="filter active" data-filter="all" type="button">Tutte</button>
-            <button class="filter" data-filter="motors" type="button">Motors</button>
-            <button class="filter" data-filter="selected" type="button">Selected</button>
-          </div>
+          <h2>Ultimi arrivi</h2>
+          <a class="button ghost" href="auto.html">Catalogo completo</a>
         </div>
-        <div class="car-grid" id="car-grid" aria-live="polite"></div>
+        <div class="car-grid" id="car-grid" data-limit="3" aria-live="polite"></div>
       </section>
 
       <section class="valuation" id="valutazione">
@@ -110,8 +106,20 @@
     </main>
 
     <footer class="site-footer">
-      <img class="footer-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo">
-      <a href="admin.html">Admin</a>
+      <div>
+        <img class="footer-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo">
+        <p>Corradi Real Estate SRL, operante commercialmente come Carvallo Motors</p>
+        <p>Via Quintino Sella 144, 21010 Busto Arsizio (VA), Italia</p>
+        <p>P.IVA 4043740127</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:info@carvallo-motors.com">info@carvallo-motors.com</a>
+        <a href="https://wa.me/393923139899?text=Ciao%2C%20vorrei%20pi%C3%B9%20informazioni">+39 392 313 9899</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="termini.html">Termini di utilizzo</a>
+        <a href="cookie.html">Cookie policy</a>
+        <a href="admin.html">Admin</a>
+      </div>
     </footer>
   </body>
 </html>

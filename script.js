@@ -4,7 +4,9 @@ const contacts = {
   email: "info@carvallo-motors.com"
 };
 
-let activeFilter = "all";
+let activeDivision = "all";
+let activeStatus = "available";
+let searchTerm = "";
 
 function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
@@ -15,7 +17,7 @@ function getSupabaseClient() {
 
 async function loadCars() {
   const client = getSupabaseClient();
-  if (!client) return window.CARVALLO_SEED_CARS;
+  if (!client) return window.CARVALLO_SEED_CARS || [];
 
   const { data, error } = await client
     .from("cars")
@@ -24,9 +26,7 @@ async function loadCars() {
     .order("featured", { ascending: false })
     .order("created_at", { ascending: false });
 
-  if (error || !data || data.length === 0) {
-    return window.CARVALLO_SEED_CARS;
-  }
+  if (error || !data || data.length === 0) return window.CARVALLO_SEED_CARS || [];
   return data;
 }
 
@@ -43,23 +43,28 @@ function statusLabel(status) {
   }[status] || "Disponibile";
 }
 
+function statusClass(status) {
+  return status === "sold" ? "muted" : "";
+}
+
 function carCard(car) {
   const title = `${car.make || ""} ${car.model || ""}`.trim();
-  const year = car.year || "Anno n/d";
   const division = car.division === "selected" ? "Selected" : "Motors";
+  const price = car.price_label || "Prezzo su richiesta";
   return `
-    <article class="car-card" data-division="${car.division}">
+    <article class="car-card" data-division="${car.division}" data-status="${car.status}">
       <figure>
         <img src="${car.image_url || ""}" alt="${title}" loading="lazy">
       </figure>
       <div class="car-body">
         <div class="car-top">
           <span class="badge ${car.division === "selected" ? "selected" : ""}">${division}</span>
-          <strong>${statusLabel(car.status)}</strong>
+          <strong class="${statusClass(car.status)}">${statusLabel(car.status)}</strong>
         </div>
         <h3 class="car-title">${title}</h3>
+        <p class="car-price">${price}</p>
         <p class="car-meta">
-          <span>${year}</span>
+          <span>${car.year || "Anno n/d"}</span>
           <span>${formatKm(car.mileage_km)}</span>
           <span>${car.fuel || "Alimentazione n/d"}</span>
           <span>${car.transmission || "Cambio n/d"}</span>
@@ -71,21 +76,67 @@ function carCard(car) {
   `;
 }
 
+function matchesSearch(car) {
+  if (!searchTerm) return true;
+  const haystack = [
+    car.make,
+    car.model,
+    car.year,
+    car.fuel,
+    car.transmission,
+    car.price_label,
+    car.short_description
+  ].join(" ").toLowerCase();
+  return haystack.includes(searchTerm);
+}
+
+function filterCars(cars, grid) {
+  const limit = Number(grid.dataset.limit || 0);
+  const allowSold = grid.dataset.allowSold === "true";
+  const filtered = cars
+    .filter((car) => (allowSold ? true : car.status !== "sold"))
+    .filter((car) => (activeDivision === "all" ? true : car.division === activeDivision))
+    .filter((car) => (activeStatus === "all" ? true : car.status === activeStatus))
+    .filter(matchesSearch);
+
+  return limit ? filtered.slice(0, limit) : filtered;
+}
+
 async function renderCars() {
   const grid = document.querySelector("#car-grid");
+  if (!grid) return;
+
   const cars = await loadCars();
-  const visible = activeFilter === "all" ? cars : cars.filter((car) => car.division === activeFilter);
-  grid.innerHTML = visible.map(carCard).join("");
+  const visible = filterCars(cars, grid);
+  grid.innerHTML = visible.length
+    ? visible.map(carCard).join("")
+    : "<p class=\"empty-state\">Nessuna auto trovata con questi filtri.</p>";
 }
 
 function bindFilters() {
-  document.querySelectorAll(".filter").forEach((button) => {
+  document.querySelectorAll("[data-filter]").forEach((button) => {
     button.addEventListener("click", () => {
-      activeFilter = button.dataset.filter;
-      document.querySelectorAll(".filter").forEach((item) => item.classList.toggle("active", item === button));
+      activeDivision = button.dataset.filter;
+      document.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("active", item === button));
       renderCars();
     });
   });
+
+  document.querySelectorAll("[data-status-filter]").forEach((button) => {
+    button.addEventListener("click", () => {
+      activeStatus = button.dataset.statusFilter;
+      document.querySelectorAll("[data-status-filter]").forEach((item) => item.classList.toggle("active", item === button));
+      renderCars();
+    });
+  });
+
+  const search = document.querySelector("#stock-search");
+  if (search) {
+    search.addEventListener("input", () => {
+      searchTerm = search.value.trim().toLowerCase();
+      renderCars();
+    });
+  }
 }
 
 async function submitLead(event) {
@@ -113,8 +164,14 @@ async function submitLead(event) {
   status.textContent = "Richiesta inviata. Ti ricontattiamo a breve.";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function initSite() {
   bindFilters();
   renderCars();
   document.querySelectorAll("[data-form]").forEach((form) => form.addEventListener("submit", submitLead));
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initSite);
+} else {
+  initSite();
+}

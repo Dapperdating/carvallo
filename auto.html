@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Auto | Carvallo Motors</title>
+    <meta name="description" content="Catalogo auto Carvallo Motors e Carvallo Selected: disponibili, in arrivo e archivio venduto.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="data/cars.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <header class="site-header compact">
+      <a class="brand" href="index.html" aria-label="Carvallo Motors home">
+        <img class="brand-logo" src="assets/logos/carvallo-motors-logo.png" alt="Carvallo Motors">
+      </a>
+      <nav aria-label="Navigazione principale">
+        <a href="index.html#motors">Motors</a>
+        <a href="index.html#selected">Selected</a>
+        <a href="auto.html">Auto</a>
+        <a href="index.html#valutazione">Valutazione</a>
+        <a href="index.html#contatti">Contatti</a>
+      </nav>
+      <a class="icon-button" href="https://wa.me/393923139899?text=Ciao%2C%20vorrei%20pi%C3%B9%20informazioni" aria-label="WhatsApp" title="WhatsApp">
+        <span>WA</span>
+      </a>
+    </header>
+
+    <main>
+      <section class="catalog-hero">
+        <p class="eyebrow">Catalogo</p>
+        <h1>Auto Carvallo</h1>
+        <p>Qui trovi le vetture disponibili, i nuovi arrivi e l'archivio venduto importato dal sito precedente.</p>
+      </section>
+
+      <section class="inventory full-catalog" id="stock">
+        <div class="catalog-tools">
+          <label class="search-label">Cerca
+            <input id="stock-search" type="search" placeholder="Marca, modello, cambio, prezzo">
+          </label>
+          <div class="filters" role="tablist" aria-label="Filtra divisione">
+            <button class="filter active" data-filter="all" type="button">Tutte</button>
+            <button class="filter" data-filter="motors" type="button">Motors</button>
+            <button class="filter" data-filter="selected" type="button">Selected</button>
+          </div>
+          <div class="filters" role="tablist" aria-label="Filtra stato">
+            <button class="filter active" data-status-filter="available" type="button">Disponibili</button>
+            <button class="filter" data-status-filter="sold" type="button">Archivio vendute</button>
+            <button class="filter" data-status-filter="all" type="button">Tutto</button>
+          </div>
+        </div>
+        <div class="car-grid" id="car-grid" data-allow-sold="true" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <img class="footer-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo">
+        <p>Corradi Real Estate SRL, operante commercialmente come Carvallo Motors</p>
+        <p>Via Quintino Sella 144, 21010 Busto Arsizio (VA), Italia</p>
+        <p>P.IVA 4043740127</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:info@carvallo-motors.com">info@carvallo-motors.com</a>
+        <a href="https://wa.me/393923139899?text=Ciao%2C%20vorrei%20pi%C3%B9%20informazioni">+39 392 313 9899</a>
+        <a href="privacy.html">Privacy policy</a>
+        <a href="termini.html">Termini di utilizzo</a>
+        <a href="cookie.html">Cookie policy</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </footer>
+  </body>
+</html>

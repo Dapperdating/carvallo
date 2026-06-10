@@ -348,6 +348,12 @@ h2 {
   font-weight: 800;
 }
 
+.car-price {
+  margin: 0 0 12px;
+  color: var(--motors);
+  font-weight: 900;
+}
+
 .car-meta {
   display: flex;
   flex-wrap: wrap;
@@ -362,6 +368,53 @@ h2 {
   margin: 0 0 16px;
   color: #484d52;
   line-height: 1.45;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+.catalog-hero {
+  padding: clamp(58px, 8vw, 112px) clamp(18px, 5vw, 72px) clamp(34px, 5vw, 72px);
+  color: var(--white);
+  background: var(--dark);
+}
+
+.catalog-hero h1 {
+  max-width: none;
+}
+
+.catalog-hero p:last-child {
+  max-width: 760px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.45;
+}
+
+.full-catalog {
+  padding-top: 34px;
+}
+
+.catalog-tools {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto auto;
+  gap: 14px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+
+.search-label {
+  min-width: 240px;
 }
 
 .lead-form,
@@ -410,17 +463,37 @@ textarea {
 }
 
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 26px clamp(18px, 5vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(220px, 360px);
+  gap: 28px;
+  padding: 34px clamp(18px, 5vw, 72px);
   color: var(--white);
   background: var(--dark);
+}
+
+.site-footer p {
+  max-width: 640px;
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .footer-logo {
   width: 240px;
   max-width: 60vw;
   height: auto;
+}
+
+.footer-links {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  font-weight: 800;
+}
+
+.footer-links a:hover {
+  color: var(--champagne);
 }
 
 .admin-page {
@@ -448,6 +521,44 @@ textarea {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+
+.admin-form.is-locked {
+  display: none;
+}
+
+.legal-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(34px, 6vw, 80px) 18px;
+}
+
+.legal-page h1 {
+  margin-bottom: 22px;
+  color: var(--ink);
+  font-size: clamp(42px, 7vw, 86px);
+}
+
+.legal-page h2 {
+  margin-top: 30px;
+  font-size: clamp(23px, 3vw, 36px);
+}
+
+.legal-page p {
+  color: #45494d;
+  line-height: 1.65;
+}
+
+.legal-page a {
+  color: var(--motors);
+  font-weight: 800;
+}
+
+.legal-note {
+  margin-top: 34px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--white);
 }
 
 .form-grid {
@@ -491,6 +602,11 @@ textarea {
   }
 
   .car-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-tools,
+  .site-footer {
     grid-template-columns: 1fr;
   }
 
