@@ -63,6 +63,18 @@ function carGallery(car) {
     .filter((url, index, list) => list.indexOf(url) === index);
 }
 
+function carDetailUrl(car) {
+  const slug = encodeURIComponent(car.slug || car.id || "");
+  const basePath = window.location.pathname.includes("auto") ? window.location.pathname : "/auto.html";
+  return `${window.location.origin}${basePath}#auto-${slug}`;
+}
+
+function carWhatsappUrl(car) {
+  const title = carTitle(car);
+  const message = `Ciao, sono interessato a questa macchina: ${title}. Link annuncio: ${carDetailUrl(car)}`;
+  return `${contacts.whatsappBase}?text=${encodeURIComponent(message)}`;
+}
+
 function statusLabel(status) {
   return {
     available: "Disponibile",
@@ -108,7 +120,7 @@ function carCard(car) {
         <p class="car-desc" itemprop="description">${escapeHtml(car.short_description || "")}</p>
         <div class="car-actions">
           <button class="button primary" type="button" data-open-car="${escapeHtml(car.slug || car.id)}">Dettagli</button>
-          <a class="button ghost" href="${contacts.whatsappBase}?text=${encodeURIComponent(`Ciao, vorrei informazioni su ${title}`)}">WhatsApp</a>
+          <a class="button ghost" href="${carWhatsappUrl(car)}">WhatsApp</a>
         </div>
       </div>
     </article>
@@ -179,7 +191,7 @@ function openCarDetail(slug) {
           <span>Dati e disponibilità da verificare con Carvallo prima dell'acquisto.</span>
         </div>
         <div class="detail-actions">
-          <a class="button primary" href="${contacts.whatsappBase}?text=${encodeURIComponent(`Ciao, vorrei informazioni su ${title}`)}">Richiedi informazioni</a>
+          <a class="button primary whatsapp-action" href="${carWhatsappUrl(car)}">Scrivi su WhatsApp</a>
           <a class="button ghost" href="tel:+393923139899">Chiama</a>
         </div>
       </section>
