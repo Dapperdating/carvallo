@@ -8,6 +8,8 @@ let activeDivision = "all";
 let activeStatus = "available";
 let searchTerm = "";
 let catalogCars = [];
+let zoomTouchStartX = 0;
+let zoomTouchStartY = 0;
 
 function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
@@ -243,17 +245,59 @@ function setGalleryImage(detail, index) {
   }
 }
 
-function openZoomViewer(imageUrl) {
+function setZoomImage(detail, index) {
+  const viewer = detail.querySelector(".zoom-viewer");
+  const thumbs = [...detail.querySelectorAll(".detail-thumb")];
+  if (!viewer || !thumbs.length) return;
+
+  const safeIndex = (index + thumbs.length) % thumbs.length;
+  const imageUrl = thumbs[safeIndex].dataset.detailImage;
+  const image = viewer.querySelector("[data-zoom-main]");
+  const counter = viewer.querySelector("[data-zoom-counter]");
+  const zoomThumbs = [...viewer.querySelectorAll("[data-zoom-thumb]")];
+  if (image) image.src = imageUrl;
+  if (counter) counter.textContent = `${safeIndex + 1} / ${thumbs.length}`;
+  viewer.dataset.zoomIndex = String(safeIndex);
+  zoomThumbs.forEach((thumb) => thumb.classList.toggle("active", Number(thumb.dataset.zoomThumb) === safeIndex));
+  setGalleryImage(detail, safeIndex);
+
+  const strip = viewer.querySelector(".zoom-thumbs");
+  const activeThumb = viewer.querySelector(`[data-zoom-thumb="${safeIndex}"]`);
+  if (strip && activeThumb) {
+    strip.scrollTo({
+      left: activeThumb.offsetLeft - (strip.clientWidth - activeThumb.clientWidth) / 2,
+      behavior: "smooth"
+    });
+  }
+}
+
+function openZoomViewer(index = 0) {
   const detail = document.querySelector("#car-detail");
-  if (!detail || !imageUrl) return;
+  const thumbs = [...detail?.querySelectorAll(".detail-thumb") || []];
+  if (!detail || !thumbs.length) return;
+  const safeIndex = (index + thumbs.length) % thumbs.length;
+  const imageUrl = thumbs[safeIndex].dataset.detailImage;
   const existing = detail.querySelector(".zoom-viewer");
   if (existing) existing.remove();
   detail.insertAdjacentHTML("beforeend", `
-    <div class="zoom-viewer" role="dialog" aria-modal="true" aria-label="Foto ingrandita">
+    <div class="zoom-viewer" role="dialog" aria-modal="true" aria-label="Galleria foto ingrandita" data-zoom-index="${safeIndex}">
       <button class="zoom-close" type="button" data-close-zoom aria-label="Chiudi zoom">×</button>
-      <img src="${escapeHtml(imageUrl)}" alt="">
+      <button class="gallery-arrow zoom-prev" type="button" data-zoom-step="-1" aria-label="Foto precedente">${galleryArrowIcon("prev")}</button>
+      <button class="gallery-arrow zoom-next" type="button" data-zoom-step="1" aria-label="Foto successiva">${galleryArrowIcon("next")}</button>
+      <img src="${escapeHtml(imageUrl)}" alt="" data-zoom-main>
+      <div class="zoom-meta">
+        <span data-zoom-counter>${safeIndex + 1} / ${thumbs.length}</span>
+      </div>
+      <div class="zoom-thumbs" aria-label="Seleziona foto ingrandita">
+        ${thumbs.map((thumb, thumbIndex) => `
+          <button class="zoom-thumb ${thumbIndex === safeIndex ? "active" : ""}" type="button" data-zoom-thumb="${thumbIndex}" aria-label="Foto ${thumbIndex + 1}">
+            <img src="${escapeHtml(thumb.dataset.detailImage)}" alt="">
+          </button>
+        `).join("")}
+      </div>
     </div>
   `);
+  setGalleryImage(detail, safeIndex);
 }
 
 function closeZoomViewer() {
@@ -460,13 +504,28 @@ function bindCarDetail() {
 
     const zoom = event.target.closest("[data-zoom-image]");
     if (zoom) {
-      openZoomViewer(zoom.dataset.zoomImage);
+      const current = Number(detail.querySelector(".detail-main-image")?.dataset.galleryIndex || 0);
+      openZoomViewer(current);
       return;
     }
 
     if (event.target.closest("[data-detail-main]")) {
-      const imageUrl = detail.querySelector("[data-detail-main]")?.getAttribute("src");
-      openZoomViewer(imageUrl);
+      const current = Number(detail.querySelector(".detail-main-image")?.dataset.galleryIndex || 0);
+      openZoomViewer(current);
+      return;
+    }
+
+    const zoomStep = event.target.closest("[data-zoom-step]");
+    if (zoomStep) {
+      const viewer = detail.querySelector(".zoom-viewer");
+      const current = Number(viewer?.dataset.zoomIndex || 0);
+      setZoomImage(detail, current + Number(zoomStep.dataset.zoomStep));
+      return;
+    }
+
+    const zoomThumb = event.target.closest("[data-zoom-thumb]");
+    if (zoomThumb) {
+      setZoomImage(detail, Number(zoomThumb.dataset.zoomThumb || 0));
       return;
     }
 
@@ -488,11 +547,33 @@ function bindCarDetail() {
       return;
     }
     if (event.key === "Escape" && !detail.hidden) closeCarDetail();
+    if ((event.key === "ArrowLeft" || event.key === "ArrowRight") && document.querySelector(".zoom-viewer")) {
+      const current = Number(detail.querySelector(".zoom-viewer")?.dataset.zoomIndex || 0);
+      setZoomImage(detail, current + (event.key === "ArrowRight" ? 1 : -1));
+      return;
+    }
     if ((event.key === "ArrowLeft" || event.key === "ArrowRight") && !detail.hidden) {
       const current = Number(detail.querySelector(".detail-main-image")?.dataset.galleryIndex || 0);
       setGalleryImage(detail, current + (event.key === "ArrowRight" ? 1 : -1));
     }
   });
+
+  detail.addEventListener("touchstart", (event) => {
+    if (!event.target.closest(".zoom-viewer")) return;
+    const touch = event.changedTouches[0];
+    zoomTouchStartX = touch.clientX;
+    zoomTouchStartY = touch.clientY;
+  }, { passive: true });
+
+  detail.addEventListener("touchend", (event) => {
+    if (!event.target.closest(".zoom-viewer")) return;
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - zoomTouchStartX;
+    const deltaY = touch.clientY - zoomTouchStartY;
+    if (Math.abs(deltaX) < 46 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+    const current = Number(detail.querySelector(".zoom-viewer")?.dataset.zoomIndex || 0);
+    setZoomImage(detail, current + (deltaX < 0 ? 1 : -1));
+  }, { passive: true });
 }
 
 function bindFilters() {
