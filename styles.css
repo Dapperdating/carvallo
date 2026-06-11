@@ -1596,7 +1596,9 @@ textarea {
 
   .detail-gallery {
     position: static;
+    z-index: 1;
     grid-template-rows: auto auto;
+    overflow: hidden;
   }
 
   .detail-main-image,
@@ -1612,6 +1614,8 @@ textarea {
   .detail-thumbs {
     gap: 8px;
     padding: 10px 12px;
+    position: relative;
+    z-index: 1;
   }
 
   .detail-thumb {
@@ -1675,7 +1679,11 @@ textarea {
   }
 
   .detail-content {
-    padding: 20px 18px 112px;
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+    padding: 28px 18px 112px;
+    background: var(--white);
     overflow: visible;
   }
 
