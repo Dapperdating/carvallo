@@ -157,12 +157,15 @@ function openCarDetail(slug) {
     <article class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title">
       <button class="detail-close" type="button" data-close-detail aria-label="Chiudi annuncio">×</button>
       <section class="detail-gallery" aria-label="Foto ${escapeHtml(title)}">
-        <figure class="detail-main-image">
+        <figure class="detail-main-image" data-gallery-index="0">
+          <button class="gallery-arrow prev" type="button" data-gallery-step="-1" aria-label="Foto precedente">‹</button>
+          <button class="gallery-arrow next" type="button" data-gallery-step="1" aria-label="Foto successiva">›</button>
+          <button class="zoom-button" type="button" data-zoom-image="${escapeHtml(firstImage)}" aria-label="Ingrandisci foto">Zoom</button>
           <img src="${firstImage}" alt="${escapeHtml(title)}" data-detail-main>
         </figure>
         <div class="detail-thumbs" aria-label="Seleziona foto">
           ${gallery.map((url, index) => `
-            <button class="detail-thumb ${index === 0 ? "active" : ""}" type="button" data-detail-image="${escapeHtml(url)}" aria-label="Foto ${index + 1} di ${escapeHtml(title)}">
+            <button class="detail-thumb ${index === 0 ? "active" : ""}" type="button" data-gallery-index="${index}" data-detail-image="${escapeHtml(url)}" aria-label="Foto ${index + 1} di ${escapeHtml(title)}">
               <img src="${escapeHtml(url)}" alt="">
             </button>
           `).join("")}
@@ -202,6 +205,39 @@ function openCarDetail(slug) {
   dialog.hidden = false;
   document.body.classList.add("detail-open");
   window.history.replaceState(null, "", `#auto-${encodeURIComponent(car.slug || car.id)}`);
+}
+
+function setGalleryImage(detail, index) {
+  const thumbs = [...detail.querySelectorAll(".detail-thumb")];
+  if (!thumbs.length) return;
+  const safeIndex = (index + thumbs.length) % thumbs.length;
+  const thumb = thumbs[safeIndex];
+  const imageUrl = thumb.dataset.detailImage;
+  const main = detail.querySelector("[data-detail-main]");
+  const mainFigure = detail.querySelector(".detail-main-image");
+  const zoom = detail.querySelector("[data-zoom-image]");
+  if (main) main.src = imageUrl;
+  if (zoom) zoom.dataset.zoomImage = imageUrl;
+  if (mainFigure) mainFigure.dataset.galleryIndex = String(safeIndex);
+  thumbs.forEach((item) => item.classList.toggle("active", item === thumb));
+  thumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+}
+
+function openZoomViewer(imageUrl) {
+  const detail = document.querySelector("#car-detail");
+  if (!detail || !imageUrl) return;
+  const existing = detail.querySelector(".zoom-viewer");
+  if (existing) existing.remove();
+  detail.insertAdjacentHTML("beforeend", `
+    <div class="zoom-viewer" role="dialog" aria-modal="true" aria-label="Foto ingrandita">
+      <button class="zoom-close" type="button" data-close-zoom aria-label="Chiudi zoom">×</button>
+      <img src="${escapeHtml(imageUrl)}" alt="">
+    </div>
+  `);
+}
+
+function closeZoomViewer() {
+  document.querySelector(".zoom-viewer")?.remove();
 }
 
 function closeCarDetail() {
@@ -385,15 +421,39 @@ function bindCarDetail() {
       return;
     }
 
+    if (event.target.closest("[data-close-zoom]")) {
+      closeZoomViewer();
+      return;
+    }
+
+    const zoom = event.target.closest("[data-zoom-image]");
+    if (zoom) {
+      openZoomViewer(zoom.dataset.zoomImage);
+      return;
+    }
+
+    const step = event.target.closest("[data-gallery-step]");
+    if (step) {
+      const current = Number(detail.querySelector(".detail-main-image")?.dataset.galleryIndex || 0);
+      setGalleryImage(detail, current + Number(step.dataset.galleryStep));
+      return;
+    }
+
     const thumb = event.target.closest("[data-detail-image]");
     if (!thumb) return;
-    const main = detail.querySelector("[data-detail-main]");
-    if (main) main.src = thumb.dataset.detailImage;
-    detail.querySelectorAll(".detail-thumb").forEach((item) => item.classList.toggle("active", item === thumb));
+    setGalleryImage(detail, Number(thumb.dataset.galleryIndex || 0));
   });
 
   window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && document.querySelector(".zoom-viewer")) {
+      closeZoomViewer();
+      return;
+    }
     if (event.key === "Escape" && !detail.hidden) closeCarDetail();
+    if ((event.key === "ArrowLeft" || event.key === "ArrowRight") && !detail.hidden) {
+      const current = Number(detail.querySelector(".detail-main-image")?.dataset.galleryIndex || 0);
+      setGalleryImage(detail, current + (event.key === "ArrowRight" ? 1 : -1));
+    }
   });
 }
 
