@@ -1173,6 +1173,96 @@ h2 {
   padding-top: 34px;
 }
 
+.selected-hero {
+  min-height: 620px;
+  display: grid;
+  align-items: end;
+  padding: clamp(72px, 9vw, 124px) clamp(18px, 5vw, 72px) clamp(46px, 6vw, 86px);
+  color: var(--white);
+  background:
+    linear-gradient(90deg, rgba(15, 15, 16, 0.9), rgba(15, 15, 16, 0.44)),
+    url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1920x1080.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.selected-hero-copy {
+  max-width: 780px;
+}
+
+.selected-page-logo {
+  width: min(340px, 76vw);
+  height: auto;
+  margin-bottom: 28px;
+}
+
+.selected-hero h1 {
+  max-width: 760px;
+}
+
+.selected-hero p:not(.eyebrow) {
+  max-width: 680px;
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.45;
+}
+
+.selected-story {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1fr);
+  gap: clamp(28px, 6vw, 88px);
+  padding: clamp(58px, 8vw, 112px) clamp(18px, 5vw, 72px);
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
+}
+
+.selected-story > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(18px, 2vw, 25px);
+  line-height: 1.45;
+}
+
+.selected-specialties {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  padding: 1px;
+  background: var(--line);
+}
+
+.selected-specialties article {
+  min-height: 300px;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: clamp(24px, 4vw, 42px);
+  background: #171719;
+  color: var(--white);
+}
+
+.selected-specialties span {
+  color: var(--champagne);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.selected-specialties h2 {
+  font-size: clamp(28px, 4vw, 50px);
+}
+
+.selected-specialties p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.selected-stock {
+  background: #f8f6f1;
+}
+
 @media (max-width: 1100px) and (min-width: 881px) {
   .catalog-tools {
     grid-template-columns: 1fr;
@@ -1944,6 +2034,44 @@ textarea {
 
   .catalog-stats strong {
     font-size: 28px;
+  }
+
+  .selected-hero {
+    min-height: 560px;
+    padding: 112px 18px 54px;
+    background:
+      linear-gradient(180deg, rgba(15, 15, 16, 0.46), rgba(15, 15, 16, 0.92)),
+      url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+
+  .selected-page-logo {
+    width: min(72vw, 260px);
+    margin-bottom: 22px;
+  }
+
+  .selected-hero p:not(.eyebrow) {
+    max-width: 30ch;
+    font-size: 18px;
+  }
+
+  .selected-story {
+    grid-template-columns: 1fr;
+    padding: 42px 18px;
+  }
+
+  .selected-story > p {
+    font-size: 18px;
+  }
+
+  .selected-specialties {
+    grid-template-columns: 1fr;
+  }
+
+  .selected-specialties article {
+    min-height: 0;
+    padding: 28px 18px;
   }
 
   .form-grid {

@@ -632,6 +632,9 @@ async function submitLead(event) {
 
 function initSite() {
   document.body.classList.add("is-ready");
+  if (document.body.classList.contains("selected-page")) {
+    activeDivision = "selected";
+  }
   if (window.location.hash === "#selected" || window.location.hash === "#motors") {
     activeDivision = window.location.hash.replace("#", "");
   }
