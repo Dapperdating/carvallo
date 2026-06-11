@@ -23,6 +23,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -30,6 +31,7 @@ body {
   color: var(--ink);
   background: var(--paper);
   font-family: Montserrat, Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 .mobile-copy,
@@ -1711,6 +1713,10 @@ textarea {
   }
 
   .catalog-hero {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    overflow: hidden;
+    gap: 22px;
     min-height: 520px;
     align-content: end;
     padding: 120px 18px 28px;
@@ -1722,7 +1728,9 @@ textarea {
   }
 
   .catalog-hero h1 {
-    font-size: clamp(46px, 17vw, 76px);
+    max-width: 100%;
+    font-size: clamp(42px, 15vw, 64px);
+    line-height: 0.92;
   }
 
   .catalog-hero p:last-child {
@@ -1768,7 +1776,9 @@ textarea {
 
   .catalog-stats {
     grid-template-columns: repeat(3, 1fr);
+    width: 100%;
     max-width: none;
+    min-width: 0;
   }
 
   .catalog-stats span + span {
@@ -1816,6 +1826,20 @@ textarea {
   .hero {
     min-height: 600px;
     padding-bottom: 96px;
+  }
+
+  .catalog-hero {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .catalog-hero h1 {
+    font-size: clamp(38px, 13.8vw, 54px);
+  }
+
+  .catalog-hero p:last-child {
+    max-width: 24ch;
+    font-size: 16px;
   }
 
   .hero-actions {
