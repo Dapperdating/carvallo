@@ -719,9 +719,17 @@ h2 {
   height: 62px;
   place-items: center;
   border-radius: 999px;
-  font-size: 38px;
-  line-height: 1;
   transform: translateY(-50%);
+}
+
+.gallery-arrow svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3.2;
 }
 
 .gallery-arrow.prev {
@@ -1550,7 +1558,11 @@ textarea {
   .gallery-arrow {
     width: 40px;
     height: 54px;
-    font-size: 32px;
+  }
+
+  .gallery-arrow svg {
+    width: 25px;
+    height: 25px;
   }
 
   .gallery-arrow.prev {

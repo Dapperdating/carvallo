@@ -55,6 +55,11 @@ function carTitle(car) {
   return `${car.make || ""} ${car.model || ""}`.trim();
 }
 
+function galleryArrowIcon(direction) {
+  const path = direction === "next" ? "M9 18l6-6-6-6" : "M15 18l-6-6 6-6";
+  return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"></path></svg>`;
+}
+
 function carGallery(car) {
   const urls = Array.isArray(car.gallery_urls) ? car.gallery_urls : [];
   return [car.image_url, ...urls]
@@ -159,8 +164,8 @@ function openCarDetail(slug) {
       <button class="detail-close" type="button" data-close-detail aria-label="Chiudi annuncio">×</button>
       <section class="detail-gallery" aria-label="Foto ${escapeHtml(title)}">
         <figure class="detail-main-image" data-gallery-index="0">
-          <button class="gallery-arrow prev" type="button" data-gallery-step="-1" aria-label="Foto precedente">‹</button>
-          <button class="gallery-arrow next" type="button" data-gallery-step="1" aria-label="Foto successiva">›</button>
+          <button class="gallery-arrow prev" type="button" data-gallery-step="-1" aria-label="Foto precedente">${galleryArrowIcon("prev")}</button>
+          <button class="gallery-arrow next" type="button" data-gallery-step="1" aria-label="Foto successiva">${galleryArrowIcon("next")}</button>
           <button class="zoom-button" type="button" data-zoom-image="${escapeHtml(firstImage)}" aria-label="Ingrandisci foto">Zoom</button>
           <img src="${firstImage}" alt="${escapeHtml(title)}" data-detail-main>
         </figure>
@@ -197,7 +202,7 @@ function openCarDetail(slug) {
         </div>
         <div class="detail-actions">
           <a class="button primary whatsapp-action" href="${carWhatsappUrl(car)}">Scrivi su WhatsApp</a>
-          <a class="button ghost" href="tel:+393923139899">Chiama</a>
+          <a class="button ghost" href="tel:+393923139899" data-call-url="tel:+393923139899">Chiama</a>
         </div>
       </section>
     </article>
@@ -206,6 +211,9 @@ function openCarDetail(slug) {
   dialog.hidden = false;
   document.body.classList.add("detail-open");
   window.history.replaceState(null, "", `#auto-${encodeURIComponent(car.slug || car.id)}`);
+  requestAnimationFrame(() => {
+    dialog.querySelector(".detail-panel")?.scrollTo({ top: 0, left: 0 });
+  });
 }
 
 function openCarDetailFromHash() {
@@ -226,7 +234,13 @@ function setGalleryImage(detail, index) {
   if (zoom) zoom.dataset.zoomImage = imageUrl;
   if (mainFigure) mainFigure.dataset.galleryIndex = String(safeIndex);
   thumbs.forEach((item) => item.classList.toggle("active", item === thumb));
-  thumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  const strip = thumb.closest(".detail-thumbs");
+  if (strip) {
+    strip.scrollTo({
+      left: thumb.offsetLeft - (strip.clientWidth - thumb.clientWidth) / 2,
+      behavior: "smooth"
+    });
+  }
 }
 
 function openZoomViewer(imageUrl) {
@@ -434,6 +448,13 @@ function bindCarDetail() {
 
     if (event.target.closest("[data-close-zoom]")) {
       closeZoomViewer();
+      return;
+    }
+
+    const call = event.target.closest("[data-call-url]");
+    if (call) {
+      event.preventDefault();
+      window.location.href = call.dataset.callUrl;
       return;
     }
 
