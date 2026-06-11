@@ -182,7 +182,7 @@ nav a:hover::after {
 .hero-media {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.16)), url("https://static.wixstatic.com/media/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg/v1/fill/w_2200,h_1400,al_c,q_88,enc_avif,quality_auto/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg");
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.18)), url("assets/cars/ford-fiesta/ford-fiesta-01.jpg");
   background-position: center;
   background-size: cover;
   transform: scale(1.04);
@@ -496,7 +496,7 @@ h2 {
   padding: 28px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 8px;
-  background-image: linear-gradient(rgba(15, 15, 16, 0.2), rgba(15, 15, 16, 0.76)), url("https://static.wixstatic.com/media/60133d_4e616b2ec88f4855b6fba7799cfa5856~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_85,enc_avif,quality_auto/60133d_4e616b2ec88f4855b6fba7799cfa5856~mv2.jpg");
+  background-image: linear-gradient(rgba(15, 15, 16, 0.2), rgba(15, 15, 16, 0.76)), url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_20e01a5f-fb24-408c-b0c9-f31a4cf04ba3.jpg/1280x960.webp");
   background-size: cover;
   background-position: center;
   box-shadow: 0 34px 80px rgba(0, 0, 0, 0.34);
@@ -1123,7 +1123,7 @@ h2 {
   color: var(--white);
   background:
     linear-gradient(100deg, rgba(15, 15, 16, 0.92), rgba(15, 15, 16, 0.72)),
-    url("https://static.wixstatic.com/media/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg/v1/fill/w_1800,h_950,al_c,q_85,enc_avif,quality_auto/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg");
+    url("assets/cars/jeep-compass/jeep-compass-01.jpg");
   background-position: center;
   background-size: cover;
 }
@@ -1598,8 +1598,8 @@ textarea {
   }
 
   .hero-media {
-    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.88)), url("https://static.wixstatic.com/media/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg/v1/fill/w_900,h_1300,al_c,q_82,enc_avif,quality_auto/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg");
-    background-position: 60% center;
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.88)), url("assets/cars/ford-fiesta/ford-fiesta-01.jpg");
+    background-position: 56% center;
     animation: none;
     transform: none;
   }
@@ -1804,7 +1804,8 @@ textarea {
     flex-direction: column;
     align-items: stretch;
     grid-template-columns: 1fr;
-    width: 100vw;
+    width: 100%;
+    max-width: 100%;
     max-height: 100dvh;
     height: 100dvh;
     margin: 0;
@@ -1963,7 +1964,7 @@ textarea {
     padding: 112px 18px 28px;
     background:
       linear-gradient(180deg, rgba(15, 15, 16, 0.34), rgba(15, 15, 16, 0.92)),
-      url("https://static.wixstatic.com/media/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg/v1/fill/w_900,h_1300,al_c,q_82,enc_avif,quality_auto/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg");
+      url("assets/cars/jeep-compass/jeep-compass-01.jpg");
     background-position: center;
     background-size: cover;
   }

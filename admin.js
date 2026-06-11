@@ -205,20 +205,30 @@ carForm.addEventListener("submit", async (event) => {
   const form = event.currentTarget;
   const formData = new FormData(form);
   const payload = Object.fromEntries(formData.entries());
+  const manualGalleryUrls = String(payload.gallery_urls_raw || "")
+    .split(/\r?\n|,/)
+    .map((url) => url.trim())
+    .filter(Boolean);
+
   delete payload.images;
+  delete payload.gallery_urls_raw;
 
   payload.featured = form.elements.featured.checked;
   payload.is_published = form.elements.is_published.checked;
   payload.year = payload.year ? Number(payload.year) : null;
   payload.mileage_km = payload.mileage_km ? Number(payload.mileage_km) : null;
   payload.slug = payload.slug || slugify(`${payload.make}-${payload.model}-${payload.year || "auto"}`);
+  ["fuel", "transmission", "price_label", "image_url", "source_url", "short_description", "description"].forEach((key) => {
+    if (payload[key] === "") payload[key] = null;
+  });
 
   adminStatus.textContent = "Caricamento immagini...";
   try {
     const uploadedUrls = await uploadImages([...imageInput.files], payload.slug);
-    if (uploadedUrls.length) {
-      payload.image_url = uploadedUrls[0];
-      payload.gallery_urls = uploadedUrls;
+    const galleryUrls = [...uploadedUrls, ...manualGalleryUrls];
+    if (galleryUrls.length) {
+      payload.gallery_urls = galleryUrls;
+      if (!payload.image_url) payload.image_url = galleryUrls[0];
     }
   } catch (error) {
     adminStatus.textContent = `Upload fallito: ${error.message}`;

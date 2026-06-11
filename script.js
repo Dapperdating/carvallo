@@ -19,8 +19,9 @@ function getSupabaseClient() {
 }
 
 async function loadCars() {
+  const seedCars = window.CARVALLO_SEED_CARS || [];
   const client = getSupabaseClient();
-  if (!client) return window.CARVALLO_SEED_CARS || [];
+  if (!client) return seedCars;
 
   const { data, error } = await client
     .from("cars")
@@ -29,7 +30,11 @@ async function loadCars() {
     .order("featured", { ascending: false })
     .order("created_at", { ascending: false });
 
-  if (error || !data || data.length === 0) return window.CARVALLO_SEED_CARS || [];
+  if (error || !data || data.length === 0) return seedCars;
+  if (data.length < seedCars.length) {
+    const seedSlugs = new Set(seedCars.map((car) => car.slug));
+    return [...seedCars, ...data.filter((car) => !seedSlugs.has(car.slug))];
+  }
   return data;
 }
 
