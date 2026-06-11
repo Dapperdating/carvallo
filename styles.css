@@ -1583,18 +1583,18 @@ textarea {
     left: 0;
     gap: 12px;
     padding: 10px 14px;
-    background: rgba(245, 242, 236, 0.68);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
-    box-shadow: 0 12px 36px rgba(15, 15, 16, 0.08);
-    backdrop-filter: blur(18px);
+    background: #fff;
+    border-bottom: 1px solid rgba(15, 15, 16, 0.12);
+    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.08);
+    backdrop-filter: none;
   }
 
   .site-header.is-scrolled {
     padding-top: 10px;
     padding-bottom: 10px;
-    background: rgba(245, 242, 236, 0.9);
+    background: #fff;
     box-shadow: 0 12px 34px rgba(15, 15, 16, 0.12);
-    backdrop-filter: blur(14px);
+    backdrop-filter: none;
   }
 
   .site-header .brand {
@@ -1646,8 +1646,9 @@ textarea {
 
   h1 {
     max-width: 100%;
-    font-size: clamp(34px, 11vw, 54px);
+    font-size: clamp(34px, 10vw, 48px);
     line-height: 1.02;
+    overflow-wrap: anywhere;
   }
 
   h2 {
