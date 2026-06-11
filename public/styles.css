@@ -662,9 +662,9 @@ h2 {
   overscroll-behavior: contain;
   scrollbar-color: var(--motors) rgba(15, 15, 16, 0.12);
   background: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  border: 0;
   border-radius: 8px;
-  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.34);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.38);
 }
 
 .detail-close {
