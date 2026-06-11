@@ -208,3 +208,33 @@ on conflict (slug) do update set
   source_url = excluded.source_url,
   featured = excluded.featured,
   is_published = excluded.is_published;
+
+update public.cars
+set image_url = 'assets/cars/ford-fiesta/ford-fiesta-01.jpg',
+    gallery_urls = array[
+      'assets/cars/ford-fiesta/ford-fiesta-01.jpg',
+      'assets/cars/ford-fiesta/ford-fiesta-03.jpg',
+      'assets/cars/ford-fiesta/ford-fiesta-05.jpg',
+      'assets/cars/ford-fiesta/ford-fiesta-07.jpg'
+    ]
+where slug = 'ford-fiesta-1-4-trend-automatica';
+
+update public.cars
+set image_url = 'assets/cars/fiat-panda/fiat-panda-01.jpg',
+    gallery_urls = array[
+      'assets/cars/fiat-panda/fiat-panda-01.jpg',
+      'assets/cars/fiat-panda/fiat-panda-04.jpg',
+      'assets/cars/fiat-panda/fiat-panda-05.jpg',
+      'assets/cars/fiat-panda/fiat-panda-08.jpg'
+    ]
+where slug = 'fiat-panda-1-2-easy';
+
+update public.cars
+set image_url = 'assets/cars/jeep-compass/jeep-compass-01.jpg',
+    gallery_urls = array[
+      'assets/cars/jeep-compass/jeep-compass-01.jpg',
+      'assets/cars/jeep-compass/jeep-compass-03.jpg',
+      'assets/cars/jeep-compass/jeep-compass-05.jpg',
+      'assets/cars/jeep-compass/jeep-compass-07.jpg'
+    ]
+where slug = 'jeep-compass-1-4-m-air-longitude';
