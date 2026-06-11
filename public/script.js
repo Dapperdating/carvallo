@@ -101,6 +101,7 @@ function carCard(car) {
   const image = assetUrl(car.image_url);
   return `
     <article class="car-card" data-car-slug="${escapeHtml(car.slug || car.id)}" data-division="${escapeHtml(car.division)}" data-status="${escapeHtml(car.status)}" itemscope itemtype="https://schema.org/Vehicle">
+      <a class="card-hit" href="#auto-${encodeURIComponent(car.slug || car.id)}" data-open-car="${escapeHtml(car.slug || car.id)}" aria-label="Apri annuncio ${escapeHtml(title)}"></a>
       <figure>
         <img src="${image}" alt="${escapeHtml(title)}" loading="lazy" itemprop="image">
       </figure>
@@ -119,7 +120,7 @@ function carCard(car) {
         </p>
         <p class="car-desc" itemprop="description">${escapeHtml(car.short_description || "")}</p>
         <div class="car-actions">
-          <button class="button primary" type="button" data-open-car="${escapeHtml(car.slug || car.id)}">Dettagli</button>
+          <a class="button primary" href="#auto-${encodeURIComponent(car.slug || car.id)}" data-open-car="${escapeHtml(car.slug || car.id)}">Dettagli</a>
           <a class="button ghost" href="${carWhatsappUrl(car)}">WhatsApp</a>
         </div>
       </div>
@@ -359,7 +360,10 @@ function bindCarCards() {
   });
 
   document.querySelectorAll("[data-open-car]").forEach((button) => {
-    button.addEventListener("click", () => openCarDetail(button.dataset.openCar));
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      openCarDetail(button.dataset.openCar);
+    });
   });
 
   document.querySelectorAll(".car-card img").forEach((image) => {
