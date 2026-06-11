@@ -7,6 +7,7 @@ const contacts = {
 let activeDivision = "all";
 let activeStatus = "available";
 let searchTerm = "";
+let catalogCars = [];
 
 function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
@@ -35,6 +36,33 @@ function formatKm(value) {
   return `${Number(value).toLocaleString("it-IT")} km`;
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function assetUrl(value) {
+  if (!value) return "";
+  if (/^(https?:|data:|blob:)/i.test(value)) return value;
+  return `/${String(value).replace(/^\/+/, "")}`;
+}
+
+function carTitle(car) {
+  return `${car.make || ""} ${car.model || ""}`.trim();
+}
+
+function carGallery(car) {
+  const urls = Array.isArray(car.gallery_urls) ? car.gallery_urls : [];
+  return [car.image_url, ...urls]
+    .filter(Boolean)
+    .map(assetUrl)
+    .filter((url, index, list) => list.indexOf(url) === index);
+}
+
 function statusLabel(status) {
   return {
     available: "Disponibile",
@@ -55,32 +83,123 @@ function schemaPrice(value) {
 }
 
 function carCard(car) {
-  const title = `${car.make || ""} ${car.model || ""}`.trim();
+  const title = carTitle(car);
   const division = car.division === "selected" ? "Selected" : "Motors";
   const price = car.price_label || "Prezzo su richiesta";
+  const image = assetUrl(car.image_url);
   return `
-    <article class="car-card" data-division="${car.division}" data-status="${car.status}" itemscope itemtype="https://schema.org/Vehicle">
+    <article class="car-card" data-car-slug="${escapeHtml(car.slug || car.id)}" data-division="${escapeHtml(car.division)}" data-status="${escapeHtml(car.status)}" itemscope itemtype="https://schema.org/Vehicle">
       <figure>
-        <img src="${car.image_url || ""}" alt="${title}" loading="lazy" itemprop="image">
+        <img src="${image}" alt="${escapeHtml(title)}" loading="lazy" itemprop="image">
       </figure>
       <div class="car-body">
         <div class="car-top">
           <span class="badge ${car.division === "selected" ? "selected" : ""}">${division}</span>
           <strong class="${statusClass(car.status)}">${statusLabel(car.status)}</strong>
         </div>
-        <h3 class="car-title" itemprop="name">${title}</h3>
+        <h3 class="car-title" itemprop="name">${escapeHtml(title)}</h3>
         <p class="car-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer"><span itemprop="price">${price}</span></p>
         <p class="car-meta">
           <span>${car.year || "Anno n/d"}</span>
           <span>${formatKm(car.mileage_km)}</span>
-          <span>${car.fuel || "Alimentazione n/d"}</span>
-          <span>${car.transmission || "Cambio n/d"}</span>
+          <span>${escapeHtml(car.fuel || "Alimentazione n/d")}</span>
+          <span>${escapeHtml(car.transmission || "Cambio n/d")}</span>
         </p>
-        <p class="car-desc" itemprop="description">${car.short_description || ""}</p>
-        <a class="button ghost" href="${contacts.whatsappBase}?text=${encodeURIComponent(`Ciao, vorrei informazioni su ${title}`)}">Richiedi info</a>
+        <p class="car-desc" itemprop="description">${escapeHtml(car.short_description || "")}</p>
+        <div class="car-actions">
+          <button class="button primary" type="button" data-open-car="${escapeHtml(car.slug || car.id)}">Dettagli</button>
+          <a class="button ghost" href="${contacts.whatsappBase}?text=${encodeURIComponent(`Ciao, vorrei informazioni su ${title}`)}">WhatsApp</a>
+        </div>
       </div>
     </article>
   `;
+}
+
+function detailRows(car) {
+  return [
+    ["Prezzo", car.price_label || "Prezzo su richiesta"],
+    ["Stato", statusLabel(car.status)],
+    ["Divisione", car.division === "selected" ? "Carvallo Selected" : "Carvallo Motors"],
+    ["Marca", car.make || "n/d"],
+    ["Modello", car.model || "n/d"],
+    ["Anno", car.year || "n/d"],
+    ["Chilometri", formatKm(car.mileage_km)],
+    ["Alimentazione", car.fuel || "n/d"],
+    ["Cambio", car.transmission || "n/d"]
+  ];
+}
+
+function openCarDetail(slug) {
+  const car = catalogCars.find((item) => String(item.slug || item.id) === String(slug));
+  if (!car) return;
+
+  const title = carTitle(car);
+  const gallery = carGallery(car);
+  const firstImage = gallery[0] || "";
+  const dialog = document.querySelector("#car-detail");
+  if (!dialog) return;
+
+  dialog.innerHTML = `
+    <div class="detail-backdrop" data-close-detail></div>
+    <article class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+      <button class="detail-close" type="button" data-close-detail aria-label="Chiudi annuncio">×</button>
+      <section class="detail-gallery" aria-label="Foto ${escapeHtml(title)}">
+        <figure class="detail-main-image">
+          <img src="${firstImage}" alt="${escapeHtml(title)}" data-detail-main>
+        </figure>
+        <div class="detail-thumbs" aria-label="Seleziona foto">
+          ${gallery.map((url, index) => `
+            <button class="detail-thumb ${index === 0 ? "active" : ""}" type="button" data-detail-image="${escapeHtml(url)}" aria-label="Foto ${index + 1} di ${escapeHtml(title)}">
+              <img src="${escapeHtml(url)}" alt="">
+            </button>
+          `).join("")}
+        </div>
+      </section>
+      <section class="detail-content">
+        <div class="detail-kicker">
+          <span class="badge ${car.division === "selected" ? "selected" : ""}">${car.division === "selected" ? "Selected" : "Motors"}</span>
+          <strong class="${statusClass(car.status)}">${statusLabel(car.status)}</strong>
+        </div>
+        <h2 id="detail-title">${escapeHtml(title)}</h2>
+        <p class="detail-price">${escapeHtml(car.price_label || "Prezzo su richiesta")}</p>
+        <div class="detail-specs">
+          ${detailRows(car).map(([label, value]) => `
+            <div>
+              <span>${escapeHtml(label)}</span>
+              <strong>${escapeHtml(value)}</strong>
+            </div>
+          `).join("")}
+        </div>
+        <div class="detail-copy">
+          <h3>Descrizione</h3>
+          <p>${escapeHtml(car.description || car.short_description || "Dettagli disponibili su richiesta.")}</p>
+        </div>
+        <div class="detail-note">
+          <strong>Nota annuncio</strong>
+          <span>Dati e disponibilità da verificare con Carvallo prima dell'acquisto.</span>
+        </div>
+        <div class="detail-actions">
+          <a class="button primary" href="${contacts.whatsappBase}?text=${encodeURIComponent(`Ciao, vorrei informazioni su ${title}`)}">Richiedi informazioni</a>
+          <a class="button ghost" href="tel:+393923139899">Chiama</a>
+        </div>
+      </section>
+    </article>
+  `;
+
+  dialog.hidden = false;
+  document.body.classList.add("detail-open");
+  window.history.replaceState(null, "", `#auto-${encodeURIComponent(car.slug || car.id)}`);
+}
+
+function closeCarDetail() {
+  const dialog = document.querySelector("#car-detail");
+  if (!dialog) return;
+  dialog.hidden = true;
+  dialog.innerHTML = "";
+  document.body.classList.remove("detail-open");
+  if (window.location.hash.startsWith("#auto-")) {
+    window.history.replaceState(null, "", window.location.pathname);
+  }
 }
 
 function updateScrollProgress() {
@@ -157,11 +276,18 @@ async function renderCars() {
   if (!grid) return;
 
   const cars = await loadCars();
+  catalogCars = cars;
   const visible = filterCars(cars, grid);
   grid.innerHTML = visible.length
     ? visible.map(carCard).join("")
     : "<p class=\"empty-state\">Nessuna auto trovata con questi filtri.</p>";
+  bindCarCards();
   injectCatalogStructuredData(visible);
+
+  const hashSlug = window.location.hash.startsWith("#auto-")
+    ? decodeURIComponent(window.location.hash.replace("#auto-", ""))
+    : "";
+  if (hashSlug) openCarDetail(hashSlug);
 }
 
 function injectCatalogStructuredData(cars) {
@@ -188,7 +314,7 @@ function injectCatalogStructuredData(cars) {
         } : undefined,
         "fuelType": car.fuel || undefined,
         "vehicleTransmission": car.transmission || undefined,
-        "image": car.image_url || undefined,
+        "image": assetUrl(car.image_url) || undefined,
         "description": car.short_description || undefined,
         "offers": {
           "@type": "Offer",
@@ -210,6 +336,49 @@ function injectCatalogStructuredData(cars) {
     "itemListElement": vehicles
   });
   document.head.appendChild(script);
+}
+
+function bindCarCards() {
+  document.querySelectorAll(".car-card").forEach((card) => {
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("a, button")) return;
+      openCarDetail(card.dataset.carSlug);
+    });
+  });
+
+  document.querySelectorAll("[data-open-car]").forEach((button) => {
+    button.addEventListener("click", () => openCarDetail(button.dataset.openCar));
+  });
+
+  document.querySelectorAll(".car-card img").forEach((image) => {
+    image.addEventListener("error", () => {
+      image.closest("figure")?.classList.add("is-broken");
+      image.removeAttribute("src");
+    }, { once: true });
+  });
+}
+
+function bindCarDetail() {
+  const detail = document.querySelector("#car-detail");
+  if (!detail) return;
+
+  detail.addEventListener("click", (event) => {
+    const close = event.target.closest("[data-close-detail]");
+    if (close) {
+      closeCarDetail();
+      return;
+    }
+
+    const thumb = event.target.closest("[data-detail-image]");
+    if (!thumb) return;
+    const main = detail.querySelector("[data-detail-main]");
+    if (main) main.src = thumb.dataset.detailImage;
+    detail.querySelectorAll(".detail-thumb").forEach((item) => item.classList.toggle("active", item === thumb));
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !detail.hidden) closeCarDetail();
+  });
 }
 
 function bindFilters() {
@@ -268,6 +437,7 @@ function initSite() {
   bindMotion();
   bindChromeEffects();
   bindFilters();
+  bindCarDetail();
   renderCars();
   document.querySelectorAll("[data-form]").forEach((form) => form.addEventListener("submit", submitLead));
 }

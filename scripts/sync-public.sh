@@ -9,3 +9,4 @@ cp data/cars.js public/data/cars.js
 cp admin/index.html public/admin/index.html
 cp -R assets/logos public/assets/logos
 cp -R assets/fonts public/assets/fonts
+cp -R assets/cars public/assets/cars

@@ -210,31 +210,34 @@ on conflict (slug) do update set
   is_published = excluded.is_published;
 
 update public.cars
-set image_url = 'assets/cars/ford-fiesta/ford-fiesta-01.jpg',
+set image_url = '/assets/cars/ford-fiesta/ford-fiesta-01.jpg',
+    description = 'Ford Fiesta 1.4 Trend con cambio automatico, unico proprietario e chilometraggio contenuto. Una compatta semplice da gestire, adatta alla citta'' e agli spostamenti quotidiani, con 5 porte e impostazione pratica.',
     gallery_urls = array[
-      'assets/cars/ford-fiesta/ford-fiesta-01.jpg',
-      'assets/cars/ford-fiesta/ford-fiesta-03.jpg',
-      'assets/cars/ford-fiesta/ford-fiesta-05.jpg',
-      'assets/cars/ford-fiesta/ford-fiesta-07.jpg'
+      '/assets/cars/ford-fiesta/ford-fiesta-01.jpg',
+      '/assets/cars/ford-fiesta/ford-fiesta-03.jpg',
+      '/assets/cars/ford-fiesta/ford-fiesta-05.jpg',
+      '/assets/cars/ford-fiesta/ford-fiesta-07.jpg'
     ]
 where slug = 'ford-fiesta-1-4-trend-automatica';
 
 update public.cars
-set image_url = 'assets/cars/fiat-panda/fiat-panda-01.jpg',
+set image_url = '/assets/cars/fiat-panda/fiat-panda-01.jpg',
+    description = 'Fiat Panda 1.2 Easy benzina con 16.500 km dichiarati, configurazione pratica e costi di gestione contenuti. Ideale per neopatentati, uso urbano e chi cerca una citycar essenziale ma ben tenuta.',
     gallery_urls = array[
-      'assets/cars/fiat-panda/fiat-panda-01.jpg',
-      'assets/cars/fiat-panda/fiat-panda-04.jpg',
-      'assets/cars/fiat-panda/fiat-panda-05.jpg',
-      'assets/cars/fiat-panda/fiat-panda-08.jpg'
+      '/assets/cars/fiat-panda/fiat-panda-01.jpg',
+      '/assets/cars/fiat-panda/fiat-panda-04.jpg',
+      '/assets/cars/fiat-panda/fiat-panda-05.jpg',
+      '/assets/cars/fiat-panda/fiat-panda-08.jpg'
     ]
 where slug = 'fiat-panda-1-2-easy';
 
 update public.cars
-set image_url = 'assets/cars/jeep-compass/jeep-compass-01.jpg',
+set image_url = '/assets/cars/jeep-compass/jeep-compass-01.jpg',
+    description = 'Jeep Compass 1.4 M-Air Longitude 140CV benzina, con cambio manuale e dotazione orientata all''uso quotidiano. SUV comodo, spazioso e versatile, pensato per chi cerca una vettura alta senza rinunciare alla guida semplice.',
     gallery_urls = array[
-      'assets/cars/jeep-compass/jeep-compass-01.jpg',
-      'assets/cars/jeep-compass/jeep-compass-03.jpg',
-      'assets/cars/jeep-compass/jeep-compass-05.jpg',
-      'assets/cars/jeep-compass/jeep-compass-07.jpg'
+      '/assets/cars/jeep-compass/jeep-compass-01.jpg',
+      '/assets/cars/jeep-compass/jeep-compass-03.jpg',
+      '/assets/cars/jeep-compass/jeep-compass-05.jpg',
+      '/assets/cars/jeep-compass/jeep-compass-07.jpg'
     ]
 where slug = 'jeep-compass-1-4-m-air-longitude';
