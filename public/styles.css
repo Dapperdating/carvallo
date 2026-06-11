@@ -771,6 +771,12 @@ textarea {
   border-radius: 8px;
 }
 
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .admin-form.is-locked {
   display: none;
 }

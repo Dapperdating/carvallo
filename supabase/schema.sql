@@ -45,6 +45,7 @@ create or replace function public.current_user_is_admin()
 returns boolean
 language sql
 stable
+set search_path = public, pg_temp
 as $$
   select exists (
     select 1
@@ -56,6 +57,7 @@ $$;
 create or replace function public.touch_updated_at()
 returns trigger
 language plpgsql
+set search_path = public, pg_temp
 as $$
 begin
   new.updated_at = now();
@@ -76,26 +78,52 @@ drop policy if exists "Admins can see their admin row" on public.admin_users;
 create policy "Admins can see their admin row"
 on public.admin_users for select
 to authenticated
-using (lower(email) = lower(coalesce(auth.jwt() ->> 'email', '')));
+using (lower(email) = lower(coalesce((select auth.jwt()) ->> 'email', '')));
+
+create index if not exists admin_users_user_id_idx on public.admin_users (user_id);
 
 drop policy if exists "Published cars are public" on public.cars;
 create policy "Published cars are public"
 on public.cars for select
-to anon, authenticated
+to anon
 using (is_published = true);
 
 drop policy if exists "Admins manage cars" on public.cars;
-create policy "Admins manage cars"
-on public.cars for all
+drop policy if exists "Admins read all cars" on public.cars;
+create policy "Admins read all cars"
+on public.cars for select
+to authenticated
+using (public.current_user_is_admin());
+
+drop policy if exists "Admins insert cars" on public.cars;
+create policy "Admins insert cars"
+on public.cars for insert
+to authenticated
+with check (public.current_user_is_admin());
+
+drop policy if exists "Admins update cars" on public.cars;
+create policy "Admins update cars"
+on public.cars for update
 to authenticated
 using (public.current_user_is_admin())
 with check (public.current_user_is_admin());
+
+drop policy if exists "Admins delete cars" on public.cars;
+create policy "Admins delete cars"
+on public.cars for delete
+to authenticated
+using (public.current_user_is_admin());
 
 drop policy if exists "Public can create leads" on public.leads;
 create policy "Public can create leads"
 on public.leads for insert
 to anon, authenticated
-with check (true);
+with check (
+  char_length(trim(name)) between 2 and 120
+  and char_length(trim(phone)) between 5 and 40
+  and (email is null or email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$')
+  and (message is null or char_length(message) <= 2000)
+);
 
 drop policy if exists "Admins read leads" on public.leads;
 create policy "Admins read leads"
@@ -117,10 +145,6 @@ set public = excluded.public,
     allowed_mime_types = excluded.allowed_mime_types;
 
 drop policy if exists "Public reads car images" on storage.objects;
-create policy "Public reads car images"
-on storage.objects for select
-to anon, authenticated
-using (bucket_id = 'car-images');
 
 drop policy if exists "Admins upload car images" on storage.objects;
 create policy "Admins upload car images"
@@ -147,6 +171,13 @@ grant insert on public.leads to anon, authenticated;
 grant select, insert, update, delete on public.cars to authenticated;
 grant select on public.leads to authenticated;
 grant select on public.admin_users to authenticated;
+
+delete from public.admin_users
+where lower(email) <> 'main@carvallo-motors.com';
+
+insert into public.admin_users (email, role)
+values ('main@carvallo-motors.com', 'owner')
+on conflict (email) do update set role = excluded.role;
 
 insert into public.cars (slug, division, status, make, model, year, mileage_km, fuel, transmission, price_label, short_description, description, image_url, source_url, featured, is_published)
 values

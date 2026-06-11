@@ -2,14 +2,24 @@ function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
     return null;
   }
-  return window.supabase.createClient(window.CARVALLO_SUPABASE_URL, window.CARVALLO_SUPABASE_ANON_KEY);
+  return window.supabase.createClient(window.CARVALLO_SUPABASE_URL, window.CARVALLO_SUPABASE_ANON_KEY, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: false,
+      storageKey: "carvallo-admin-auth"
+    }
+  });
 }
 
+const ALLOWED_ADMIN_EMAIL = "main@carvallo-motors.com";
 const client = getSupabaseClient();
 const loginStatus = document.querySelector("#login-status");
 const adminStatus = document.querySelector("#admin-status");
 const loginEmail = document.querySelector("#login-email");
+const loginPassword = document.querySelector("#login-password");
 const loginButton = document.querySelector("#login-button");
+const signupButton = document.querySelector("#signup-button");
 const logoutButton = document.querySelector("#logout-button");
 const carForm = document.querySelector("#car-form");
 const imageInput = document.querySelector("#car-images");
@@ -31,7 +41,9 @@ function setLocked(message) {
   carForm.classList.add("is-locked");
   logoutButton.hidden = !currentSession;
   loginButton.hidden = Boolean(currentSession);
+  signupButton.hidden = Boolean(currentSession);
   loginEmail.hidden = Boolean(currentSession);
+  loginPassword.hidden = Boolean(currentSession);
   loginStatus.textContent = message;
 }
 
@@ -39,9 +51,28 @@ function setUnlocked(email) {
   carForm.hidden = false;
   carForm.classList.remove("is-locked");
   loginButton.hidden = true;
+  signupButton.hidden = true;
   loginEmail.hidden = true;
+  loginPassword.hidden = true;
   logoutButton.hidden = false;
   loginStatus.textContent = `Accesso attivo: ${email}`;
+}
+
+function normalizeEmail(value) {
+  return value.trim().toLowerCase();
+}
+
+function passwordValue() {
+  return loginPassword.value;
+}
+
+function guardAllowedEmail() {
+  const email = normalizeEmail(loginEmail.value);
+  if (email !== ALLOWED_ADMIN_EMAIL) {
+    loginStatus.textContent = `Accesso consentito solo a ${ALLOWED_ADMIN_EMAIL}.`;
+    return null;
+  }
+  return email;
 }
 
 async function checkAdminAccess(session) {
@@ -68,7 +99,15 @@ async function refreshAuthState() {
   currentSession = data.session;
 
   if (!currentSession) {
-    setLocked("Inserisci la tua email per ricevere il magic link.");
+    setLocked("Inserisci la password per accedere. La sessione resta salvata su questo browser.");
+    return;
+  }
+
+  if (normalizeEmail(currentSession.user.email || "") !== ALLOWED_ADMIN_EMAIL) {
+    await client.auth.signOut();
+    currentSession = null;
+    currentAdmin = null;
+    setLocked(`Accesso consentito solo a ${ALLOWED_ADMIN_EMAIL}.`);
     return;
   }
 
@@ -107,18 +146,46 @@ loginButton.addEventListener("click", async () => {
     return;
   }
 
-  const email = loginEmail.value.trim();
-  if (!email) {
-    loginStatus.textContent = "Inserisci una email.";
+  const email = guardAllowedEmail();
+  const password = passwordValue();
+  if (!email) return;
+  if (!password) {
+    loginStatus.textContent = "Inserisci la password.";
     return;
   }
 
-  loginStatus.textContent = "Invio magic link...";
-  const { error } = await client.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: window.location.href }
-  });
-  loginStatus.textContent = error ? error.message : "Magic link inviato. Controlla la posta.";
+  loginStatus.textContent = "Accesso in corso...";
+  const { error } = await client.auth.signInWithPassword({ email, password });
+  if (error) {
+    loginStatus.textContent = error.message;
+    return;
+  }
+  loginPassword.value = "";
+  await refreshAuthState();
+});
+
+signupButton.addEventListener("click", async () => {
+  if (!client) {
+    loginStatus.textContent = "Configura prima Supabase in config.js.";
+    return;
+  }
+
+  const email = guardAllowedEmail();
+  const password = passwordValue();
+  if (!email) return;
+  if (!password || password.length < 8) {
+    loginStatus.textContent = "Scegli una password di almeno 8 caratteri.";
+    return;
+  }
+
+  loginStatus.textContent = "Creo la password...";
+  const { error } = await client.auth.signUp({ email, password });
+  if (error) {
+    loginStatus.textContent = error.message;
+    return;
+  }
+
+  loginStatus.textContent = "Password creata. Se Supabase richiede conferma email, conferma l'account dalla dashboard o dalla mail ricevuta, poi accedi.";
 });
 
 logoutButton.addEventListener("click", async () => {
