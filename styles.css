@@ -595,6 +595,7 @@ h2 {
 
 .detail-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .car-detail[hidden] {
@@ -605,12 +606,14 @@ h2 {
   position: fixed;
   inset: 0;
   z-index: 80;
-  overflow-y: auto;
+  display: grid;
+  place-items: start center;
+  overflow: hidden;
   padding: 18px;
 }
 
 .detail-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: rgba(8, 8, 9, 0.72);
   backdrop-filter: blur(12px);
@@ -622,9 +625,12 @@ h2 {
   grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.8fr);
   align-items: start;
   width: min(1180px, 100%);
-  min-height: min-content;
+  max-height: calc(100dvh - 36px);
   margin: 0 auto;
-  overflow: visible;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--motors) rgba(15, 15, 16, 0.12);
   background: var(--white);
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 8px;
@@ -661,7 +667,7 @@ h2 {
 
 .detail-main-image {
   position: relative;
-  height: clamp(360px, calc(100vh - 172px), 620px);
+  height: clamp(360px, calc(100dvh - 172px), 620px);
   min-height: 0;
   margin: 0;
   background: #161616;
@@ -1341,8 +1347,8 @@ textarea {
   .detail-panel {
     grid-template-columns: 1fr;
     width: 100vw;
-    max-height: 100vh;
-    height: 100vh;
+    max-height: 100dvh;
+    height: 100dvh;
     margin: 0;
     border: 0;
     border-radius: 0;
