@@ -99,9 +99,10 @@ function carCard(car) {
   const division = car.division === "selected" ? "Selected" : "Motors";
   const price = car.price_label || "Prezzo su richiesta";
   const image = assetUrl(car.image_url);
+  const slug = car.slug || car.id;
   return `
-    <article class="car-card" data-car-slug="${escapeHtml(car.slug || car.id)}" data-division="${escapeHtml(car.division)}" data-status="${escapeHtml(car.status)}" itemscope itemtype="https://schema.org/Vehicle">
-      <a class="card-hit" href="#auto-${encodeURIComponent(car.slug || car.id)}" data-open-car="${escapeHtml(car.slug || car.id)}" aria-label="Apri annuncio ${escapeHtml(title)}"></a>
+    <article class="car-card" data-car-slug="${escapeHtml(slug)}" data-division="${escapeHtml(car.division)}" data-status="${escapeHtml(car.status)}" itemscope itemtype="https://schema.org/Vehicle">
+      <button class="card-hit" type="button" data-open-car="${escapeHtml(slug)}" aria-label="Apri annuncio ${escapeHtml(title)}"></button>
       <figure>
         <img src="${image}" alt="${escapeHtml(title)}" loading="lazy" itemprop="image">
       </figure>
@@ -120,7 +121,7 @@ function carCard(car) {
         </p>
         <p class="car-desc" itemprop="description">${escapeHtml(car.short_description || "")}</p>
         <div class="car-actions">
-          <a class="button primary" href="#auto-${encodeURIComponent(car.slug || car.id)}" data-open-car="${escapeHtml(car.slug || car.id)}">Dettagli</a>
+          <a class="button primary" href="#auto-${encodeURIComponent(slug)}" data-open-car="${escapeHtml(slug)}">Dettagli</a>
           <a class="button ghost" href="${carWhatsappUrl(car)}">WhatsApp</a>
         </div>
       </div>
@@ -205,6 +206,11 @@ function openCarDetail(slug) {
   dialog.hidden = false;
   document.body.classList.add("detail-open");
   window.history.replaceState(null, "", `#auto-${encodeURIComponent(car.slug || car.id)}`);
+}
+
+function openCarDetailFromHash() {
+  if (!window.location.hash.startsWith("#auto-")) return;
+  openCarDetail(decodeURIComponent(window.location.hash.replace("#auto-", "")));
 }
 
 function setGalleryImage(detail, index) {
@@ -388,19 +394,24 @@ function injectCatalogStructuredData(cars) {
 }
 
 function bindCarCards() {
-  document.querySelectorAll(".car-card").forEach((card) => {
-    card.addEventListener("click", (event) => {
-      if (event.target.closest("a, button")) return;
+  if (!document.documentElement.dataset.carCardsBound) {
+    document.documentElement.dataset.carCardsBound = "true";
+
+    document.addEventListener("click", (event) => {
+      const opener = event.target.closest("[data-open-car]");
+      if (opener) {
+        event.preventDefault();
+        openCarDetail(opener.dataset.openCar);
+        return;
+      }
+
+      const card = event.target.closest(".car-card");
+      if (!card || event.target.closest("a, button")) return;
       openCarDetail(card.dataset.carSlug);
     });
-  });
 
-  document.querySelectorAll("[data-open-car]").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      openCarDetail(button.dataset.openCar);
-    });
-  });
+    window.addEventListener("hashchange", openCarDetailFromHash);
+  }
 
   document.querySelectorAll(".car-card img").forEach((image) => {
     image.addEventListener("error", () => {
@@ -429,6 +440,12 @@ function bindCarDetail() {
     const zoom = event.target.closest("[data-zoom-image]");
     if (zoom) {
       openZoomViewer(zoom.dataset.zoomImage);
+      return;
+    }
+
+    if (event.target.closest("[data-detail-main]")) {
+      const imageUrl = detail.querySelector("[data-detail-main]")?.getAttribute("src");
+      openZoomViewer(imageUrl);
       return;
     }
 
