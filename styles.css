@@ -571,6 +571,18 @@ h2 {
   transition: transform 360ms var(--ease), box-shadow 360ms var(--ease), border-color 360ms ease;
 }
 
+.car-card[data-division="selected"] {
+  color: var(--white);
+  background: #0d0d0e;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.22);
+}
+
+.car-card[data-division="selected"]:hover {
+  border-color: rgba(158, 27, 34, 0.78);
+  box-shadow: 0 34px 76px rgba(0, 0, 0, 0.34);
+}
+
 .card-hit {
   position: absolute;
   inset: 0;
@@ -678,12 +690,15 @@ h2 {
   background: var(--anthracite);
   color: var(--white);
   border: 1px solid var(--motors);
+  font-style: italic;
 }
 
 .car-title {
   margin: 0 0 10px;
   font-size: clamp(20px, 2vw, 25px);
   font-weight: 800;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
 }
 
 .car-price {
@@ -705,6 +720,26 @@ h2 {
   padding: 6px 8px;
   background: rgba(15, 15, 16, 0.04);
   border-radius: 4px;
+}
+
+.car-card[data-division="selected"] .car-price {
+  color: #e7e1d8;
+}
+
+.car-card[data-division="selected"] .car-meta,
+.car-card[data-division="selected"] .car-desc {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.car-card[data-division="selected"] .car-meta span {
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.car-card[data-division="selected"] .button.ghost {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .car-desc {
@@ -1786,7 +1821,8 @@ textarea {
   }
 
   .car-title {
-    font-size: 22px;
+    font-size: clamp(20px, 7vw, 24px);
+    line-height: 1.06;
   }
 
   .car-desc {
