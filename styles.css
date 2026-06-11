@@ -1427,6 +1427,10 @@ textarea {
   width: 240px;
   max-width: 60vw;
   height: auto;
+  padding: 10px 14px;
+  background: var(--white);
+  border-radius: 6px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
 }
 
 .footer-links {
