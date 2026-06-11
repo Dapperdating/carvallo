@@ -79,6 +79,58 @@ window.CARVALLO_SEED_CARS = [
     source_url: "https://www.carvallo-motors.com/product-page/mini-one"
   },
   {
+    id: "bmw-z4-e85-roadster-2-5i-192cv",
+    slug: "bmw-z4-e85-roadster-2-5i-192cv",
+    division: "selected",
+    status: "available",
+    make: "BMW",
+    model: "Z4 E85 Roadster 2.5i 192CV",
+    year: 2003,
+    mileage_km: 100000,
+    fuel: "Benzina",
+    transmission: "Automatico",
+    price_label: "15.500,00 euro",
+    short_description: "Roadster E85 2.5i, service BMW, 192CV e configurazione da youngtimer.",
+    description: "BMW Z4 E85 Roadster 2.5i da 192CV, immatricolata 06/2003, benzina, trazione posteriore e cambio automatico a 5 rapporti. Annuncio Carvallo Selected con service BMW, interno in pelle nera e impostazione da youngtimer aperta a due posti.",
+    image_url: "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_5a11b19e-1d9a-4841-8b06-5a8539234b32.jpg/1280x960.jpg",
+    gallery_urls: [
+      "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_5a11b19e-1d9a-4841-8b06-5a8539234b32.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_64c342db-f0c3-4cb7-984a-1c0c64ab77e9.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_1995cd7a-14ad-41b0-8844-fcd45cb12274.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_19d780e0-5ff6-43a5-8ab7-0e9c68affeff.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_25923ebe-1387-4ca9-867f-1fe5981b0bfd.jpg/1280x960.jpg"
+    ],
+    featured: true,
+    is_published: true,
+    source_url: "https://www.autoscout24.it/annunci/bmw-z4-e85-roadster-2-5i-192cv-service-bmw-benzina-nero-cat_ma13mo18308-0ed51eb2-2036-4578-91fa-b7becc023c66"
+  },
+  {
+    id: "mercedes-benz-sl-350-v6-315cv",
+    slug: "mercedes-benz-sl-350-v6-315cv",
+    division: "selected",
+    status: "available",
+    make: "Mercedes-Benz",
+    model: "SL 350 V6 315CV",
+    year: 2011,
+    mileage_km: 31000,
+    fuel: "Benzina",
+    transmission: "Automatico",
+    price_label: "41.990,00 euro",
+    short_description: "SL 350 V6 da 315CV, 31.000 km e 11 tagliandi Mercedes.",
+    description: "Mercedes-Benz SL 350 V6 da 315CV, immatricolata 01/2011, benzina, trazione posteriore e cambio automatico a 7 rapporti. Annuncio Carvallo Selected con 31.000 km, 11 tagliandi Mercedes, carrozzeria rossa e interni in pelle beige.",
+    image_url: "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg",
+    gallery_urls: [
+      "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_d6c866df-df16-4edc-86bb-5027994245e4.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_1a9f956a-1482-4a6d-ab7b-9a9843fc4e6a.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_29fd9d5b-08d5-4090-93d5-07aba04b88fa.jpg/1280x960.jpg",
+      "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_3e8cc5f9-d8b7-47a4-8a9d-d7a5cddea538.jpg/1280x960.jpg"
+    ],
+    featured: true,
+    is_published: true,
+    source_url: "https://www.autoscout24.it/annunci/mercedes-benz-sl-350-v6-315cv-11-tagliandi-mercedes-31-000km-benzina-rosso-cat_ma47mo16483-8186140f-0989-4cac-bba2-b41fccc98dbd"
+  },
+  {
     id: "mini-one-5-porte",
     slug: "mini-one-5-porte",
     division: "motors",

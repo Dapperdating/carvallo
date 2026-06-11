@@ -97,8 +97,8 @@
     </header>
     <nav class="mobile-dock" aria-label="Navigazione mobile">
       <a href="auto.html">Auto</a>
-      <a href="#selected">Selected</a>
-      <a href="#valutazione">Valuta</a>
+      <a href="#scelta">Scegli</a>
+      <a href="#valutazione">Vendi</a>
       <a href="https://wa.me/393923139899?text=Ciao%2C%20vorrei%20pi%C3%B9%20informazioni">WhatsApp</a>
     </nav>
 
@@ -107,41 +107,54 @@
         <div class="hero-media" role="img" aria-label="BMW M4 CS Carvallo Motors"></div>
         <div class="hero-content">
           <p class="eyebrow">Carvallo</p>
-          <h1>Auto scelte bene, vendute senza rumore.</h1>
-          <p class="hero-copy desktop-copy">Due anime, una sola cura: Motors per le auto di tutti i giorni, Selected per vintage, youngtimer e pezzi con carattere.</p>
-          <p class="hero-copy mobile-copy">Usato selezionato e youngtimer, con contatto diretto e informazioni chiare.</p>
+          <h1>Auto usate selezionate. Senza complicazioni.</h1>
+          <p class="hero-copy desktop-copy">Guarda le auto disponibili, scegli la scheda che ti interessa e scrivici direttamente. Motors e Selected restano due percorsi separati, ma la ricerca e' semplice.</p>
+          <p class="hero-copy mobile-copy">Guarda le auto, apri la scheda e scrivici su WhatsApp.</p>
           <div class="hero-actions">
             <a class="button primary" href="auto.html">Vedi auto</a>
-            <a class="button ghost" href="#valutazione">Valuta la tua</a>
+            <a class="button ghost" href="#scelta">Motors o Selected?</a>
           </div>
+        </div>
+      </section>
+
+      <section class="choice-band reveal" id="scelta" aria-labelledby="choice-title">
+        <div class="choice-intro">
+          <p class="eyebrow">Scegli il percorso</p>
+          <h2 id="choice-title">Due sezioni, una ricerca semplice.</h2>
+          <p>Se cerchi un'auto pratica vai su Motors. Se cerchi qualcosa di piu' particolare vai su Selected.</p>
+        </div>
+        <div class="choice-grid">
+          <a class="choice-card motors-choice" href="auto.html">
+            <span>Carvallo Motors</span>
+            <strong>Auto usate e seminuove</strong>
+            <p>Soluzioni concrete per tutti i giorni, con prezzo e informazioni chiare.</p>
+            <em>Vedi auto Motors</em>
+          </a>
+          <a class="choice-card selected-choice" href="auto.html#selected">
+            <span>Carvallo Selected</span>
+            <strong>Youngtimer, vintage e speciali</strong>
+            <p>Auto con piu' carattere: sportive, cabrio, configurazioni rare e pezzi selezionati.</p>
+            <em>Vedi Selected</em>
+          </a>
         </div>
       </section>
 
       <section class="split-band reveal" id="motors">
         <div>
-          <p class="eyebrow">01 / Motors</p>
-          <h2>Usato concreto, rapido da capire.</h2>
+          <p class="eyebrow">Carvallo Motors</p>
+          <h2>Per chi vuole comprare senza perdere tempo.</h2>
         </div>
-        <p>Motors e' la linea Carvallo per auto usate e seminuove: selezione concreta, informazioni chiare, contatto diretto e possibilita' di valutare la propria auto.</p>
+        <p>Auto usate e seminuove con foto, prezzo, chilometri e contatto diretto. La scheda e' pensata per capire subito se vale la pena sentirci.</p>
       </section>
 
       <section class="selected-band reveal" id="selected">
         <div class="selected-copy">
-          <img class="division-logo selected-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo Selected">
-          <p class="eyebrow">02 / Selected</p>
-          <h2>Una selezione piu' rara, trattata come una collezione.</h2>
-          <p>Selected e' il lato curatoriale di Carvallo: youngtimer, vintage, cabrio, sportive e configurazioni che meritano piu' contesto di una semplice scheda.</p>
-          <div class="selected-points" aria-label="Punti forti Carvallo Selected">
-            <span>Provenienza</span>
-            <span>Configurazione</span>
-            <span>Storia</span>
-          </div>
+          <p class="eyebrow">Carvallo Selected</p>
+          <h2>Per auto piu' particolari.</h2>
+          <p>Selected raccoglie youngtimer, vintage e vetture speciali. Meno auto, piu' attenzione alla storia, alla configurazione e allo stato.</p>
+          <a class="button light selected-main-cta" href="auto.html#selected">Guarda Selected</a>
         </div>
-        <div class="selected-panel">
-          <span>Carvallo Selected</span>
-          <strong>Youngtimer, classiche e sportive moderne.</strong>
-          <a class="button ghost light" href="auto.html">Scopri Selected</a>
-        </div>
+        <img class="selected-feature-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo Selected">
       </section>
 
       <section class="inventory inventory-preview reveal" id="stock">
@@ -149,8 +162,8 @@
           <div>
             <p class="eyebrow">Auto disponibili</p>
           <h2>Auto in evidenza</h2>
-            <p class="section-copy desktop-copy">Poche informazioni, quelle giuste: foto grandi, prezzo chiaro, stato immediato e contatto diretto.</p>
-            <p class="section-copy mobile-copy">Sfoglia gli arrivi principali. Il catalogo completo e' a un tap.</p>
+            <p class="section-copy desktop-copy">Le schede mostrano foto, prezzo, chilometri e contatti senza passaggi inutili.</p>
+            <p class="section-copy mobile-copy">Apri una scheda e scrivici subito.</p>
           </div>
           <a class="button ghost" href="auto.html">Catalogo completo</a>
         </div>
@@ -161,7 +174,7 @@
         <div>
           <p class="eyebrow">Valutazione gratuita</p>
           <h2>Mandaci i dati della tua auto.</h2>
-          <p>Uno dei membri del team ti inviera' una valutazione dettagliata. Le auto accompagnano ogni storia della nostra vita, ma venderle dovrebbe essere semplice.</p>
+          <p>Inserisci pochi dati essenziali. Ti ricontattiamo noi per capire insieme valore e tempi.</p>
         </div>
         <form class="lead-form" data-form="valuation">
           <label>Nome<input name="name" autocomplete="name" required></label>

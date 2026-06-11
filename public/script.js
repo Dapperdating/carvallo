@@ -128,8 +128,8 @@ function carCard(car) {
         </p>
         <p class="car-desc" itemprop="description">${escapeHtml(car.short_description || "")}</p>
         <div class="car-actions">
-          <a class="button primary" href="#auto-${encodeURIComponent(slug)}" data-open-car="${escapeHtml(slug)}">Dettagli</a>
-          <a class="button ghost" href="${carWhatsappUrl(car)}">WhatsApp</a>
+          <a class="button primary" href="#auto-${encodeURIComponent(slug)}" data-open-car="${escapeHtml(slug)}">Apri scheda</a>
+          <a class="button ghost" href="${carWhatsappUrl(car)}">Scrivi</a>
         </div>
       </div>
     </article>
@@ -577,6 +577,9 @@ function bindCarDetail() {
 }
 
 function bindFilters() {
+  document.querySelectorAll("[data-filter]").forEach((item) => item.classList.toggle("active", item.dataset.filter === activeDivision));
+  document.querySelectorAll("[data-status-filter]").forEach((item) => item.classList.toggle("active", item.dataset.statusFilter === activeStatus));
+
   document.querySelectorAll("[data-filter]").forEach((button) => {
     button.addEventListener("click", () => {
       activeDivision = button.dataset.filter;
@@ -629,6 +632,9 @@ async function submitLead(event) {
 
 function initSite() {
   document.body.classList.add("is-ready");
+  if (window.location.hash === "#selected" || window.location.hash === "#motors") {
+    activeDivision = window.location.hash.replace("#", "");
+  }
   bindMotion();
   bindChromeEffects();
   bindFilters();

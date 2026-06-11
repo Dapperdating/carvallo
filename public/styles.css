@@ -299,6 +299,7 @@ h2 {
 }
 
 .split-band,
+.choice-band,
 .valuation,
 .contact-band,
 .selected-band,
@@ -328,6 +329,97 @@ h2 {
   background: var(--white);
 }
 
+.choice-band {
+  display: grid;
+  gap: 28px;
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
+}
+
+.choice-intro {
+  max-width: 760px;
+}
+
+.choice-intro p:last-child {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.45;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.choice-card {
+  display: grid;
+  gap: 14px;
+  min-height: 260px;
+  align-content: start;
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #faf9f6;
+  transition: transform 220ms var(--ease), border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.choice-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(158, 27, 34, 0.32);
+  box-shadow: 0 22px 44px rgba(15, 15, 16, 0.08);
+}
+
+.choice-card span {
+  color: var(--motors);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.choice-card strong {
+  max-width: 12ch;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.choice-card p {
+  max-width: 36ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.choice-card em {
+  width: max-content;
+  margin-top: auto;
+  padding: 13px 16px;
+  border-radius: 4px;
+  color: var(--white);
+  background: var(--ink);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.selected-choice {
+  color: var(--white);
+  background: var(--dark);
+  border-color: var(--dark);
+}
+
+.selected-choice p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.selected-choice em {
+  color: var(--ink);
+  background: var(--white);
+}
+
 .split-band p,
 .selected-copy p,
 .valuation p {
@@ -339,9 +431,9 @@ h2 {
 
 .selected-band {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
   gap: clamp(32px, 5vw, 72px);
-  align-items: stretch;
+  align-items: center;
   color: var(--white);
   background:
     linear-gradient(135deg, rgba(178, 155, 127, 0.16), rgba(15, 15, 16, 0) 38%),
@@ -363,6 +455,16 @@ h2 {
 .selected-copy p {
   margin-top: 22px;
   color: rgba(255, 255, 255, 0.72);
+}
+
+.selected-main-cta {
+  width: max-content;
+  margin-top: 24px;
+}
+
+.selected-feature-logo {
+  width: min(320px, 100%);
+  justify-self: end;
 }
 
 .selected-points {
@@ -1400,9 +1502,9 @@ textarea {
   }
 
   .hero {
-    min-height: 640px;
+    min-height: 560px;
     align-items: end;
-    padding: 120px 18px 108px;
+    padding: 112px 18px 96px;
   }
 
   .hero-media {
@@ -1419,31 +1521,33 @@ textarea {
 
   h1 {
     max-width: 100%;
-    font-size: clamp(42px, 16vw, 70px);
+    font-size: clamp(34px, 11vw, 54px);
+    line-height: 1.02;
   }
 
   h2 {
-    font-size: clamp(34px, 12vw, 54px);
+    font-size: clamp(30px, 9vw, 46px);
+    line-height: 1.04;
   }
 
   .hero-copy {
-    max-width: 28ch;
+    max-width: 30ch;
     margin-top: 16px;
-    font-size: 17px;
+    font-size: 18px;
   }
 
   .hero-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 1fr;
+    gap: 10px;
     margin-top: 20px;
   }
 
   .button,
   .filter {
-    min-height: 48px;
-    padding: 0 14px;
-    font-size: 14px;
+    min-height: 52px;
+    padding: 0 16px;
+    font-size: 15px;
   }
 
   .split-band,
@@ -1455,21 +1559,55 @@ textarea {
   }
 
   .split-band,
+  .choice-band,
   .valuation,
   .contact-band,
   .selected-band,
   .inventory {
-    padding: 46px 18px;
+    padding: 42px 18px;
   }
 
   .split-band p,
+  .choice-intro p:last-child,
   .selected-copy p,
   .valuation p {
+    font-size: 18px;
+  }
+
+  .choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-card {
+    min-height: 0;
+    padding: 22px;
+  }
+
+  .choice-card strong {
+    max-width: 13ch;
+    font-size: 32px;
+  }
+
+  .choice-card p {
     font-size: 17px;
+  }
+
+  .choice-card em,
+  .selected-main-cta {
+    width: 100%;
+    min-height: 52px;
+    display: grid;
+    place-items: center;
+    text-align: center;
   }
 
   .selected-band {
     gap: 26px;
+  }
+
+  .selected-feature-logo {
+    width: min(72vw, 260px);
+    justify-self: start;
   }
 
   .division-logo {
@@ -1500,6 +1638,7 @@ textarea {
 
   .section-heading {
     display: block;
+    margin-bottom: 22px;
   }
 
   .section-heading .filters {
@@ -1512,19 +1651,17 @@ textarea {
   }
 
   .inventory-preview .car-grid {
-    display: flex;
-    gap: 14px;
-    margin-right: -18px;
-    margin-left: -18px;
-    padding: 0 18px 8px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    display: grid;
+    gap: 16px;
+    margin-right: 0;
+    margin-left: 0;
+    padding: 0;
+    overflow-x: visible;
+    scroll-snap-type: none;
   }
 
   .inventory-preview .car-card {
-    min-width: min(82vw, 340px);
-    scroll-snap-align: start;
+    min-width: 0;
   }
 
   .car-card {
@@ -1555,21 +1692,21 @@ textarea {
   }
 
   .car-body {
-    padding: 16px;
+    padding: 18px;
   }
 
   .car-title {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .car-desc {
     min-height: 0;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .car-actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .detail-panel {
@@ -1731,9 +1868,9 @@ textarea {
     width: 100%;
     overflow: hidden;
     gap: 22px;
-    min-height: 520px;
+    min-height: 430px;
     align-content: end;
-    padding: 120px 18px 28px;
+    padding: 112px 18px 28px;
     background:
       linear-gradient(180deg, rgba(15, 15, 16, 0.34), rgba(15, 15, 16, 0.92)),
       url("https://static.wixstatic.com/media/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg/v1/fill/w_900,h_1300,al_c,q_82,enc_avif,quality_auto/60133d_c9367075e00d478290dabdf4c3a235ec~mv2.jpg");
@@ -1758,16 +1895,14 @@ textarea {
   }
 
   .catalog-tools {
-    position: sticky;
-    top: 0;
+    position: static;
     z-index: 10;
     display: grid;
     gap: 10px;
-    margin: -18px -18px 24px;
-    padding: 14px 18px;
-    border-right: 0;
-    border-left: 0;
-    border-radius: 0;
+    margin: 0 0 24px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
   }
 
   .catalog-tools .filters {
@@ -1780,7 +1915,8 @@ textarea {
   }
 
   .catalog-tools .filter {
-    min-width: max-content;
+    min-width: auto;
+    flex: 1 0 auto;
     scroll-snap-align: start;
   }
 
