@@ -23,7 +23,7 @@
     <meta name="twitter:image" content="https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
@@ -76,7 +76,7 @@
     </script>
     <script defer src="script.js"></script>
   </head>
-  <body>
+  <body class="home-page">
     <div class="scroll-progress" aria-hidden="true"></div>
     <header class="site-header" data-elevate>
       <a class="brand" href="#top" aria-label="Carvallo Motors home">
@@ -103,53 +103,100 @@
     </nav>
 
     <main id="top">
-      <section class="hero" data-animate="hero">
-        <div class="hero-media" role="img" aria-label="Ford Fiesta disponibile da Carvallo Motors"></div>
-        <div class="hero-content">
-          <p class="eyebrow">Carvallo</p>
-          <h1>Auto usate selezionate. Senza complicazioni.</h1>
-          <p class="hero-copy desktop-copy">Guarda le auto disponibili, scegli la scheda che ti interessa e scrivici direttamente. Motors e Selected restano due percorsi separati, ma la ricerca e' semplice.</p>
-          <p class="hero-copy mobile-copy">Guarda le auto, apri la scheda e scrivici su WhatsApp.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="auto.html">Vedi auto</a>
-            <a class="button ghost" href="#scelta">Motors o Selected?</a>
+      <section class="home-hero" data-animate="hero">
+        <div class="home-hero-copy">
+          <p class="home-kicker">Carvallo Motors</p>
+          <h1>Auto scelte con criterio.</h1>
+          <p>Usato e seminuovo selezionato per la vita reale. Youngtimer, cabrio e pezzi speciali quando la ricerca diventa piu' personale.</p>
+          <div class="home-hero-actions">
+            <a class="button primary" href="auto.html">Vedi disponibilita'</a>
+            <a class="button ghost" href="selected.html">Entra in <span>Selected</span></a>
+          </div>
+        </div>
+        <div class="home-hero-visual" aria-label="Auto disponibili Carvallo">
+          <figure class="home-hero-main">
+            <img src="assets/cars/ford-fiesta/ford-fiesta-01.jpg" alt="Ford Fiesta disponibile Carvallo Motors">
+          </figure>
+          <figure class="home-hero-secondary">
+            <img src="https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg" alt="Mercedes-Benz SL Carvallo Selected">
+          </figure>
+          <div class="home-hero-note">
+            <span>Motors</span>
+            <span>Selected</span>
           </div>
         </div>
       </section>
 
-      <section class="choice-band reveal" id="scelta" aria-labelledby="choice-title">
-        <div class="choice-intro">
-          <p class="eyebrow">Scegli il percorso</p>
-          <h2 id="choice-title">Due sezioni, una ricerca semplice.</h2>
-          <p>Se cerchi un'auto pratica vai su Motors. Se cerchi qualcosa di piu' particolare vai su Selected.</p>
+      <section class="home-ledger" aria-label="Servizi Carvallo">
+        <a href="auto.html">
+          <span>01</span>
+          <strong>Motors</strong>
+          <p>Usato selezionato, informazioni chiare, contatto diretto.</p>
+        </a>
+        <a href="selected.html">
+          <span>02</span>
+          <strong><em>Selected</em></strong>
+          <p>Youngtimer, cabrio, sportive moderne e configurazioni con carattere.</p>
+        </a>
+        <a href="#valutazione">
+          <span>03</span>
+          <strong>Valutazione</strong>
+          <p>Raccontaci la tua auto: ti ricontattiamo con un primo parere.</p>
+        </a>
+      </section>
+
+      <section class="home-atelier reveal" id="scelta" aria-labelledby="choice-title">
+        <div class="home-section-copy">
+          <p class="home-kicker">Due anime</p>
+          <h2 id="choice-title">Una concessionaria, due modi di scegliere.</h2>
+          <p>Motors resta concreto: auto giuste, prezzi leggibili, zero frizione. Selected e' la stanza piu' personale: auto con storia, proporzione, suono e presenza.</p>
         </div>
-        <div class="choice-grid">
-          <a class="choice-card motors-choice" href="auto.html">
+        <div class="home-paths">
+          <a class="home-path motors-path" href="auto.html">
             <span>Carvallo Motors</span>
-            <strong>Auto pronte per tutti i giorni</strong>
-            <p>Usato e seminuovo selezionato, con schede chiare, prezzo visibile e contatto diretto.</p>
-            <em>Vedi Motors</em>
+            <strong>Per comprare bene, senza teatro.</strong>
+            <p>Compatte, SUV e seminuove selezionate per uso quotidiano, con schede dirette e contatto immediato.</p>
+            <em>Apri Motors</em>
           </a>
-          <a class="choice-card selected-choice" href="selected.html">
-            <span>Carvallo Selected</span>
-            <strong>Youngtimer, vintage e speciali</strong>
-            <p>Auto con piu' carattere: sportive, cabrio, configurazioni rare e pezzi selezionati.</p>
-            <em>Vedi Selected</em>
+          <a class="home-path selected-path" href="selected.html">
+            <span>Carvallo <i>Selected</i></span>
+            <strong>Per chi cerca un'auto con memoria.</strong>
+            <p>Roadster, cabrio, youngtimer e vetture speciali scelte per identita', condizione e desiderabilita'.</p>
+            <em>Apri Selected</em>
           </a>
         </div>
       </section>
 
-      <section class="inventory inventory-preview reveal" id="stock">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Auto disponibili</p>
-          <h2>Auto in evidenza</h2>
-            <p class="section-copy desktop-copy">Le schede mostrano foto, prezzo, chilometri e contatti senza passaggi inutili.</p>
-            <p class="section-copy mobile-copy">Apri una scheda e scrivici subito.</p>
-          </div>
-          <a class="button ghost" href="auto.html">Catalogo completo</a>
+      <section class="home-method reveal" aria-labelledby="method-title">
+        <div>
+          <p class="home-kicker">Metodo</p>
+          <h2 id="method-title">Meno catalogo, piu' giudizio.</h2>
+        </div>
+        <div class="method-grid">
+          <article>
+            <span>Selezione</span>
+            <p>Ogni auto deve avere una ragione per stare in stock: utilita', condizione, storia o carattere.</p>
+          </article>
+          <article>
+            <span>Chiarezza</span>
+            <p>Prezzo, chilometri, alimentazione e cambio restano visibili subito. Il resto si approfondisce nella scheda.</p>
+          </article>
+          <article>
+            <span>Contatto</span>
+            <p>WhatsApp e telefono sono nel percorso naturale. Chi e' interessato arriva alla conversazione in un passaggio.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="inventory inventory-preview home-inventory reveal" id="stock">
+        <div class="home-section-copy">
+          <p class="home-kicker">Disponibili ora</p>
+          <h2>Una selezione corta, leggibile.</h2>
+          <p class="desktop-copy">La pagina auto resta il punto operativo. In home mostriamo solo il primo assaggio: abbastanza per capire il livello, non abbastanza per affollare.</p>
+          <p class="mobile-copy">Poche auto in evidenza. Il catalogo completo resta a un tap.</p>
         </div>
         <div class="car-grid" id="car-grid" data-limit="3" aria-live="polite"></div>
+        <a class="button ghost home-wide-cta" href="auto.html">Vai al catalogo completo</a>
       </section>
 
       <section class="valuation" id="valutazione">
