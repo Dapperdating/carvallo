@@ -166,6 +166,10 @@ nav a:hover::after {
   background: rgba(255, 255, 255, 0.94);
 }
 
+.mobile-headline {
+  display: none;
+}
+
 .home-hero {
   min-height: calc(100vh - 82px);
   display: grid;
@@ -217,6 +221,59 @@ nav a:hover::after {
   line-height: 1.65;
 }
 
+.home-division-intro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 32px;
+  border: 1px solid rgba(15, 15, 16, 0.12);
+  background: rgba(15, 15, 16, 0.12);
+}
+
+.home-division-intro a {
+  min-height: 188px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  transition: background 220ms ease, color 220ms ease;
+}
+
+.home-division-intro a:hover {
+  color: var(--white);
+  background: var(--dark);
+}
+
+.home-division-intro span {
+  color: var(--motors);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-division-intro em {
+  font-style: italic;
+}
+
+.home-division-intro strong {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(32px, 3.2vw, 46px);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.home-division-intro small {
+  max-width: 28ch;
+  color: #5f6469;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.home-division-intro a:hover small {
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .home-hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -233,6 +290,14 @@ nav a:hover::after {
 .home-ledger em,
 .selected-path i {
   font-style: italic;
+}
+
+.home-hero-actions span {
+  margin-left: 0.28em;
+}
+
+.mobile-selected-bridge {
+  display: none;
 }
 
 .home-hero-visual {
@@ -2162,11 +2227,23 @@ textarea {
     line-height: 0.98;
   }
 
+  .desktop-headline {
+    display: none;
+  }
+
+  .mobile-headline {
+    display: block;
+  }
+
   .home-hero-copy > p:not(.home-kicker) {
     max-width: 31ch;
     margin-top: 18px;
     font-size: 17px;
     line-height: 1.55;
+  }
+
+  .home-division-intro {
+    display: none;
   }
 
   .home-hero-actions {
@@ -2211,6 +2288,43 @@ textarea {
 
   .home-ledger strong {
     font-size: 36px;
+  }
+
+  .mobile-selected-bridge {
+    display: grid;
+    gap: 18px;
+    padding: 42px 18px;
+    color: var(--white);
+    background:
+      linear-gradient(135deg, rgba(158, 27, 34, 0.2), rgba(15, 15, 16, 0) 55%),
+      var(--dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .mobile-selected-bridge .home-kicker {
+    margin-bottom: 0;
+  }
+
+  .mobile-selected-bridge h2 {
+    max-width: 12ch;
+    color: var(--white);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(34px, 10vw, 46px);
+    font-weight: 600;
+    line-height: 1;
+    text-transform: none;
+  }
+
+  .mobile-selected-bridge p:not(.home-kicker) {
+    max-width: 31ch;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .mobile-selected-bridge .button {
+    width: 100%;
   }
 
   .home-atelier,

@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260616-perf">
+    <link rel="stylesheet" href="styles.css?v=20260616-homeclarity">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="data/cars.js"></script>
@@ -105,9 +105,23 @@
     <main id="top">
       <section class="home-hero" data-animate="hero">
         <div class="home-hero-copy">
-          <p class="home-kicker">Carvallo Motors</p>
-          <h1>Auto scelte con criterio.</h1>
-          <p>Usato e seminuovo selezionato per la vita reale. Youngtimer, cabrio e pezzi speciali quando la ricerca diventa piu' personale.</p>
+          <p class="home-kicker">Carvallo</p>
+          <h1 class="desktop-headline">Due modi di scegliere l'auto.</h1>
+          <h1 class="mobile-headline">Auto chiare, senza confusione.</h1>
+          <p class="desktop-copy">Carvallo nasce con un'idea semplice: separare le auto per la vita di tutti i giorni dalle auto speciali. Motors raccoglie usato e seminuovo concreto; Selected e' la selezione per youngtimer, cabrio e vetture con carattere.</p>
+          <p class="mobile-copy">Auto per tutti i giorni e auto speciali, separate in modo chiaro.</p>
+          <div class="home-division-intro" aria-label="Divisioni Carvallo">
+            <a href="auto.html">
+              <span>Carvallo Motors</span>
+              <strong>Vita quotidiana</strong>
+              <small>Usato, seminuovo, compatte e SUV scelti per essere facili da valutare.</small>
+            </a>
+            <a href="selected.html">
+              <span>Carvallo <em>Selected</em></span>
+              <strong>Auto speciali</strong>
+              <small>Youngtimer, cabrio e configurazioni ricercate per chi cerca qualcosa in piu'.</small>
+            </a>
+          </div>
           <div class="home-hero-actions">
             <a class="button primary" href="auto.html">Vedi disponibilita'</a>
             <a class="button ghost" href="selected.html">Entra in <span>Selected</span></a>
@@ -143,6 +157,13 @@
           <strong>Valutazione</strong>
           <p>Raccontaci la tua auto: ti ricontattiamo con un primo parere.</p>
         </a>
+      </section>
+
+      <section class="mobile-selected-bridge" aria-label="Carvallo Selected">
+        <p class="home-kicker">Carvallo Selected</p>
+        <h2>Auto speciali, in una sezione separata.</h2>
+        <p>Se cerchi youngtimer, cabrio o configurazioni piu' ricercate, entra nella parte Selected.</p>
+        <a class="button light" href="selected.html">Entra in Selected</a>
       </section>
 
       <section class="home-atelier reveal" id="scelta" aria-labelledby="choice-title">
