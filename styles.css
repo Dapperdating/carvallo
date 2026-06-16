@@ -1555,39 +1555,109 @@ h2 {
   padding-top: 34px;
 }
 
+.selected-page {
+  background: var(--dark);
+}
+
+.selected-page .site-header.compact {
+  position: sticky;
+  top: 0;
+  color: var(--white);
+  background: var(--dark);
+  border-bottom: 1px solid rgba(158, 27, 34, 0.72);
+}
+
+.selected-page .site-header nav a,
+.selected-page .icon-button {
+  color: var(--white);
+}
+
+.selected-page .icon-button {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.selected-header-logo {
+  width: min(38vw, 220px);
+}
+
 .selected-hero {
-  min-height: 620px;
+  position: relative;
+  min-height: 690px;
   display: grid;
-  align-items: end;
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
   padding: clamp(72px, 9vw, 124px) clamp(18px, 5vw, 72px) clamp(46px, 6vw, 86px);
+  overflow: hidden;
   color: var(--white);
   background:
-    linear-gradient(90deg, rgba(15, 15, 16, 0.9), rgba(15, 15, 16, 0.44)),
+    linear-gradient(90deg, rgba(15, 15, 16, 0.94), rgba(15, 15, 16, 0.76) 42%, rgba(15, 15, 16, 0.28)),
     url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1920x1080.jpg");
   background-position: center;
   background-size: cover;
 }
 
+.selected-hero::before {
+  position: absolute;
+  top: 0;
+  right: clamp(18px, 5vw, 72px);
+  left: clamp(18px, 5vw, 72px);
+  height: 2px;
+  content: "";
+  background: var(--motors);
+}
+
 .selected-hero-copy {
-  max-width: 780px;
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
 }
 
 .selected-page-logo {
-  width: min(340px, 76vw);
+  width: min(360px, 76vw);
   height: auto;
-  margin-bottom: 28px;
+  margin-bottom: 34px;
 }
 
 .selected-hero h1 {
-  max-width: 760px;
+  max-width: 9ch;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(54px, 7vw, 96px);
+  font-weight: 600;
+  line-height: 0.95;
+  text-transform: none;
 }
 
 .selected-hero p:not(.eyebrow) {
-  max-width: 680px;
-  margin: 20px 0 0;
+  max-width: 36rem;
+  margin: 24px 0 0;
   color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(18px, 2vw, 24px);
-  line-height: 1.45;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.62;
+}
+
+.selected-proof {
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.selected-proof span {
+  min-height: 104px;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  color: var(--silver);
+  background: rgba(15, 15, 16, 0.72);
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .selected-story {
@@ -1595,15 +1665,23 @@ h2 {
   grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1fr);
   gap: clamp(28px, 6vw, 88px);
   padding: clamp(58px, 8vw, 112px) clamp(18px, 5vw, 72px);
-  border-bottom: 1px solid var(--line);
-  background: var(--white);
+  color: var(--white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0f0f10;
+}
+
+.selected-story h2 {
+  max-width: 11ch;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  text-transform: none;
 }
 
 .selected-story > p {
   margin: 0;
-  color: var(--muted);
-  font-size: clamp(18px, 2vw, 25px);
-  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.62;
 }
 
 .selected-specialties {
@@ -1611,7 +1689,7 @@ h2 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   padding: 1px;
-  background: var(--line);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .selected-specialties article {
@@ -1620,18 +1698,21 @@ h2 {
   align-content: start;
   gap: 16px;
   padding: clamp(24px, 4vw, 42px);
-  background: #171719;
+  background: var(--anthracite);
   color: var(--white);
 }
 
 .selected-specialties span {
-  color: var(--champagne);
+  color: var(--motors);
   font-size: 13px;
   font-weight: 900;
 }
 
 .selected-specialties h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(28px, 4vw, 50px);
+  font-weight: 600;
+  text-transform: none;
 }
 
 .selected-specialties p {
@@ -1642,7 +1723,17 @@ h2 {
 }
 
 .selected-stock {
-  background: #f8f6f1;
+  color: var(--white);
+  background: #0f0f10;
+}
+
+.selected-stock .section-copy {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.selected-stock .button.ghost {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 @media (max-width: 1100px) and (min-width: 881px) {
@@ -2568,6 +2659,8 @@ textarea {
   }
 
   .selected-hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
     min-height: 560px;
     padding: 112px 18px 54px;
     background:
@@ -2582,9 +2675,26 @@ textarea {
     margin-bottom: 22px;
   }
 
+  .selected-hero h1 {
+    max-width: 100%;
+    font-size: clamp(44px, 14vw, 58px);
+    line-height: 0.96;
+    overflow-wrap: normal;
+  }
+
   .selected-hero p:not(.eyebrow) {
     max-width: 30ch;
     font-size: 18px;
+  }
+
+  .selected-proof {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .selected-proof span {
+    min-height: 54px;
   }
 
   .selected-story {

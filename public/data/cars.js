@@ -90,8 +90,8 @@ window.CARVALLO_SEED_CARS = [
     fuel: "Benzina",
     transmission: "Automatico",
     price_label: "15.500,00 euro",
-    short_description: "Roadster E85 2.5i, service BMW, 192CV e configurazione da youngtimer.",
-    description: "BMW Z4 E85 Roadster 2.5i da 192CV, immatricolata 06/2003, benzina, trazione posteriore e cambio automatico a 5 rapporti. Annuncio Carvallo Selected con service BMW, interno in pelle nera e impostazione da youngtimer aperta a due posti.",
+    short_description: "Roadster E85 2.5i con service BMW: una youngtimer aperta, essenziale e ancora molto analogica.",
+    description: "Alcune spider sono nate per ricordare che guidare puo' essere ancora un gesto semplice. Questa BMW Z4 E85 Roadster 2.5i rappresenta bene l'idea Selected: proporzioni pulite, sei cilindri da 192CV, trazione posteriore e configurazione a due posti con forte identita' youngtimer. Immatricolata 06/2003, benzina, cambio automatico a 5 rapporti e service BMW dichiarato. Interno in pelle nera, impostazione aperta e carattere da roadster compatta. Disponibile per visione su appuntamento. Carvallo Selected. Auto con carattere.",
     image_url: "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_5a11b19e-1d9a-4841-8b06-5a8539234b32.jpg/1280x960.jpg",
     gallery_urls: [
       "https://prod.pictures.autoscout24.net/listing-images/0ed51eb2-2036-4578-91fa-b7becc023c66_5a11b19e-1d9a-4841-8b06-5a8539234b32.jpg/1280x960.jpg",
@@ -116,8 +116,8 @@ window.CARVALLO_SEED_CARS = [
     fuel: "Benzina",
     transmission: "Automatico",
     price_label: "41.990,00 euro",
-    short_description: "SL 350 V6 da 315CV, 31.000 km e 11 tagliandi Mercedes.",
-    description: "Mercedes-Benz SL 350 V6 da 315CV, immatricolata 01/2011, benzina, trazione posteriore e cambio automatico a 7 rapporti. Annuncio Carvallo Selected con 31.000 km, 11 tagliandi Mercedes, carrozzeria rossa e interni in pelle beige.",
+    short_description: "SL 350 V6 da 315CV, 31.000 km e 11 tagliandi Mercedes: gran turismo elegante, non ostentata.",
+    description: "Alcune auto non cercano attenzione: la ottengono con proporzione, presenza e qualita' percepita. Questa Mercedes-Benz SL 350 V6 da 315CV interpreta la gran turismo scoperta secondo Mercedes: motore fluido, trazione posteriore, cambio automatico a 7 rapporti e una configurazione raffinata. Immatricolata 01/2011, 31.000 km dichiarati, 11 tagliandi Mercedes, carrozzeria rossa e interni in pelle beige. Una vettura da leggere nei dettagli, piu' che da giudicare in fretta. Disponibile per visione su appuntamento. Carvallo Selected. Auto con carattere.",
     image_url: "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg",
     gallery_urls: [
       "https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg",
