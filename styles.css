@@ -676,6 +676,19 @@ h2 {
   background: var(--white);
 }
 
+.contact-band {
+  grid-template-columns: minmax(280px, 0.82fr) minmax(320px, 0.76fr);
+  align-items: center;
+  padding-top: clamp(44px, 6vw, 78px);
+  padding-bottom: clamp(44px, 6vw, 78px);
+}
+
+.contact-band h2 {
+  max-width: 12ch;
+  font-size: clamp(32px, 3.4vw, 52px);
+  line-height: 1.02;
+}
+
 .choice-band {
   display: grid;
   gap: 28px;
@@ -1839,9 +1852,24 @@ textarea {
 
 .contact-links {
   display: grid;
-  gap: 12px;
-  font-size: clamp(20px, 3vw, 36px);
-  font-weight: 800;
+  gap: 0;
+  width: min(100%, 620px);
+  justify-self: end;
+  font-size: clamp(15px, 1.25vw, 19px);
+  font-weight: 700;
+}
+
+.contact-links a {
+  display: flex;
+  align-items: center;
+  min-height: 54px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(15, 15, 16, 0.12);
+  color: #282c30;
+}
+
+.contact-links a:last-child {
+  border-bottom: 1px solid rgba(15, 15, 16, 0.12);
 }
 
 .site-footer {
@@ -2732,8 +2760,23 @@ textarea {
     font-size: 16px;
   }
 
+  .contact-band {
+    align-items: start;
+  }
+
+  .contact-band h2 {
+    max-width: 11ch;
+    font-size: clamp(30px, 8.5vw, 40px);
+  }
+
   .contact-links {
-    font-size: clamp(26px, 9vw, 42px);
+    width: 100%;
+    justify-self: stretch;
+    font-size: 16px;
+  }
+
+  .contact-links a {
+    min-height: 50px;
   }
 
   .site-footer {
