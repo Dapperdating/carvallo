@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260616-homeclarity">
+    <link rel="stylesheet" href="styles.css?v=20260616-archive">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="data/cars.js"></script>
@@ -68,7 +68,7 @@
         ]
       }
     </script>
-    <script defer src="script.js?v=20260616-perf"></script>
+    <script defer src="script.js?v=20260616-archive"></script>
   </head>
   <body class="catalog-page">
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -105,8 +105,8 @@
           <p class="mobile-copy">Apri una scheda auto e scrivici su WhatsApp.</p>
         </div>
         <div class="catalog-stats" aria-label="Riepilogo catalogo">
-          <span><strong>6</strong> disponibili</span>
-          <span><strong>7</strong> archivio</span>
+          <span><strong data-stat-active>6</strong> disponibili</span>
+          <span><strong data-stat-archive>7</strong> archivio</span>
           <span><strong>2</strong> divisioni</span>
         </div>
       </section>
@@ -121,13 +121,26 @@
             <button class="filter" data-filter="motors" type="button">Motors</button>
             <button class="filter" data-filter="selected" type="button">Selected</button>
           </div>
-          <div class="filters" role="tablist" aria-label="Filtra stato">
-            <button class="filter active" data-status-filter="available" type="button">Disponibili</button>
-            <button class="filter" data-status-filter="sold" type="button">Archivio vendute</button>
-            <button class="filter" data-status-filter="all" type="button">Tutto</button>
-          </div>
         </div>
-        <div class="car-grid" id="car-grid" data-allow-sold="true" aria-live="polite"></div>
+        <div class="catalog-group">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">Disponibili</p>
+              <h2>Auto in vendita</h2>
+            </div>
+          </div>
+          <div class="car-grid" id="car-grid" aria-live="polite"></div>
+        </div>
+        <div class="catalog-group archive-group" id="archivio">
+          <div class="section-heading compact-heading">
+            <div>
+              <p class="eyebrow">Archivio</p>
+              <h2>Vendute o non disponibili</h2>
+              <p class="section-copy">Qui finiscono automaticamente le auto segnate come vendute o non disponibili dall'area admin.</p>
+            </div>
+          </div>
+          <div class="car-grid archive-grid" id="archive-grid" aria-live="polite"></div>
+        </div>
       </section>
     </main>
 

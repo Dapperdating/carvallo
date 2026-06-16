@@ -91,12 +91,17 @@ function statusLabel(status) {
   return {
     available: "Disponibile",
     incoming: "In arrivo",
+    unavailable: "Non disponibile",
     sold: "Venduta"
   }[status] || "Disponibile";
 }
 
 function statusClass(status) {
-  return status === "sold" ? "muted" : "";
+  return isArchivedStatus(status) ? "muted" : "";
+}
+
+function isArchivedStatus(status) {
+  return status === "sold" || status === "unavailable";
 }
 
 function schemaPrice(value) {
@@ -408,12 +413,34 @@ function filterCars(cars, grid) {
   const limit = Number(grid.dataset.limit || 0);
   const allowSold = grid.dataset.allowSold === "true";
   const filtered = cars
-    .filter((car) => (allowSold ? true : car.status !== "sold"))
+    .filter((car) => (allowSold ? true : !isArchivedStatus(car.status)))
     .filter((car) => (activeDivision === "all" ? true : car.division === activeDivision))
     .filter((car) => (activeStatus === "all" ? true : car.status === activeStatus))
     .filter(matchesSearch);
 
   return limit ? filtered.slice(0, limit) : filtered;
+}
+
+function filterCatalogGroup(cars, archived) {
+  return cars
+    .filter((car) => isArchivedStatus(car.status) === archived)
+    .filter((car) => (activeDivision === "all" ? true : car.division === activeDivision))
+    .filter(matchesSearch);
+}
+
+function renderGrid(grid, cars, emptyMessage) {
+  grid.innerHTML = cars.length
+    ? cars.map(carCard).join("")
+    : `<p class="empty-state">${emptyMessage}</p>`;
+}
+
+function updateCatalogStats(cars) {
+  const activeCount = cars.filter((car) => !isArchivedStatus(car.status)).length;
+  const archiveCount = cars.filter((car) => isArchivedStatus(car.status)).length;
+  const activeStat = document.querySelector("[data-stat-active]");
+  const archiveStat = document.querySelector("[data-stat-archive]");
+  if (activeStat) activeStat.textContent = String(activeCount);
+  if (archiveStat) archiveStat.textContent = String(archiveCount);
 }
 
 async function renderCars() {
@@ -422,10 +449,26 @@ async function renderCars() {
 
   const cars = await loadCars();
   catalogCars = cars;
+  updateCatalogStats(cars);
+
+  const archiveGrid = document.querySelector("#archive-grid");
+  if (archiveGrid) {
+    const activeCars = filterCatalogGroup(cars, false);
+    const archivedCars = filterCatalogGroup(cars, true);
+    renderGrid(grid, activeCars, "Nessuna auto disponibile con questi filtri.");
+    renderGrid(archiveGrid, archivedCars, "Nessuna auto in archivio con questi filtri.");
+    bindCarCards();
+    injectCatalogStructuredData(activeCars);
+
+    const hashSlug = window.location.hash.startsWith("#auto-")
+      ? decodeURIComponent(window.location.hash.replace("#auto-", ""))
+      : "";
+    if (hashSlug) openCarDetail(hashSlug);
+    return;
+  }
+
   const visible = filterCars(cars, grid);
-  grid.innerHTML = visible.length
-    ? visible.map(carCard).join("")
-    : "<p class=\"empty-state\">Nessuna auto trovata con questi filtri.</p>";
+  renderGrid(grid, visible, "Nessuna auto trovata con questi filtri.");
   bindCarCards();
   injectCatalogStructuredData(visible);
 
@@ -463,7 +506,7 @@ function injectCatalogStructuredData(cars) {
         "description": car.short_description || undefined,
         "offers": {
           "@type": "Offer",
-          "availability": car.status === "sold" ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+          "availability": isArchivedStatus(car.status) ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
           "priceCurrency": "EUR",
           "price": schemaPrice(car.price_label)
         }
