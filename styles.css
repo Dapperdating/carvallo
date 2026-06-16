@@ -1673,6 +1673,21 @@ h2 {
   background: rgba(255, 255, 255, 0.74);
 }
 
+.archive-grid .car-card[data-division="selected"] {
+  color: var(--white);
+  background: #0d0d0e;
+  border-color: rgba(158, 27, 34, 0.45);
+}
+
+.archive-grid .car-card[data-division="selected"] .car-desc,
+.archive-grid .car-card[data-division="selected"] .car-meta {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.archive-grid .car-card[data-division="selected"] .car-price {
+  color: #f2eee8;
+}
+
 .archive-grid .car-card figure img {
   filter: saturate(0.82) contrast(0.95);
 }
