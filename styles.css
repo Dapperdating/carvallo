@@ -2247,9 +2247,11 @@ textarea {
   }
 
   .home-hero h1 {
-    max-width: 8.5ch;
-    font-size: clamp(42px, 12vw, 56px);
-    line-height: 0.98;
+    max-width: 11.8ch;
+    font-size: clamp(40px, 11vw, 50px);
+    line-height: 1;
+    overflow-wrap: normal;
+    word-break: normal;
   }
 
   .desktop-headline {
