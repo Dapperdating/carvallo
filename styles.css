@@ -49,6 +49,7 @@ body {
   transform: scaleX(0);
   transform-origin: left;
   background: var(--motors);
+  will-change: transform;
 }
 
 a {
@@ -658,11 +659,13 @@ h2 {
   opacity: 0;
   transform: translateY(34px);
   transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 .split-band,
@@ -674,6 +677,22 @@ h2 {
   align-items: start;
   border-bottom: 1px solid var(--line);
   background: var(--white);
+}
+
+.home-atelier,
+.home-method,
+.home-inventory,
+.split-band,
+.choice-band,
+.valuation,
+.contact-band,
+.selected-band,
+.selected-story,
+.selected-specialties,
+.selected-stock,
+.inventory {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 620px;
 }
 
 .contact-band {

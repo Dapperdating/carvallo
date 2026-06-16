@@ -320,19 +320,18 @@ function closeCarDetail() {
   }
 }
 
-function updateScrollProgress() {
-  const progress = document.querySelector(".scroll-progress");
+function updateScrollProgress(progress, maxScroll, scrollY) {
   if (!progress) return;
 
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  const ratio = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+  const ratio = maxScroll > 0 ? scrollY / maxScroll : 0;
   progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
 }
 
-function updateHeaderState() {
-  document.querySelectorAll(".site-header").forEach((header) => {
-    header.classList.toggle("is-scrolled", window.scrollY > 12);
-  });
+function updateHeaderState(headers, scrollY, previousState) {
+  const isScrolled = scrollY > 12;
+  if (previousState.value === isScrolled) return;
+  previousState.value = isScrolled;
+  headers.forEach((header) => header.classList.toggle("is-scrolled", isScrolled));
 }
 
 function bindMotion() {
@@ -355,12 +354,40 @@ function bindMotion() {
 }
 
 function bindChromeEffects() {
-  updateScrollProgress();
-  updateHeaderState();
-  window.addEventListener("scroll", () => {
-    updateScrollProgress();
-    updateHeaderState();
+  const progress = document.querySelector(".scroll-progress");
+  const headers = [...document.querySelectorAll(".site-header")];
+  const previousHeaderState = { value: null };
+  let maxScroll = 0;
+  let frameRequested = false;
+
+  const refreshScrollMetrics = () => {
+    maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  };
+
+  const runChromeEffects = () => {
+    frameRequested = false;
+    const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    updateScrollProgress(progress, maxScroll, scrollY);
+    updateHeaderState(headers, scrollY, previousHeaderState);
+  };
+
+  const scheduleChromeEffects = () => {
+    if (frameRequested) return;
+    frameRequested = true;
+    requestAnimationFrame(runChromeEffects);
+  };
+
+  refreshScrollMetrics();
+  runChromeEffects();
+  window.addEventListener("scroll", scheduleChromeEffects, { passive: true });
+  window.addEventListener("resize", () => {
+    refreshScrollMetrics();
+    scheduleChromeEffects();
   }, { passive: true });
+  window.addEventListener("load", () => {
+    refreshScrollMetrics();
+    scheduleChromeEffects();
+  }, { once: true });
 }
 
 function matchesSearch(car) {
