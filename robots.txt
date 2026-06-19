@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin.html
 Disallow: /admin/
 
-Sitemap: https://www.carvallo-motors.com/sitemap.xml
+Sitemap: https://carvallo-motors.com/sitemap.xml

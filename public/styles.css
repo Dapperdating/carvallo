@@ -574,9 +574,26 @@ nav a:hover::after {
   margin-bottom: 34px;
 }
 
+.home-preview-heading {
+  display: flex;
+  max-width: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.home-preview-heading .home-kicker {
+  margin: 0;
+}
+
 .home-wide-cta {
   width: max-content;
   margin-top: 28px;
+}
+
+.home-preview-heading .home-wide-cta {
+  flex: 0 0 auto;
+  margin-top: 0;
 }
 
 .hero {
@@ -2380,15 +2397,14 @@ textarea {
     margin-bottom: 16px;
   }
 
-  .home-inventory .mobile-only {
-    display: block;
-  }
-
   .home-inventory h2,
   .home-inventory .desktop-copy,
-  .home-inventory .mobile-copy,
-  .home-inventory .home-wide-cta {
+  .home-inventory .mobile-copy {
     display: none;
+  }
+
+  .home-preview-heading {
+    align-items: flex-start;
   }
 
   .home-section-copy h2,
@@ -2426,6 +2442,10 @@ textarea {
 
   .home-wide-cta {
     width: 100%;
+  }
+
+  .home-preview-heading .home-wide-cta {
+    width: auto;
   }
 
   .hero {

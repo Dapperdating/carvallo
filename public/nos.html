@@ -1,0 +1,2013 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carvallo NOS | Dashboard acquisizioni</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #f4f2ee;
+        --panel: #ffffff;
+        --panel-soft: #faf8f3;
+        --ink: #252527;
+        --muted: #707371;
+        --line: #d8d2c7;
+        --selected: #6e7271;
+        --selected-dark: #2b2b2d;
+        --champagne: #b29b7f;
+        --silver: #c8c8c8;
+        --blue: #273b4d;
+        --green: #4f6f5e;
+        --amber: #a76524;
+        --red: #9e1b22;
+        --shadow: 0 18px 55px rgba(43, 43, 45, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--bg);
+        font-family: Montserrat, Arial, sans-serif;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .nos-app {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        padding: 24px 18px;
+        background: var(--selected-dark);
+        color: #f7f4ed;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .brand {
+        display: grid;
+        gap: 6px;
+        padding: 4px 8px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .brand strong {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .brand span,
+      .side-label {
+        color: rgba(247, 244, 237, 0.68);
+        font-size: 12px;
+      }
+
+      .nav {
+        display: grid;
+        gap: 6px;
+        margin: 24px 0;
+      }
+
+      .nav button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 42px;
+        padding: 0 12px;
+        color: rgba(247, 244, 237, 0.78);
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        text-align: left;
+      }
+
+      .nav button:hover,
+      .nav button.active {
+        color: #fff;
+        background: rgba(178, 155, 127, 0.18);
+        border-color: rgba(178, 155, 127, 0.42);
+      }
+
+      .side-metric {
+        display: grid;
+        gap: 6px;
+        margin-top: 24px;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+      }
+
+      .side-metric strong {
+        font-size: 26px;
+      }
+
+      .main {
+        min-width: 0;
+        padding: 22px clamp(16px, 3vw, 34px) 34px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+
+      .topbar h1 {
+        margin: 0;
+        font-size: clamp(26px, 3vw, 38px);
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .topbar p {
+        max-width: 760px;
+        margin: 6px 0 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 0 14px;
+        color: var(--ink);
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .btn.primary {
+        color: #fff;
+        background: var(--selected-dark);
+        border-color: var(--selected-dark);
+      }
+
+      .btn.dark {
+        color: #fff;
+        background: var(--selected);
+        border-color: var(--selected);
+      }
+
+      .btn.stop {
+        color: #fff;
+        background: var(--red);
+        border-color: var(--red);
+      }
+
+      .btn.stop.is-stopped {
+        background: #5c151b;
+        border-color: #5c151b;
+      }
+
+      .grid {
+        display: grid;
+        gap: 14px;
+        min-width: 0;
+      }
+
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+
+      .card {
+        min-width: 0;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        box-shadow: var(--shadow);
+      }
+
+      .stat {
+        min-height: 112px;
+        padding: 16px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .stat strong {
+        display: block;
+        margin-top: 12px;
+        font-size: 32px;
+      }
+
+      .stat small {
+        color: var(--muted);
+      }
+
+      .stat.warning strong {
+        color: var(--amber);
+      }
+
+      .stat.danger strong {
+        color: var(--red);
+      }
+
+      .workarea {
+        grid-template-columns: minmax(0, 1fr) 360px;
+        align-items: start;
+        margin-top: 14px;
+        min-width: 0;
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 10px;
+        padding: 14px;
+      }
+
+      .search,
+      select,
+      input[type="number"] {
+        width: 100%;
+        min-height: 40px;
+        padding: 0 12px;
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--ink);
+      }
+
+      .tabs {
+        display: flex;
+        gap: 8px;
+        padding: 0 14px 14px;
+        overflow-x: auto;
+      }
+
+      .tab {
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--muted);
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .tab.active {
+        color: #fff;
+        background: var(--selected-dark);
+        border-color: var(--selected-dark);
+      }
+
+      .table-wrap {
+        overflow: auto;
+        border-top: 1px solid var(--line);
+      }
+
+      table {
+        width: 100%;
+        min-width: 1180px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 14px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--muted);
+        background: var(--panel-soft);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      tr {
+        transition: background 160ms ease;
+      }
+
+      tr:hover,
+      tr.selected {
+        background: #f1ede5;
+      }
+
+      .lead-name {
+        display: grid;
+        gap: 3px;
+        font-weight: 800;
+      }
+
+      .car-cell {
+        display: grid;
+        gap: 4px;
+        min-width: 170px;
+      }
+
+      .details-btn {
+        min-height: 34px;
+        padding: 0 11px;
+        color: var(--selected-dark);
+        background: #fff;
+        border: 1px solid var(--champagne);
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .hold-warning {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 7px;
+        color: #7a3d0e;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .deal-actions {
+        display: grid;
+        gap: 6px;
+        min-width: 130px;
+      }
+
+      .deal-action {
+        min-height: 32px;
+        padding: 0 9px;
+        color: var(--selected-dark);
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 900;
+        text-align: center;
+      }
+
+      .deal-action.confirm {
+        color: #fff;
+        background: var(--green);
+        border-color: var(--green);
+      }
+
+      .deal-action.reject {
+        color: #fff;
+        background: var(--red);
+        border-color: var(--red);
+      }
+
+      .deal-action:disabled {
+        cursor: not-allowed;
+        opacity: 0.42;
+      }
+
+      .valuation-editor {
+        display: grid;
+        gap: 7px;
+        min-width: 170px;
+      }
+
+      .valuation-range {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+
+      .valuation-range input {
+        width: 100%;
+        min-height: 34px;
+        padding: 0 8px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .valuation-editor small,
+      .closing-price small {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .closing-price {
+        display: grid;
+        gap: 4px;
+        min-width: 130px;
+      }
+
+      .closing-price strong {
+        font-size: 16px;
+      }
+
+      .lead-name small,
+      .subtle {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 0 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 850;
+        background: #ece8df;
+        color: #46433f;
+      }
+
+      .pill.good {
+        background: #e4efe8;
+        color: #24513c;
+      }
+
+      .pill.hold {
+        background: #efe7da;
+        color: #6d4e28;
+      }
+
+      .pill.blocked {
+        background: #f4e7d9;
+        color: #7a3d0e;
+      }
+
+      .pill.danger {
+        background: #f7dfe2;
+        color: #87202b;
+      }
+
+      .pill.info {
+        background: #e4ebf1;
+        color: #21394c;
+      }
+
+      .detail {
+        position: sticky;
+        top: 18px;
+        overflow: hidden;
+      }
+
+      .detail-head {
+        display: grid;
+        gap: 6px;
+        padding: 18px;
+        background: var(--selected-dark);
+        color: #fff;
+      }
+
+      .detail-head h2 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      .detail-body {
+        display: grid;
+        gap: 14px;
+        padding: 16px;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .mini {
+        padding: 12px;
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .mini small {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .mini strong {
+        display: block;
+        margin-top: 5px;
+      }
+
+      .bot-note {
+        padding: 12px;
+        background: #f8f3e9;
+        border: 1px solid #ead8b9;
+        border-radius: 8px;
+        line-height: 1.45;
+      }
+
+      .confirmed-note {
+        padding: 12px;
+        background: #e4efe8;
+        border: 1px solid rgba(79, 111, 94, 0.32);
+        border-radius: 8px;
+        color: #24513c;
+        line-height: 1.45;
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .photo-grid img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .budget-card {
+        display: grid;
+        gap: 16px;
+        padding: 18px;
+      }
+
+      .admin-rule-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        gap: 12px;
+      }
+
+      .admin-rule-field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .admin-rule-field label {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .admin-rule-note {
+        padding: 12px;
+        background: #f2eee7;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .budget-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(160px, 1fr));
+        gap: 12px;
+      }
+
+      .budget-field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .budget-field label {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .budget-summary {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 160px;
+        gap: 14px;
+        align-items: center;
+        padding: 14px;
+        background: #f2eee7;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .budget-summary strong {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .budget-value {
+        color: var(--selected-dark);
+        font-size: 26px;
+        font-weight: 900;
+        text-align: right;
+      }
+
+      .override {
+        display: grid;
+        gap: 10px;
+      }
+
+      .override-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .override-row .btn {
+        min-height: 48px;
+        white-space: normal;
+      }
+
+      .section {
+        display: none;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      .two-col {
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+        margin-top: 14px;
+      }
+
+      .panel-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .panel-title h2 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .list {
+        display: grid;
+        gap: 10px;
+        padding: 14px;
+      }
+
+      .chat-risk {
+        display: grid;
+        gap: 8px;
+        padding: 12px;
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .risk-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .bar {
+        height: 9px;
+        overflow: hidden;
+        background: #ece8df;
+        border-radius: 999px;
+      }
+
+      .bar span {
+        display: block;
+        height: 100%;
+        background: var(--red);
+      }
+
+      .token-chart {
+        display: grid;
+        gap: 11px;
+        padding: 18px;
+      }
+
+      .acquired-kpis {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        padding: 14px;
+      }
+
+      .acquired-kpi {
+        padding: 14px;
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .acquired-kpi span {
+        display: block;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .acquired-kpi strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 26px;
+      }
+
+      .chart-row {
+        display: grid;
+        grid-template-columns: 120px minmax(0, 1fr) 80px;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chart-track {
+        height: 12px;
+        background: #ece8df;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .chart-track span {
+        display: block;
+        height: 100%;
+        background: var(--selected);
+      }
+
+      .schema {
+        margin: 0;
+        padding: 16px;
+        overflow-x: auto;
+        color: #f8f6f0;
+        background: var(--selected-dark);
+        border-radius: 0 0 8px 8px;
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .empty {
+        padding: 30px 16px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 1360px) {
+        .workarea {
+          grid-template-columns: 1fr;
+        }
+
+        .detail {
+          position: static;
+        }
+      }
+
+      @media (max-width: 1180px) {
+        .nos-app {
+          grid-template-columns: 220px minmax(0, 1fr);
+        }
+
+        .sidebar {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          padding: 18px 12px;
+        }
+
+        .nav {
+          grid-template-columns: 1fr;
+        }
+
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 780px) {
+        .nos-app {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+          height: auto;
+        }
+
+        .topbar,
+        .panel-title,
+        .risk-top {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .actions {
+          justify-content: flex-start;
+        }
+
+        .stats,
+        .toolbar,
+        .nav,
+        .mini-grid,
+        .photo-grid,
+        .admin-rule-grid,
+        .budget-grid,
+        .budget-summary {
+          grid-template-columns: 1fr;
+        }
+
+        .budget-value {
+          text-align: left;
+        }
+
+        .main {
+          padding-inline: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nos-app">
+      <aside class="sidebar">
+        <div class="brand">
+          <strong>Carvallo NOS</strong>
+          <span>Negotiation Operating System</span>
+        </div>
+        <nav class="nav" aria-label="Sezioni dashboard">
+          <button class="active" type="button" data-section="leads">Leads</button>
+          <button type="button" data-section="pipeline">Pipeline</button>
+          <button type="button" data-section="acquisite">Auto acquisite</button>
+          <button type="button" data-section="bot">Impostazioni bot</button>
+          <button type="button" data-section="rischi">Chat arrabbiate</button>
+          <button type="button" data-section="token">Token & Supabase</button>
+        </nav>
+        <p class="side-label">Bot attivo</p>
+        <div class="side-metric">
+          <strong>87%</strong>
+          <span>lead gestiti senza intervento umano questa settimana</span>
+        </div>
+        <div class="side-metric">
+          <strong>120k km</strong>
+          <span>soglia automatica, con override manuale</span>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>Dashboard acquisizioni</h1>
+            <p>Vista unica per controllare lead in ingresso, valutazione veicolo, trattativa WhatsApp, blocchi automatici, eccezioni umane e costo del bot.</p>
+          </div>
+          <div class="actions">
+            <button class="btn stop" type="button" id="stopBotButton">STOP BOT</button>
+            <button class="btn" type="button" id="simulateLead">Simula lead</button>
+            <button class="btn dark" type="button">Esporta CSV</button>
+            <button class="btn primary" type="button">Apri WhatsApp queue</button>
+          </div>
+        </header>
+
+        <section class="grid stats" aria-label="Metriche principali">
+          <article class="card stat">
+            <span>Lead totali</span>
+            <strong id="statTotal">0</strong>
+            <small>in questa vista</small>
+          </article>
+          <article class="card stat">
+            <span>Buon fine</span>
+            <strong id="statWon">0</strong>
+            <small>prezzo accettato</small>
+          </article>
+          <article class="card stat warning">
+            <span>Fuori range</span>
+            <strong id="statBlocked">0</strong>
+            <small>km o distanza</small>
+          </article>
+          <article class="card stat warning">
+            <span>Deal on hold</span>
+            <strong id="statHold">0</strong>
+            <small>da approvare</small>
+          </article>
+          <article class="card stat danger">
+            <span>Rischio recensione</span>
+            <strong id="statAngry">0</strong>
+            <small>intervento consigliato</small>
+          </article>
+          <article class="card stat">
+            <span>Token stimati</span>
+            <strong id="statTokens">0</strong>
+            <small>oggi</small>
+          </article>
+        </section>
+
+        <section class="section active" id="section-leads">
+          <div class="grid workarea">
+            <article class="card">
+              <div class="toolbar" aria-label="Filtri lead">
+                <input class="search" id="search" type="search" placeholder="Cerca nome, marca, modello o localita">
+                <select id="regionFilter" aria-label="Regione">
+                  <option value="">Tutte le regioni</option>
+                </select>
+                <select id="fuelFilter" aria-label="Alimentazione">
+                  <option value="">Tutte alimentazioni</option>
+                </select>
+                <select id="statusFilter" aria-label="Stato">
+                  <option value="">Tutti gli stati</option>
+                </select>
+                <select id="yearFilter" aria-label="Anno minimo">
+                  <option value="">Da qualsiasi anno</option>
+                  <option value="2022">Dal 2022</option>
+                  <option value="2020">Dal 2020</option>
+                  <option value="2018">Dal 2018</option>
+                  <option value="2015">Dal 2015</option>
+                </select>
+                <select id="mileageFilter" aria-label="Chilometri">
+                  <option value="">Qualsiasi km</option>
+                  <option value="60000">Fino a 60.000 km</option>
+                  <option value="120000">Fino a 120.000 km</option>
+                  <option value="over120000">Oltre 120.000 km</option>
+                </select>
+              </div>
+              <div class="tabs" aria-label="Categorie rapide">
+                <button class="tab active" type="button" data-quick="all">Tutti</button>
+                <button class="tab" type="button" data-quick="won">Buon fine</button>
+                <button class="tab" type="button" data-quick="hold">Deal on hold</button>
+                <button class="tab" type="button" data-quick="km">Oltre 120k km</button>
+                <button class="tab" type="button" data-quick="distance">Fuori raggio</button>
+                <button class="tab" type="button" data-quick="price">Prezzo non raggiunto</button>
+                <button class="tab" type="button" data-quick="angry">Arrabbiati</button>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Auto</th>
+                      <th>Dettagli</th>
+                      <th>Stato</th>
+                      <th>Azioni deal</th>
+                      <th>Valutazione bot</th>
+                      <th>Prezzo chiusura</th>
+                      <th>Lead</th>
+                      <th>Telefono</th>
+                      <th>Km</th>
+                      <th>Anno</th>
+                      <th>Alimentazione</th>
+                      <th>Localita</th>
+                    </tr>
+                  </thead>
+                  <tbody id="leadRows"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <aside class="card detail" id="detailPanel" aria-label="Dettaglio lead">
+              <div class="detail-head">
+                <span class="pill info" id="detailStatus">Lead</span>
+                <h2 id="detailTitle">Seleziona un lead</h2>
+                <span id="detailSubtitle">I dettagli compariranno qui.</span>
+              </div>
+              <div class="detail-body" id="detailBody"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="section" id="section-pipeline">
+          <div class="grid two-col">
+            <article class="card">
+              <div class="panel-title">
+                <h2>Pipeline negoziazioni</h2>
+                <span class="pill info">aggiornata in tempo reale</span>
+              </div>
+              <div class="list" id="pipelineList"></div>
+            </article>
+            <article class="card">
+              <div class="panel-title">
+                <h2>Regole automatiche</h2>
+                <span class="pill hold">solo admin</span>
+              </div>
+              <div class="list">
+                <div class="chat-risk">
+                  <strong>Blocca sopra 120.000 km</strong>
+                  <span class="subtle">Il bot non apre trattativa, ma crea task umano con pulsante override.</span>
+                </div>
+                <div class="chat-risk">
+                  <strong>Blocca fuori raggio operativo</strong>
+                  <span class="subtle">Default 180 km da base. Auto interessanti possono essere sbloccate manualmente.</span>
+                </div>
+                <div class="chat-risk">
+                  <strong>Ferma se sentiment negativo</strong>
+                  <span class="subtle">Se il cliente e' arrabbiato, il bot smette di insistere e chiede intervento umano.</span>
+                </div>
+                <div class="chat-risk">
+                  <strong>Prezzo opzionale umano</strong>
+                  <span class="subtle">L'operatore puo' impostare una cifra massima e riavviare la negoziazione.</span>
+                </div>
+                <div class="admin-rule-note">
+                  Account admin: modifica le regole operative del bot senza collegare questa demo ai financials generali.
+                </div>
+                <div class="admin-rule-grid">
+                  <div class="admin-rule-field">
+                    <label for="ruleKm">Soglia km automatica</label>
+                    <input id="ruleKm" type="number" min="0" step="1000" value="120000">
+                  </div>
+                  <div class="admin-rule-field">
+                    <label for="ruleRadius">Raggio operativo km</label>
+                    <input id="ruleRadius" type="number" min="0" step="10" value="180">
+                  </div>
+                  <div class="admin-rule-field">
+                    <label for="ruleSentiment">Stop sentiment sopra</label>
+                    <input id="ruleSentiment" type="number" min="0" max="100" step="1" value="70">
+                  </div>
+                  <div class="admin-rule-field">
+                    <label for="ruleHoldPrice">Hold se deal sopra</label>
+                    <input id="ruleHoldPrice" type="number" min="0" step="500" value="18000">
+                  </div>
+                  <div class="admin-rule-field">
+                    <label for="ruleMaxRetry">Tentativi negoziazione</label>
+                    <input id="ruleMaxRetry" type="number" min="1" max="10" step="1" value="3">
+                  </div>
+                  <div class="admin-rule-field">
+                    <label for="ruleMode">Modalita bot</label>
+                    <select id="ruleMode">
+                      <option value="conservative" selected>Conservativa</option>
+                      <option value="balanced">Bilanciata</option>
+                      <option value="aggressive">Aggressiva</option>
+                    </select>
+                  </div>
+                </div>
+                <button class="btn primary" type="button" id="saveRulesButton">Salva regole automatiche</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="section-acquisite">
+          <article class="card">
+            <div class="panel-title">
+              <h2>Auto acquisite</h2>
+              <span class="pill good">commerciale stimato</span>
+            </div>
+            <div class="grid acquired-kpis">
+              <div class="acquired-kpi">
+                <span>Auto acquisite</span>
+                <strong id="acquiredCount">0</strong>
+              </div>
+              <div class="acquired-kpi">
+                <span>Profitto totale stimato</span>
+                <strong id="acquiredProfit">0 euro</strong>
+              </div>
+              <div class="acquired-kpi">
+                <span>Costo acquisto stimato</span>
+                <strong id="acquiredCost">0 euro</strong>
+              </div>
+              <div class="acquired-kpi">
+                <span>Ricavo vendita stimato</span>
+                <strong id="acquiredRevenue">0 euro</strong>
+              </div>
+            </div>
+            <div class="toolbar" aria-label="Filtri auto acquisite">
+              <input class="search" id="acquiredSearch" type="search" placeholder="Cerca marca, modello o localita">
+              <select id="acquiredMonthFilter" aria-label="Mese acquisizione">
+                <option value="">Tutti i mesi</option>
+              </select>
+              <select id="acquiredMakeFilter" aria-label="Marca acquisita">
+                <option value="">Tutte le marche</option>
+              </select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Data acquisizione</th>
+                    <th>Auto</th>
+                    <th>Marca</th>
+                    <th>Localita</th>
+                    <th>Prezzo acquisto</th>
+                    <th>Costo stimato</th>
+                    <th>Ricavo stimato</th>
+                    <th>Profitto stimato</th>
+                    <th>Stato</th>
+                  </tr>
+                </thead>
+                <tbody id="acquiredRows"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="section" id="section-bot">
+          <div class="grid two-col">
+            <article class="card budget-card">
+              <div class="panel-title">
+                <h2>Budget acquisto bot</h2>
+                <span class="pill hold">settore acquisti</span>
+              </div>
+              <div class="budget-grid">
+                <div class="budget-field">
+                  <label for="totalBudget">Budget totale disponibile</label>
+                  <input id="totalBudget" type="number" min="0" step="1000" value="220000">
+                </div>
+                <div class="budget-field">
+                  <label for="maxDealBudget">Massimo per singola auto</label>
+                  <input id="maxDealBudget" type="number" min="0" step="500" value="28000">
+                </div>
+                <div class="budget-field">
+                  <label for="preferredSegment">Priorita bot</label>
+                  <select id="preferredSegment">
+                    <option value="small">Auto piccole e rotazione veloce</option>
+                    <option value="balanced" selected>Mix bilanciato</option>
+                    <option value="premium">Auto premium selezionate</option>
+                  </select>
+                </div>
+              </div>
+              <div class="budget-summary">
+                <div>
+                  <strong id="budgetStrategy">Strategia bilanciata</strong>
+                  <span class="subtle" id="budgetCopy">Il bot puo' trattare utilitarie, compatte e qualche auto piu importante se margine e distanza sono buoni.</span>
+                </div>
+                <div class="budget-value" id="budgetValue">220.000 euro</div>
+              </div>
+              <button class="btn primary" type="button" id="saveBotSettings">Salva impostazioni bot</button>
+            </article>
+            <article class="card">
+              <div class="panel-title">
+                <h2>Effetto sulla negoziazione</h2>
+              </div>
+              <div class="list">
+                <div class="chat-risk">
+                  <strong>Budget basso</strong>
+                  <span class="subtle">Il bot privilegia citycar, utilitarie, benzina/GPL/ibrido e trattative rapide.</span>
+                </div>
+                <div class="chat-risk">
+                  <strong>Budget medio</strong>
+                  <span class="subtle">Il bot bilancia rotazione e valore, senza saturare cassa su pochi veicoli.</span>
+                </div>
+                <div class="chat-risk">
+                  <strong>Budget alto</strong>
+                  <span class="subtle">Il bot puo' spingere su SUV, premium e auto piu grandi, ma manda in hold prima della conferma finale.</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="section-rischi">
+          <div class="grid two-col">
+            <article class="card">
+              <div class="panel-title">
+                <h2>Chat con rischio recensione negativa</h2>
+                <span class="pill danger">priorita umana</span>
+              </div>
+              <div class="list" id="angryList"></div>
+            </article>
+            <article class="card">
+              <div class="panel-title">
+                <h2>Azioni consigliate</h2>
+              </div>
+              <div class="list">
+                <button class="btn primary" type="button">Assegna a operatore</button>
+                <button class="btn" type="button">Invia messaggio di scuse</button>
+                <button class="btn" type="button">Ferma automazione 24h</button>
+                <button class="btn" type="button">Segna come risolta</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="section-token">
+          <div class="grid two-col">
+            <article class="card">
+              <div class="panel-title">
+                <h2>Consumo token per fase</h2>
+                <span class="pill info" id="tokenTotal">0 token oggi</span>
+              </div>
+              <div class="token-chart" id="tokenChart"></div>
+            </article>
+            <article class="card">
+              <div class="panel-title">
+                <h2>Struttura Supabase suggerita</h2>
+                <span class="pill good">pronta da implementare</span>
+              </div>
+              <pre class="schema">tables:
+  nos_leads:
+    lead, telefono, veicolo, regione, distanza_km
+    stato_pipeline, motivo_blocco, sentiment
+    bot_summary, valutazione_bot_min, valutazione_bot_max
+    prezzo_target, prezzo_chiusura, prezzo_accettato
+    token_input, token_output, created_at, updated_at
+
+  nos_events:
+    lead_id, canale, messaggio, autore
+    intent, sentiment_score, tokens, created_at
+
+  nos_human_overrides:
+    lead_id, operatore, azione, prezzo_opzionale
+    note, created_at
+
+  nos_bot_settings:
+    budget_totale, budget_singola_auto, priorita_segmento
+    soglia_km, raggio_km, updated_by, updated_at
+
+  nos_automation_rules:
+    km_limit, operating_radius_km, sentiment_stop_score
+    hold_above_price, negotiation_attempts, mode
+    admin_user_id, updated_at
+
+  nos_acquired_cars:
+    acquired_at, make, model, city, region
+    purchase_price, prep_cost, expected_revenue
+    estimated_profit, status, created_at</pre>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const leads = [
+        {
+          id: "L-1048",
+          name: "Marco Rinaldi",
+          phone: "+39 347 118 9021",
+          make: "Toyota",
+          model: "Yaris Hybrid",
+          year: 2021,
+          mileage: 63000,
+          fuel: "Ibrido",
+          region: "Lombardia",
+          city: "Milano",
+          distance: 22,
+          status: "Buon fine",
+          statusType: "good",
+          quick: "won",
+          valuation: "11.800 - 12.600 euro",
+          targetPrice: 12200,
+          askPrice: 12900,
+          finalPrice: 12400,
+          sentiment: 12,
+          tokens: { intake: 1800, valuation: 2600, whatsapp: 6100, sentiment: 900 },
+          photos: [
+            "assets/cars/fiat-panda/fiat-panda-01.jpg",
+            "assets/cars/fiat-panda/fiat-panda-04.jpg",
+            "assets/cars/fiat-panda/fiat-panda-05.jpg"
+          ],
+          bot: "Il bot ha validato chilometri, storico tagliandi e prezzo. Cliente disponibile a portare l'auto in sede sabato.",
+          lastMessage: "Va bene, se mi confermate 12.400 euro posso passare sabato mattina."
+        },
+        {
+          id: "L-1049",
+          name: "Elena Bianchi",
+          phone: "+39 338 604 9920",
+          make: "Audi",
+          model: "A3 Sportback",
+          year: 2020,
+          mileage: 69000,
+          fuel: "Benzina",
+          region: "Lombardia",
+          city: "Bergamo",
+          distance: 54,
+          status: "Deal on hold",
+          statusType: "hold",
+          quick: "hold",
+          valuation: "17.800 - 18.700 euro",
+          targetPrice: 18200,
+          askPrice: 19900,
+          finalPrice: 18400,
+          sentiment: 16,
+          tokens: { intake: 1700, valuation: 2900, whatsapp: 6900, sentiment: 750 },
+          photos: [
+            "assets/cars/jeep-compass/jeep-compass-01.jpg",
+            "assets/cars/jeep-compass/jeep-compass-03.jpg",
+            "assets/cars/jeep-compass/jeep-compass-05.jpg"
+          ],
+          bot: "Il cliente ha accettato un prezzo dentro range. Serve approvazione umana prima di confermare appuntamento e passare alla fase documenti.",
+          lastMessage: "Se mi confermate 18.400 euro possiamo chiuderla oggi."
+        },
+        {
+          id: "L-1047",
+          name: "Giulia Ferri",
+          phone: "+39 333 771 2248",
+          make: "Volkswagen",
+          model: "Golf 1.6 TDI",
+          year: 2018,
+          mileage: 146000,
+          fuel: "Diesel",
+          region: "Piemonte",
+          city: "Torino",
+          distance: 142,
+          status: "Bloccata km",
+          statusType: "blocked",
+          quick: "km",
+          valuation: "fuori policy",
+          targetPrice: null,
+          askPrice: 11600,
+          finalPrice: null,
+          sentiment: 34,
+          tokens: { intake: 1500, valuation: 1200, whatsapp: 800, sentiment: 500 },
+          photos: [
+            "assets/cars/ford-fiesta/ford-fiesta-01.jpg",
+            "assets/cars/ford-fiesta/ford-fiesta-03.jpg",
+            "assets/cars/ford-fiesta/ford-fiesta-05.jpg"
+          ],
+          bot: "Auto sopra 120.000 km. Il bot ha fermato la negoziazione e attende approvazione umana.",
+          lastMessage: "Capisco, pero' l'auto e' sempre stata tagliandata in Volkswagen."
+        },
+        {
+          id: "L-1046",
+          name: "Andrea Moretti",
+          phone: "+39 349 450 7801",
+          make: "Fiat",
+          model: "500X",
+          year: 2020,
+          mileage: 78000,
+          fuel: "Benzina",
+          region: "Lazio",
+          city: "Roma",
+          distance: 517,
+          status: "Fuori raggio",
+          statusType: "blocked",
+          quick: "distance",
+          valuation: "10.200 - 11.000 euro",
+          targetPrice: 10500,
+          askPrice: 11200,
+          finalPrice: null,
+          sentiment: 21,
+          tokens: { intake: 1700, valuation: 2500, whatsapp: 2400, sentiment: 700 },
+          photos: [
+            "assets/cars/jeep-compass/jeep-compass-01.jpg",
+            "assets/cars/jeep-compass/jeep-compass-07.jpg",
+            "assets/cars/jeep-compass/jeep-compass-03.jpg"
+          ],
+          bot: "Veicolo interessante ma troppo lontano dal raggio operativo standard. Da valutare trasferta se prezzo scende.",
+          lastMessage: "Posso fare videochiamata e mandarvi tutti i documenti."
+        },
+        {
+          id: "L-1045",
+          name: "Sara Conti",
+          phone: "+39 320 894 5120",
+          make: "Renault",
+          model: "Clio GPL",
+          year: 2019,
+          mileage: 85000,
+          fuel: "GPL",
+          region: "Emilia-Romagna",
+          city: "Bologna",
+          distance: 206,
+          status: "Prezzo non raggiunto",
+          statusType: "danger",
+          quick: "price",
+          valuation: "7.300 - 7.900 euro",
+          targetPrice: 7600,
+          askPrice: 9800,
+          finalPrice: null,
+          sentiment: 58,
+          tokens: { intake: 1600, valuation: 2200, whatsapp: 8200, sentiment: 1200 },
+          photos: [
+            "assets/cars/fiat-panda/fiat-panda-08.jpg",
+            "assets/cars/fiat-panda/fiat-panda-04.jpg",
+            "assets/cars/fiat-panda/fiat-panda-01.jpg"
+          ],
+          bot: "La trattativa si e' fermata: richiesta troppo alta rispetto al prezzo massimo impostato.",
+          lastMessage: "A quel prezzo non la vendo, mi sembra una proposta troppo bassa."
+        },
+        {
+          id: "L-1044",
+          name: "Luca Esposito",
+          phone: "+39 366 093 4408",
+          make: "Jeep",
+          model: "Compass",
+          year: 2022,
+          mileage: 41000,
+          fuel: "Diesel",
+          region: "Veneto",
+          city: "Verona",
+          distance: 84,
+          status: "In negoziazione",
+          statusType: "info",
+          quick: "active",
+          valuation: "18.500 - 19.700 euro",
+          targetPrice: 19100,
+          askPrice: 20500,
+          finalPrice: null,
+          sentiment: 18,
+          tokens: { intake: 1900, valuation: 3100, whatsapp: 4700, sentiment: 850 },
+          photos: [
+            "assets/cars/jeep-compass/jeep-compass-01.jpg",
+            "assets/cars/jeep-compass/jeep-compass-05.jpg",
+            "assets/cars/jeep-compass/jeep-compass-07.jpg"
+          ],
+          bot: "Il bot ha chiesto foto libretto, stato gomme e disponibilita per visione.",
+          lastMessage: "Mandatemi una proposta seria e vi giro tutto oggi."
+        },
+        {
+          id: "L-1043",
+          name: "Paolo De Luca",
+          phone: "+39 351 209 6671",
+          make: "BMW",
+          model: "Serie 1",
+          year: 2017,
+          mileage: 119000,
+          fuel: "Diesel",
+          region: "Liguria",
+          city: "Genova",
+          distance: 187,
+          status: "Arrabbiato",
+          statusType: "danger",
+          quick: "angry",
+          valuation: "12.000 - 12.900 euro",
+          targetPrice: 12300,
+          askPrice: 14300,
+          finalPrice: null,
+          sentiment: 87,
+          tokens: { intake: 1800, valuation: 2700, whatsapp: 9300, sentiment: 1600 },
+          photos: [
+            "assets/cars/ford-fiesta/ford-fiesta-07.jpg",
+            "assets/cars/ford-fiesta/ford-fiesta-05.jpg",
+            "assets/cars/ford-fiesta/ford-fiesta-01.jpg"
+          ],
+          bot: "Sentiment negativo alto. Il cliente percepisce la proposta come aggressiva: consigliato stop bot.",
+          lastMessage: "Mi state facendo perdere tempo, questa offerta e' ridicola."
+        }
+      ];
+
+      const state = {
+        section: "leads",
+        quick: "all",
+        selectedId: leads[0].id,
+        botStopped: false
+      };
+
+      const acquiredCars = [
+        {
+          date: "2026-06-12",
+          make: "Toyota",
+          model: "Yaris Hybrid",
+          city: "Milano",
+          region: "Lombardia",
+          purchasePrice: 12400,
+          prepCost: 900,
+          expectedRevenue: 16200,
+          status: "In preparazione"
+        },
+        {
+          date: "2026-06-16",
+          make: "Audi",
+          model: "A3 Sportback",
+          city: "Bergamo",
+          region: "Lombardia",
+          purchasePrice: 18400,
+          prepCost: 1200,
+          expectedRevenue: 22200,
+          status: "Documenti"
+        },
+        {
+          date: "2026-05-28",
+          make: "Jeep",
+          model: "Compass",
+          city: "Verona",
+          region: "Veneto",
+          purchasePrice: 19100,
+          prepCost: 1400,
+          expectedRevenue: 23900,
+          status: "Pronta vendita"
+        }
+      ];
+
+      const qs = (selector) => document.querySelector(selector);
+      const qsa = (selector) => [...document.querySelectorAll(selector)];
+      const formatKm = (value) => `${value.toLocaleString("it-IT")} km`;
+      const formatToken = (value) => value.toLocaleString("it-IT");
+      const formatEuro = (value) => value ? `${Number(value).toLocaleString("it-IT")} euro` : "Non definito";
+      const formatMonth = (value) => new Date(`${value}-01T00:00:00`).toLocaleDateString("it-IT", { month: "long", year: "numeric" });
+      const formatDate = (value) => new Date(`${value}T00:00:00`).toLocaleDateString("it-IT", { day: "2-digit", month: "short", year: "numeric" });
+      const estimateDriveMinutes = (km) => Math.max(12, Math.round((km / 72) * 60 + 8));
+      const formatDriveTime = (km) => {
+        const minutes = estimateDriveMinutes(km);
+        const hours = Math.floor(minutes / 60);
+        const rest = minutes % 60;
+        return hours ? `${hours}h ${String(rest).padStart(2, "0")} min` : `${minutes} min`;
+      };
+
+      function valuationParts(lead) {
+        if (lead.valuationMin || lead.valuationMax) {
+          return { min: lead.valuationMin || "", max: lead.valuationMax || "" };
+        }
+
+        const numbers = String(lead.valuation || "").match(/\d[\d.]*/g) || [];
+        const parsed = numbers.map((value) => Number(value.replace(/\./g, ""))).filter(Boolean);
+        return {
+          min: parsed[0] || "",
+          max: parsed[1] || parsed[0] || ""
+        };
+      }
+
+      function valuationLabel(lead) {
+        const parts = valuationParts(lead);
+        if (!parts.min && !parts.max) return lead.valuation || "Da valutare";
+        if (parts.min && parts.max && parts.min !== parts.max) return `${formatEuro(parts.min)} - ${formatEuro(parts.max)}`;
+        return formatEuro(parts.min || parts.max);
+      }
+
+      function statusPill(lead) {
+        return `<span class="pill ${lead.statusType}">${lead.status}</span>`;
+      }
+
+      function holdWarning(lead) {
+        return lead.quick === "hold" ? `<span class="hold-warning">⚠️ Richiede approvazione</span>` : "";
+      }
+
+      function dealActions(lead) {
+        const disabled = lead.quick !== "hold" ? "disabled" : "";
+        return `
+          <div class="deal-actions" data-id="${lead.id}">
+            <button class="deal-action confirm" type="button" data-action="confirm" ${disabled}>Conferma deal</button>
+            <button class="deal-action reject" type="button" data-action="reject" ${disabled}>Rigetta deal</button>
+            <button class="deal-action" type="button" data-action="human" ${disabled}>Intervento umano</button>
+          </div>
+        `;
+      }
+
+      function valuationEditor(lead) {
+        const parts = valuationParts(lead);
+        return `
+          <div class="valuation-editor" data-valuation-id="${lead.id}">
+            <small>Range bot</small>
+            <div class="valuation-range">
+              <input type="number" min="0" step="100" value="${parts.min}" aria-label="Valutazione minima bot">
+              <input type="number" min="0" step="100" value="${parts.max}" aria-label="Valutazione massima bot">
+            </div>
+          </div>
+        `;
+      }
+
+      function closingPrice(lead) {
+        const value = lead.finalPrice || lead.targetPrice;
+        const label = lead.finalPrice ? "Chiusura" : lead.targetPrice ? "Target" : "Attesa";
+        return `<span class="closing-price"><small>${label}</small><strong>${formatEuro(value)}</strong></span>`;
+      }
+
+      function detailActionBlock(lead) {
+        if (lead.quick === "won") {
+          return `
+            <div class="confirmed-note">
+              <strong>Deal confermato</strong><br>
+              Prezzo chiusura registrato. Il bot non deve proporre un nuovo prezzo su questa trattativa.
+            </div>
+          `;
+        }
+
+        return `
+          <div class="override">
+            <label class="subtle" for="manualPrice">Prezzo opzionale per eccezione umana</label>
+            <div class="override-row">
+              <input id="manualPrice" type="number" min="0" step="100" placeholder="es. 10500">
+              <button class="btn primary" type="button" id="overrideButton">Fai comunque negoziazione</button>
+            </div>
+            <button class="btn" type="button">Ferma bot e passa a umano</button>
+          </div>
+        `;
+      }
+
+      function filteredLeads() {
+        const search = qs("#search").value.trim().toLowerCase();
+        const region = qs("#regionFilter").value;
+        const fuel = qs("#fuelFilter").value;
+        const status = qs("#statusFilter").value;
+        const year = Number(qs("#yearFilter").value || 0);
+        const mileage = qs("#mileageFilter").value;
+
+        return leads.filter((lead) => {
+          const haystack = `${lead.name} ${lead.make} ${lead.model} ${lead.city} ${lead.region}`.toLowerCase();
+          const quickMatch = state.quick === "all" || lead.quick === state.quick;
+          const mileageMatch = !mileage
+            || (mileage === "over120000" ? lead.mileage > 120000 : lead.mileage <= Number(mileage));
+          return quickMatch
+            && (!search || haystack.includes(search))
+            && (!region || lead.region === region)
+            && (!fuel || lead.fuel === fuel)
+            && (!status || lead.status === status)
+            && (!year || lead.year >= year)
+            && mileageMatch;
+        });
+      }
+
+      function renderFilters() {
+        const unique = (key) => [...new Set(leads.map((lead) => lead[key]))].sort();
+        qs("#regionFilter").innerHTML += unique("region").map((value) => `<option>${value}</option>`).join("");
+        qs("#fuelFilter").innerHTML += unique("fuel").map((value) => `<option>${value}</option>`).join("");
+        qs("#statusFilter").innerHTML += unique("status").map((value) => `<option>${value}</option>`).join("");
+      }
+
+      function renderAcquiredFilters() {
+        const months = [...new Set(acquiredCars.map((car) => car.date.slice(0, 7)))].sort().reverse();
+        const makes = [...new Set(acquiredCars.map((car) => car.make))].sort();
+        qs("#acquiredMonthFilter").innerHTML += months.map((month) => `<option value="${month}">${formatMonth(month)}</option>`).join("");
+        qs("#acquiredMakeFilter").innerHTML += makes.map((make) => `<option>${make}</option>`).join("");
+      }
+
+      function renderStats() {
+        const totalTokens = leads.reduce((sum, lead) => {
+          return sum + Object.values(lead.tokens).reduce((part, value) => part + value, 0);
+        }, 0);
+
+        qs("#statTotal").textContent = leads.length;
+        qs("#statWon").textContent = leads.filter((lead) => lead.quick === "won").length;
+        qs("#statBlocked").textContent = leads.filter((lead) => lead.quick === "km" || lead.quick === "distance").length;
+        qs("#statHold").textContent = leads.filter((lead) => lead.quick === "hold").length;
+        qs("#statAngry").textContent = leads.filter((lead) => lead.sentiment >= 70).length;
+        qs("#statTokens").textContent = formatToken(totalTokens);
+        qs("#tokenTotal").textContent = `${formatToken(totalTokens)} token oggi`;
+      }
+
+      function renderRows() {
+        const rows = filteredLeads();
+        const selectedStillVisible = rows.some((lead) => lead.id === state.selectedId);
+        if (!selectedStillVisible && rows[0]) state.selectedId = rows[0].id;
+
+        qs("#leadRows").innerHTML = rows.length
+          ? rows.map((lead) => `
+              <tr class="${lead.id === state.selectedId ? "selected" : ""}" data-id="${lead.id}">
+                <td>
+                  <span class="car-cell">
+                    <strong>${lead.make} ${lead.model}</strong>
+                    <span class="subtle">Richiesta ${lead.askPrice.toLocaleString("it-IT")} euro</span>
+                  </span>
+                </td>
+                <td><button class="details-btn" type="button" data-detail-id="${lead.id}">Vedi foto e informazioni</button></td>
+                <td>${statusPill(lead)}${holdWarning(lead)}</td>
+                <td>${dealActions(lead)}</td>
+                <td>${valuationEditor(lead)}</td>
+                <td>${closingPrice(lead)}</td>
+                <td><span class="lead-name">${lead.name}<small>${lead.id}</small></span></td>
+                <td>${lead.phone}</td>
+                <td>${formatKm(lead.mileage)}</td>
+                <td>${lead.year}</td>
+                <td>${lead.fuel}</td>
+                <td>${lead.city}<br><span class="subtle">${lead.region} · ${lead.distance} km · ${formatDriveTime(lead.distance)} da Busto Arsizio</span></td>
+              </tr>
+            `).join("")
+          : `<tr><td colspan="12"><div class="empty">Nessun lead con questi filtri.</div></td></tr>`;
+
+        qsa("[data-detail-id]").forEach((button) => {
+          button.addEventListener("click", () => {
+            state.selectedId = button.dataset.detailId;
+            renderRows();
+            renderDetail();
+            qs("#detailPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
+
+        qsa(".deal-actions button").forEach((button) => {
+          button.addEventListener("click", () => {
+            if (button.disabled) return;
+            handleDealAction(button.closest(".deal-actions").dataset.id, button.dataset.action);
+          });
+        });
+
+        qsa("[data-valuation-id]").forEach((editor) => {
+          const inputs = [...editor.querySelectorAll("input")];
+          const updateValuation = () => {
+              const lead = leads.find((item) => item.id === editor.dataset.valuationId);
+              if (!lead) return;
+              lead.valuationMin = Number(inputs[0].value || 0) || "";
+              lead.valuationMax = Number(inputs[1].value || 0) || "";
+              lead.valuation = valuationLabel(lead);
+              if (lead.id === state.selectedId) renderDetail();
+          };
+          inputs.forEach((input) => {
+            input.addEventListener("input", updateValuation);
+            input.addEventListener("change", updateValuation);
+          });
+        });
+
+        renderDetail();
+      }
+
+      function handleDealAction(id, action) {
+        const lead = leads.find((item) => item.id === id);
+        if (!lead) return;
+
+        const consequences = {
+          confirm: {
+            status: "Buon fine",
+            statusType: "good",
+            quick: "won",
+            message: "Deal confermato: il bot puo' passare a documenti, appuntamento e logistica."
+          },
+          reject: {
+            status: "Rigettato",
+            statusType: "danger",
+            quick: "price",
+            message: "Deal rigettato: il bot chiude educatamente la trattativa e salva il motivo."
+          },
+          human: {
+            status: "Intervento umano",
+            statusType: "info",
+            quick: "active",
+            message: "Intervento umano richiesto: il bot si ferma e passa la chat a un operatore."
+          }
+        };
+
+        const next = consequences[action];
+        lead.status = next.status;
+        lead.statusType = next.statusType;
+        lead.quick = next.quick;
+        lead.bot = `${next.message} ${lead.bot}`;
+        state.selectedId = lead.id;
+        renderStats();
+        renderRows();
+        renderPipeline();
+        alert(next.message);
+      }
+
+      function renderDetail() {
+        const lead = leads.find((item) => item.id === state.selectedId);
+        if (!lead) {
+          qs("#detailTitle").textContent = "Nessun lead";
+          qs("#detailSubtitle").textContent = "Modifica i filtri per vedere altri risultati.";
+          qs("#detailBody").innerHTML = "";
+          return;
+        }
+
+        qs("#detailStatus").className = `pill ${lead.statusType}`;
+        qs("#detailStatus").textContent = lead.status;
+        qs("#detailTitle").textContent = `${lead.make} ${lead.model}`;
+        qs("#detailSubtitle").textContent = `${lead.name} · ${lead.phone} · ${lead.city}, ${lead.region}`;
+        qs("#detailBody").innerHTML = `
+          <div class="photo-grid">
+            ${lead.photos.map((src, index) => `<img src="${src}" alt="${lead.make} ${lead.model} foto ${index + 1}">`).join("")}
+          </div>
+          <div class="mini-grid">
+            <div class="mini"><small>Telefono</small><strong>${lead.phone}</strong></div>
+            <div class="mini"><small>Km</small><strong>${formatKm(lead.mileage)}</strong></div>
+            <div class="mini"><small>Anno</small><strong>${lead.year}</strong></div>
+            <div class="mini"><small>Fuel</small><strong>${lead.fuel}</strong></div>
+            <div class="mini"><small>Distanza</small><strong>${lead.distance} km</strong></div>
+            <div class="mini"><small>Tempo auto</small><strong>${formatDriveTime(lead.distance)}</strong><span class="subtle">da Busto Arsizio</span></div>
+            <div class="mini"><small>Localita</small><strong>${lead.city}, ${lead.region}</strong></div>
+            <div class="mini"><small>Valutazione bot</small><strong>${valuationLabel(lead)}</strong></div>
+            <div class="mini"><small>Prezzo target</small><strong>${formatEuro(lead.targetPrice)}</strong></div>
+            <div class="mini"><small>Prezzo chiusura</small><strong>${lead.finalPrice ? formatEuro(lead.finalPrice) : "Non ancora"}</strong></div>
+            <div class="mini"><small>Sentiment</small><strong>${lead.sentiment}/100</strong></div>
+          </div>
+          <div class="bot-note"><strong>Riassunto bot</strong><br>${lead.bot}</div>
+          <div class="bot-note"><strong>Ultimo WhatsApp</strong><br>${lead.lastMessage}</div>
+          ${detailActionBlock(lead)}
+        `;
+
+        const overrideButton = qs("#overrideButton");
+        if (overrideButton) {
+          overrideButton.addEventListener("click", () => {
+            const price = qs("#manualPrice").value;
+            const suffix = price ? ` con prezzo massimo ${Number(price).toLocaleString("it-IT")} euro` : "";
+            alert(`Override registrato per ${lead.id}${suffix}. Il bot puo' riprendere la negoziazione.`);
+          });
+        }
+      }
+
+      function renderPipeline() {
+        const groups = [
+          ["Buon fine", leads.filter((lead) => lead.quick === "won")],
+          ["Deal on hold", leads.filter((lead) => lead.quick === "hold")],
+          ["Bloccate in partenza", leads.filter((lead) => lead.quick === "km" || lead.quick === "distance")],
+          ["Prezzo non raggiunto", leads.filter((lead) => lead.quick === "price")],
+          ["In trattativa", leads.filter((lead) => lead.quick === "active")]
+        ];
+
+        qs("#pipelineList").innerHTML = groups.map(([name, items]) => `
+          <div class="chat-risk">
+            <div class="risk-top">
+              <strong>${name}</strong>
+              <span class="pill info">${items.length}</span>
+            </div>
+            <span class="subtle">${items.map((lead) => `${lead.make} ${lead.model} · ${lead.city} · ${lead.phone}`).join("<br>") || "Nessun veicolo in questa categoria"}</span>
+          </div>
+        `).join("");
+      }
+
+      function filteredAcquiredCars() {
+        const search = qs("#acquiredSearch").value.trim().toLowerCase();
+        const month = qs("#acquiredMonthFilter").value;
+        const make = qs("#acquiredMakeFilter").value;
+
+        return acquiredCars.filter((car) => {
+          const haystack = `${car.make} ${car.model} ${car.city} ${car.region}`.toLowerCase();
+          return (!search || haystack.includes(search))
+            && (!month || car.date.startsWith(month))
+            && (!make || car.make === make);
+        });
+      }
+
+      function renderAcquiredCars() {
+        const rows = filteredAcquiredCars();
+        const totals = rows.reduce((acc, car) => {
+          const cost = car.purchasePrice + car.prepCost;
+          const profit = car.expectedRevenue - cost;
+          acc.cost += cost;
+          acc.revenue += car.expectedRevenue;
+          acc.profit += profit;
+          return acc;
+        }, { cost: 0, revenue: 0, profit: 0 });
+
+        qs("#acquiredCount").textContent = rows.length;
+        qs("#acquiredProfit").textContent = formatEuro(totals.profit);
+        qs("#acquiredCost").textContent = formatEuro(totals.cost);
+        qs("#acquiredRevenue").textContent = formatEuro(totals.revenue);
+        qs("#acquiredRows").innerHTML = rows.length
+          ? rows.map((car) => {
+              const cost = car.purchasePrice + car.prepCost;
+              const profit = car.expectedRevenue - cost;
+              return `
+                <tr>
+                  <td>${formatDate(car.date)}</td>
+                  <td><strong>${car.make} ${car.model}</strong></td>
+                  <td>${car.make}</td>
+                  <td>${car.city}<br><span class="subtle">${car.region}</span></td>
+                  <td>${formatEuro(car.purchasePrice)}</td>
+                  <td>${formatEuro(cost)}<br><span class="subtle">incl. preparazione ${formatEuro(car.prepCost)}</span></td>
+                  <td>${formatEuro(car.expectedRevenue)}</td>
+                  <td><strong>${formatEuro(profit)}</strong></td>
+                  <td><span class="pill info">${car.status}</span></td>
+                </tr>
+              `;
+            }).join("")
+          : `<tr><td colspan="9"><div class="empty">Nessuna auto acquisita con questi filtri.</div></td></tr>`;
+      }
+
+      function renderBudgetSettings() {
+        const budget = Number(qs("#totalBudget").value || 0);
+        const maxDeal = Number(qs("#maxDealBudget").value || 0);
+        const segment = qs("#preferredSegment").value;
+        const labels = {
+          small: [
+            "Strategia rotazione veloce",
+            "Il bot riduce l'aggressivita su auto grandi e privilegia veicoli piu piccoli, liquidi e con costo di acquisto basso."
+          ],
+          balanced: [
+            "Strategia bilanciata",
+            "Il bot puo' trattare utilitarie, compatte e qualche auto piu importante se margine e distanza sono buoni."
+          ],
+          premium: [
+            "Strategia Selected premium",
+            "Il bot puo' cercare auto piu importanti, ma manda in hold ogni deal sopra la soglia singola prima della conferma finale."
+          ]
+        };
+        qs("#budgetStrategy").textContent = labels[segment][0];
+        qs("#budgetCopy").textContent = `${labels[segment][1]} Soglia singola: ${maxDeal.toLocaleString("it-IT")} euro.`;
+        qs("#budgetValue").textContent = `${budget.toLocaleString("it-IT")} euro`;
+      }
+
+      function renderBotStopState() {
+        const button = qs("#stopBotButton");
+        button.classList.toggle("is-stopped", state.botStopped);
+        button.textContent = state.botStopped ? "BOT FERMO" : "STOP BOT";
+        qs(".side-label").textContent = state.botStopped ? "Bot fermo" : "Bot attivo";
+      }
+
+      function renderAngry() {
+        const angry = [...leads].sort((a, b) => b.sentiment - a.sentiment).filter((lead) => lead.sentiment >= 50);
+        qs("#angryList").innerHTML = angry.map((lead) => `
+          <div class="chat-risk">
+            <div class="risk-top">
+              <strong>${lead.name} · ${lead.make} ${lead.model}</strong>
+              <span class="pill danger">${lead.sentiment}/100</span>
+            </div>
+            <div class="bar"><span style="width:${lead.sentiment}%"></span></div>
+            <span class="subtle">${lead.lastMessage}</span>
+          </div>
+        `).join("");
+      }
+
+      function renderTokens() {
+        const phases = [
+          ["Parsing lead", "intake"],
+          ["Valutazione auto", "valuation"],
+          ["WhatsApp bot", "whatsapp"],
+          ["Sentiment", "sentiment"]
+        ];
+        const totals = phases.map(([label, key]) => [label, leads.reduce((sum, lead) => sum + lead.tokens[key], 0)]);
+        const max = Math.max(...totals.map((item) => item[1]));
+
+        qs("#tokenChart").innerHTML = totals.map(([label, value]) => `
+          <div class="chart-row">
+            <strong>${label}</strong>
+            <div class="chart-track"><span style="width:${Math.round(value / max * 100)}%"></span></div>
+            <span class="subtle">${formatToken(value)}</span>
+          </div>
+        `).join("");
+      }
+
+      function bindNavigation() {
+        qsa(".nav button").forEach((button) => {
+          button.addEventListener("click", () => {
+            state.section = button.dataset.section;
+            qsa(".nav button").forEach((item) => item.classList.toggle("active", item === button));
+            qsa(".section").forEach((section) => section.classList.toggle("active", section.id === `section-${state.section}`));
+          });
+        });
+
+        qsa(".tab").forEach((button) => {
+          button.addEventListener("click", () => {
+            state.quick = button.dataset.quick;
+            qsa(".tab").forEach((item) => item.classList.toggle("active", item === button));
+            renderRows();
+          });
+        });
+
+        ["#search", "#regionFilter", "#fuelFilter", "#statusFilter", "#yearFilter", "#mileageFilter"].forEach((selector) => {
+          qs(selector).addEventListener("input", renderRows);
+          qs(selector).addEventListener("change", renderRows);
+        });
+
+        ["#totalBudget", "#maxDealBudget", "#preferredSegment"].forEach((selector) => {
+          qs(selector).addEventListener("input", renderBudgetSettings);
+          qs(selector).addEventListener("change", renderBudgetSettings);
+        });
+
+        ["#acquiredSearch", "#acquiredMonthFilter", "#acquiredMakeFilter"].forEach((selector) => {
+          qs(selector).addEventListener("input", renderAcquiredCars);
+          qs(selector).addEventListener("change", renderAcquiredCars);
+        });
+
+        qs("#saveBotSettings").addEventListener("click", () => {
+          alert("Impostazioni bot salvate nella demo. In produzione aggiorna la tabella nos_bot_settings su Supabase.");
+        });
+
+        qs("#saveRulesButton").addEventListener("click", () => {
+          const rules = {
+            km: qs("#ruleKm").value,
+            radius: qs("#ruleRadius").value,
+            sentiment: qs("#ruleSentiment").value,
+            holdPrice: qs("#ruleHoldPrice").value,
+            retries: qs("#ruleMaxRetry").value,
+            mode: qs("#ruleMode").value
+          };
+          alert(`Regole admin salvate nella demo: km ${Number(rules.km).toLocaleString("it-IT")}, raggio ${rules.radius} km, sentiment ${rules.sentiment}/100, hold sopra ${Number(rules.holdPrice).toLocaleString("it-IT")} euro.`);
+        });
+
+        qs("#stopBotButton").addEventListener("click", () => {
+          state.botStopped = !state.botStopped;
+          renderBotStopState();
+          alert(state.botStopped
+            ? "STOP BOT attivato: automazioni e messaggi in uscita sono fermi. La dashboard resta utilizzabile."
+            : "Bot riattivato: le automazioni possono riprendere."
+          );
+        });
+
+        qs("#simulateLead").addEventListener("click", () => {
+          alert("Demo: in produzione questo creerebbe una riga su Supabase e aprirebbe la prima valutazione del bot.");
+        });
+      }
+
+      renderFilters();
+      renderAcquiredFilters();
+      renderStats();
+      renderRows();
+      renderPipeline();
+      renderAcquiredCars();
+      renderAngry();
+      renderTokens();
+      renderBudgetSettings();
+      renderBotStopState();
+      bindNavigation();
+    </script>
+  </body>
+</html>

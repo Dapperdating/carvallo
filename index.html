@@ -7,39 +7,39 @@
     <meta name="description" content="Carvallo Motors a Busto Arsizio vende auto usate, seminuove e youngtimer selezionate. Carvallo Selected cura vetture vintage, sportive e configurazioni speciali.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="theme-color" content="#0f0f10">
-    <link rel="canonical" href="https://www.carvallo-motors.com/">
-    <link rel="icon" type="image/png" href="https://www.carvallo-motors.com/favicon.png">
-    <link rel="apple-touch-icon" href="https://www.carvallo-motors.com/favicon.png">
+    <link rel="canonical" href="https://carvallo-motors.com/">
+    <link rel="icon" type="image/png" href="https://carvallo-motors.com/favicon.png">
+    <link rel="apple-touch-icon" href="https://carvallo-motors.com/favicon.png">
     <meta property="og:locale" content="it_IT">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Carvallo Motors">
     <meta property="og:title" content="Carvallo Motors | Auto usate selezionate a Busto Arsizio">
     <meta property="og:description" content="Auto usate, seminuove, vintage e youngtimer selezionate. Motors per l'usato concreto, Selected per vetture speciali.">
-    <meta property="og:url" content="https://www.carvallo-motors.com/">
-    <meta property="og:image" content="https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png">
+    <meta property="og:url" content="https://carvallo-motors.com/">
+    <meta property="og:image" content="https://carvallo-motors.com/assets/logos/carvallo-motors-logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Carvallo Motors | Auto usate selezionate a Busto Arsizio">
     <meta name="twitter:description" content="Auto usate, seminuove, vintage e youngtimer selezionate.">
-    <meta name="twitter:image" content="https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png">
+    <meta name="twitter:image" content="https://carvallo-motors.com/assets/logos/carvallo-motors-logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=20260619-mobile-slim">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
-    <script src="data/cars.js?v=20260616-prices"></script>
+    <script src="data/cars.js?v=20260619-autoscout-motors"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
           {
             "@type": "AutoDealer",
-            "@id": "https://www.carvallo-motors.com/#dealer",
+            "@id": "https://carvallo-motors.com/#dealer",
             "name": "Carvallo Motors",
             "alternateName": "Corradi Real Estate SRL",
-            "url": "https://www.carvallo-motors.com/",
-            "logo": "https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png",
-            "image": "https://www.carvallo-motors.com/assets/logos/carvallo-motors-logo.png",
+            "url": "https://carvallo-motors.com/",
+            "logo": "https://carvallo-motors.com/assets/logos/carvallo-motors-logo.png",
+            "image": "https://carvallo-motors.com/assets/logos/carvallo-motors-logo.png",
             "description": "Venditore auto usate, seminuove, vintage e youngtimer selezionate a Busto Arsizio.",
             "email": "info@carvallo-motors.com",
             "telephone": "+393923139899",
@@ -65,11 +65,11 @@
           },
           {
             "@type": "WebSite",
-            "@id": "https://www.carvallo-motors.com/#website",
+            "@id": "https://carvallo-motors.com/#website",
             "name": "Carvallo Motors",
             "alternateName": "Carvallo Selected",
-            "url": "https://www.carvallo-motors.com/",
-            "publisher": { "@id": "https://www.carvallo-motors.com/#dealer" }
+            "url": "https://carvallo-motors.com/",
+            "publisher": { "@id": "https://carvallo-motors.com/#dealer" }
           }
         ]
       }
@@ -216,15 +216,11 @@
       </section>
 
       <section class="inventory inventory-preview home-inventory reveal" id="stock">
-        <div class="home-section-copy">
-          <p class="home-kicker desktop-copy">Disponibili ora</p>
-          <p class="home-kicker mobile-only">Anteprima</p>
-          <h2>Una selezione corta, leggibile.</h2>
-          <p class="desktop-copy">La pagina auto resta il punto operativo. In home mostriamo solo il primo assaggio: abbastanza per capire il livello, non abbastanza per affollare.</p>
-          <p class="mobile-copy">Poche auto in evidenza. Il catalogo completo resta a un tap.</p>
+        <div class="home-section-copy home-preview-heading">
+          <p class="home-kicker">Anteprima</p>
+          <a class="button ghost home-wide-cta" href="auto.html">Vai al catalogo completo</a>
         </div>
         <div class="car-grid" id="car-grid" data-limit="3" aria-live="polite"></div>
-        <a class="button ghost home-wide-cta" href="auto.html">Vai al catalogo completo</a>
       </section>
 
       <section class="valuation" id="valutazione">

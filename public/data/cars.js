@@ -17,13 +17,13 @@ window.CARVALLO_SEED_CARS = [
     gallery_urls: ["/assets/cars/ford-fiesta/ford-fiesta-01.jpg", "/assets/cars/ford-fiesta/ford-fiesta-03.jpg", "/assets/cars/ford-fiesta/ford-fiesta-05.jpg", "/assets/cars/ford-fiesta/ford-fiesta-07.jpg"],
     featured: true,
     is_published: true,
-    source_url: "https://www.carvallo-motors.com/product-page/ford-fiesta-1-4-trend-unico-pro-automatica-soli-32-569km-5-port"
+    source_url: "https://www.autoscout24.it/annunci/ford-fiesta-ford-fiesta-1-4-trend-unico-pro-automatica-soli-32-569km-5-porte-benzina-euro-5-benzina-blu-azzurro-14ff053c-50ae-43ab-9a3c-827b8e666e9e"
   },
   {
     id: "jeep-compass-1-4-m-air-longitude",
     slug: "jeep-compass-1-4-m-air-longitude",
     division: "motors",
-    status: "available",
+    status: "sold",
     make: "Jeep",
     model: "Compass 1.4 M-Air Longitude 140CV",
     year: null,
@@ -57,7 +57,7 @@ window.CARVALLO_SEED_CARS = [
     gallery_urls: ["/assets/cars/fiat-panda/fiat-panda-01.jpg", "/assets/cars/fiat-panda/fiat-panda-04.jpg", "/assets/cars/fiat-panda/fiat-panda-05.jpg", "/assets/cars/fiat-panda/fiat-panda-08.jpg"],
     featured: true,
     is_published: true,
-    source_url: "https://www.carvallo-motors.com/product-page/fiat-panda-easy-1-2"
+    source_url: "https://www.autoscout24.it/annunci/fiat-panda-panda-1-2-easy-16-500km-pari-al-nuovo-neopatentati-benzina-rosso-069e1738-9f46-457c-9049-1ff22e33f8ca"
   },
   {
     id: "mini-one",

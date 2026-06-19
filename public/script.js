@@ -88,6 +88,7 @@ function carWhatsappUrl(car) {
 }
 
 function autoscoutListingUrl(car) {
+  if (isArchivedStatus(car.status)) return "";
   const value = String(car.source_url || "").trim();
   if (!value) return "";
   try {
