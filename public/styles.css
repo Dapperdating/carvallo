@@ -304,12 +304,12 @@ nav a:hover::after {
   position: relative;
   min-height: min(66vh, 680px);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(170px, 0.42fr);
-  grid-template-rows: 1fr auto;
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .home-hero-visual figure {
+  position: relative;
   margin: 0;
   overflow: hidden;
   border: 1px solid rgba(15, 15, 16, 0.14);
@@ -323,44 +323,43 @@ nav a:hover::after {
   transform: scale(1.015);
 }
 
-.home-hero-main {
-  grid-row: 1 / 3;
-  min-height: 560px;
+.mosaic-tile {
+  min-height: 300px;
 }
 
-.home-hero-main img {
-  object-position: 54% center;
-}
-
-.home-hero-secondary {
-  min-height: 320px;
-}
-
-.home-hero-secondary img {
-  object-position: center;
-}
-
-.home-hero-note {
-  display: grid;
-  align-content: end;
-  gap: 1px;
-}
-
-.home-hero-note span {
-  min-height: 72px;
-  display: grid;
-  place-items: center;
+.mosaic-tile figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 1;
+  padding: 8px 11px;
   color: var(--white);
-  background: var(--dark);
+  background: rgba(15, 15, 16, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
   font-size: 11px;
   font-weight: 900;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.home-hero-note span:last-child {
+.selected-tile figcaption {
   color: var(--ink);
-  background: var(--champagne);
+  background: rgba(192, 169, 139, 0.92);
+  border-color: rgba(15, 15, 16, 0.2);
   font-style: italic;
+}
+
+.motors-tile:first-child img {
+  object-position: 52% center;
+}
+
+.motors-tile:nth-child(3) img {
+  object-position: center;
+}
+
+.selected-tile img {
+  object-position: center;
 }
 
 .home-ledger {
@@ -2303,18 +2302,21 @@ textarea {
   .home-hero-visual {
     width: 100%;
     min-height: 0;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
     overflow: hidden;
   }
 
-  .home-hero-main {
-    min-height: 300px;
+  .mosaic-tile {
+    min-height: 176px;
+    aspect-ratio: 1 / 1.08;
   }
 
-  .home-hero-secondary,
-  .home-hero-note {
-    display: none;
+  .mosaic-tile figcaption {
+    left: 8px;
+    bottom: 8px;
+    padding: 7px 9px;
+    font-size: 9px;
   }
 
   .home-ledger {
