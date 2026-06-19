@@ -107,9 +107,10 @@ img {
 
 nav {
   display: flex;
-  gap: 22px;
+  gap: clamp(12px, 1.5vw, 22px);
   color: #272a2e;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 nav a:hover,
