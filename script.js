@@ -87,6 +87,19 @@ function carWhatsappUrl(car) {
   return `${contacts.whatsappBase}?text=${encodeURIComponent(message)}`;
 }
 
+function autoscoutListingUrl(car) {
+  const value = String(car.source_url || "").trim();
+  if (!value) return "";
+  try {
+    const url = new URL(value);
+    const isAutoscout = /(^|\.)autoscout24\.it$/i.test(url.hostname);
+    const isListing = url.pathname.includes("/annunci/");
+    return isAutoscout && isListing ? value : "";
+  } catch {
+    return "";
+  }
+}
+
 function statusLabel(status) {
   return {
     available: "Disponibile",
@@ -167,6 +180,7 @@ function openCarDetail(slug) {
   const title = carTitle(car);
   const gallery = carGallery(car);
   const firstImage = gallery[0] || "";
+  const autoscoutUrl = autoscoutListingUrl(car);
   const dialog = document.querySelector("#car-detail");
   if (!dialog) return;
 
@@ -215,6 +229,7 @@ function openCarDetail(slug) {
         <div class="detail-actions">
           <a class="button primary whatsapp-action" href="${carWhatsappUrl(car)}">Scrivi su WhatsApp</a>
           <a class="button ghost" href="tel:+393923139899" data-call-url="tel:+393923139899">Chiama</a>
+          ${autoscoutUrl ? `<a class="button ghost autoscout-action" href="${escapeHtml(autoscoutUrl)}" target="_blank" rel="noopener noreferrer">Vedi su AutoScout24</a>` : ""}
         </div>
       </section>
     </article>
