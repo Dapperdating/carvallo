@@ -320,7 +320,7 @@ nav a:hover::after {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.015);
+  transform: scale(1.085);
 }
 
 .mosaic-tile {
@@ -334,8 +334,8 @@ nav a:hover::after {
   z-index: 1;
   padding: 8px 11px;
   color: var(--white);
-  background: rgba(15, 15, 16, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--dark);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   font-size: 11px;
   font-weight: 900;
@@ -344,22 +344,31 @@ nav a:hover::after {
 }
 
 .selected-tile figcaption {
-  color: var(--ink);
-  background: rgba(192, 169, 139, 0.92);
-  border-color: rgba(15, 15, 16, 0.2);
+  color: var(--white);
+  background: #050506;
+  border-color: rgba(255, 255, 255, 0.24);
   font-style: italic;
 }
 
+.motors-tile figcaption {
+  background: var(--motors);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
 .motors-tile:first-child img {
-  object-position: 52% center;
+  object-position: 48% 45%;
 }
 
 .motors-tile:nth-child(3) img {
-  object-position: center;
+  object-position: 47% 43%;
+}
+
+.selected-tile:nth-child(2) img {
+  object-position: 48% 44%;
 }
 
 .selected-tile img {
-  object-position: center;
+  object-position: 50% 43%;
 }
 
 .home-ledger {
