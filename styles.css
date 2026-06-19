@@ -320,7 +320,7 @@ nav a:hover::after {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.085);
+  transform: scale(1.12);
 }
 
 .mosaic-tile {
@@ -356,11 +356,11 @@ nav a:hover::after {
 }
 
 .motors-tile:first-child img {
-  object-position: 48% 45%;
+  object-position: 47% 36%;
 }
 
 .motors-tile:nth-child(3) img {
-  object-position: 47% 43%;
+  object-position: 47% 34%;
 }
 
 .selected-tile:nth-child(2) img {
@@ -2311,14 +2311,40 @@ textarea {
   .home-hero-visual {
     width: 100%;
     min-height: 0;
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     overflow: hidden;
   }
 
   .mosaic-tile {
-    min-height: 176px;
-    aspect-ratio: 1 / 1.08;
+    min-height: 0;
+    aspect-ratio: 1 / 0.92;
+  }
+
+  .mosaic-tile:nth-child(1) {
+    order: 1;
+  }
+
+  .mosaic-tile:nth-child(2) {
+    order: 2;
+  }
+
+  .mosaic-tile:nth-child(3) {
+    order: 3;
+  }
+
+  .mosaic-tile:nth-child(4) {
+    order: 4;
+  }
+
+  .motors-tile img {
+    transform: scale(1.2);
+  }
+
+  .motors-tile:first-child img,
+  .motors-tile:nth-child(3) img {
+    object-position: 46% 28%;
   }
 
   .mosaic-tile figcaption {
