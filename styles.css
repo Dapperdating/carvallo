@@ -35,6 +35,7 @@ body {
 }
 
 .mobile-copy,
+.mobile-only,
 .mobile-dock {
   display: none;
 }
@@ -2311,31 +2312,22 @@ textarea {
   .home-hero-visual {
     width: 100%;
     min-height: 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
     gap: 8px;
-    overflow: hidden;
+    margin-right: -18px;
+    padding-right: 18px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-padding-left: 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
   .mosaic-tile {
+    flex: 0 0 min(72vw, 280px);
     min-height: 0;
-    aspect-ratio: 1 / 0.92;
-  }
-
-  .mosaic-tile:nth-child(1) {
-    order: 1;
-  }
-
-  .mosaic-tile:nth-child(2) {
-    order: 2;
-  }
-
-  .mosaic-tile:nth-child(3) {
-    order: 3;
-  }
-
-  .mosaic-tile:nth-child(4) {
-    order: 4;
+    aspect-ratio: 4 / 3;
+    scroll-snap-align: start;
   }
 
   .motors-tile img {
@@ -2370,40 +2362,7 @@ textarea {
   }
 
   .mobile-selected-bridge {
-    display: grid;
-    gap: 18px;
-    padding: 42px 18px;
-    color: var(--white);
-    background:
-      linear-gradient(135deg, rgba(158, 27, 34, 0.2), rgba(15, 15, 16, 0) 55%),
-      var(--dark);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .mobile-selected-bridge .home-kicker {
-    margin-bottom: 0;
-  }
-
-  .mobile-selected-bridge h2 {
-    max-width: 12ch;
-    color: var(--white);
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: clamp(34px, 10vw, 46px);
-    font-weight: 600;
-    line-height: 1;
-    text-transform: none;
-  }
-
-  .mobile-selected-bridge p:not(.home-kicker) {
-    max-width: 31ch;
-    margin: 0;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 17px;
-    line-height: 1.55;
-  }
-
-  .mobile-selected-bridge .button {
-    width: 100%;
+    display: none;
   }
 
   .home-atelier,
@@ -2411,6 +2370,25 @@ textarea {
   .home-inventory {
     grid-template-columns: 1fr;
     padding: 48px 18px;
+  }
+
+  .home-inventory {
+    padding-top: 34px;
+  }
+
+  .home-inventory .home-section-copy {
+    margin-bottom: 16px;
+  }
+
+  .home-inventory .mobile-only {
+    display: block;
+  }
+
+  .home-inventory h2,
+  .home-inventory .desktop-copy,
+  .home-inventory .mobile-copy,
+  .home-inventory .home-wide-cta {
+    display: none;
   }
 
   .home-section-copy h2,
@@ -2601,17 +2579,23 @@ textarea {
   }
 
   .inventory-preview .car-grid {
-    display: grid;
+    display: flex;
     gap: 16px;
-    margin-right: 0;
+    margin-right: -18px;
     margin-left: 0;
-    padding: 0;
-    overflow-x: visible;
-    scroll-snap-type: none;
+    padding: 0 18px 2px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-padding-left: 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
   }
 
   .inventory-preview .car-card {
-    min-width: 0;
+    flex: 0 0 min(82vw, 330px);
+    width: min(82vw, 330px);
+    min-width: min(82vw, 330px);
+    scroll-snap-align: start;
   }
 
   .car-card {
