@@ -40,6 +40,11 @@ body {
   display: none;
 }
 
+.mobile-menu,
+.floating-whatsapp {
+  display: none;
+}
+
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -594,6 +599,86 @@ nav a:hover::after {
 .home-preview-heading .home-wide-cta {
   flex: 0 0 auto;
   margin-top: 0;
+}
+
+.google-reviews {
+  padding: clamp(54px, 7vw, 96px) 0;
+  overflow: hidden;
+  background: #111112;
+  color: var(--white);
+}
+
+.reviews-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 22px;
+  align-items: end;
+  padding: 0 clamp(18px, 5vw, 72px) 34px;
+}
+
+.reviews-heading h2 {
+  max-width: 16ch;
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(38px, 4.8vw, 70px);
+  font-weight: 600;
+  line-height: 1;
+  text-transform: none;
+}
+
+.reviews-heading .button {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.reviews-marquee {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reviews-track {
+  width: max-content;
+  display: flex;
+  gap: 14px;
+  padding: 22px 14px;
+  animation: reviews-scroll 34s linear infinite;
+}
+
+.reviews-track article {
+  width: min(76vw, 340px);
+  min-height: 150px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+.reviews-track span {
+  color: #f2c94c;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+.reviews-track strong {
+  display: block;
+  margin-top: 16px;
+  font-size: 20px;
+}
+
+.reviews-track p {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+@keyframes reviews-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 7px));
+  }
 }
 
 .hero {
@@ -2149,7 +2234,7 @@ textarea {
 
 @media (max-width: 880px) {
   body {
-    padding-bottom: 76px;
+    padding-bottom: 0;
   }
 
   nav {
@@ -2157,44 +2242,7 @@ textarea {
   }
 
   .mobile-dock {
-    position: fixed;
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-    z-index: 50;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 4px;
-    padding: 6px;
-    border: 1px solid rgba(15, 15, 16, 0.14);
-    border-radius: 8px;
-    background: rgba(245, 242, 236, 0.94);
-    box-shadow: 0 18px 55px rgba(15, 15, 16, 0.18);
-    backdrop-filter: blur(16px);
-    width: auto;
-    max-width: calc(100vw - 24px);
-    overflow: hidden;
-  }
-
-  .mobile-dock a {
-    min-width: 0 !important;
-    max-width: 100%;
-    overflow: hidden;
-    min-height: 46px;
-    display: grid;
-    place-items: center;
-    border-radius: 5px;
-    color: var(--ink);
-    font-size: 11px;
-    font-weight: 900;
-    text-align: center;
-    text-transform: uppercase;
-    white-space: normal;
-  }
-
-  .mobile-dock a:last-child {
-    color: var(--white);
-    background: var(--ink);
+    display: none;
   }
 
   .desktop-copy {
@@ -2245,36 +2293,103 @@ textarea {
     width: min(46vw, 166px);
   }
 
-  .icon-button {
-    width: 42px;
-    min-width: 42px;
-    height: 42px;
-    background: rgba(255, 255, 255, 0.34);
-    box-shadow: none;
-    backdrop-filter: blur(10px);
+  .site-header > .icon-button {
+    display: none;
+  }
+
+  .mobile-menu {
+    position: relative;
+    display: block;
+    margin-left: auto;
+  }
+
+  .mobile-menu summary {
+    min-height: 42px;
+    display: grid;
+    place-items: center;
+    padding: 0 16px;
+    color: var(--white);
+    background: var(--ink);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu-panel {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(78vw, 300px);
+    display: grid;
+    gap: 2px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid rgba(15, 15, 16, 0.14);
+    border-radius: 8px;
+    box-shadow: 0 22px 60px rgba(15, 15, 16, 0.18);
+  }
+
+  .mobile-menu-panel a {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    border-radius: 6px;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .mobile-menu-panel a:hover {
+    background: #f5f2ec;
+    color: var(--motors);
+  }
+
+  .floating-whatsapp {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 52;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    color: var(--white);
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    box-shadow: 0 16px 42px rgba(15, 15, 16, 0.28);
+  }
+
+  .floating-whatsapp .whatsapp-icon {
+    width: 23px;
+    height: 23px;
   }
 
   .home-hero {
     min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    padding: 112px 18px 42px;
+    gap: 0;
+    padding: 112px 18px 54px;
   }
 
   .home-page main,
-  .home-hero,
-  .home-ledger,
   .home-atelier,
-  .home-method,
   .home-inventory {
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
   }
 
-  .home-hero-copy,
-  .home-hero-visual {
+  .home-hero-copy {
     width: auto;
     max-width: 100%;
     min-width: 0;
@@ -2288,23 +2403,15 @@ textarea {
   }
 
   .home-hero h1 {
-    max-width: 11.8ch;
-    font-size: clamp(40px, 11vw, 50px);
+    max-width: 12ch;
+    font-size: clamp(38px, 10.5vw, 48px);
     line-height: 1;
     overflow-wrap: normal;
     word-break: normal;
   }
 
-  .desktop-headline {
-    display: none;
-  }
-
-  .mobile-headline {
-    display: block;
-  }
-
   .home-hero-copy > p:not(.home-kicker) {
-    max-width: 31ch;
+    max-width: 34ch;
     margin-top: 18px;
     font-size: 17px;
     line-height: 1.55;
@@ -2326,64 +2433,20 @@ textarea {
     min-width: 0;
   }
 
-  .home-hero-visual {
-    width: 100%;
-    min-height: 0;
-    display: flex;
-    gap: 8px;
-    margin-right: -18px;
-    padding-right: 18px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-padding-left: 0;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .mosaic-tile {
-    flex: 0 0 min(72vw, 280px);
-    min-height: 0;
-    aspect-ratio: 4 / 3;
-    scroll-snap-align: start;
-  }
-
-  .motors-tile img {
-    transform: scale(1.2);
-  }
-
-  .motors-tile:first-child img,
-  .motors-tile:nth-child(3) img {
-    object-position: 46% 28%;
-  }
-
-  .mosaic-tile figcaption {
-    left: 8px;
-    bottom: 8px;
-    padding: 7px 9px;
-    font-size: 9px;
-  }
-
   .home-ledger {
-    grid-template-columns: 1fr;
-  }
-
-  .home-ledger a {
-    min-height: 0;
-    padding: 24px 18px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(15, 15, 16, 0.1);
-  }
-
-  .home-ledger strong {
-    font-size: 36px;
+    display: none;
   }
 
   .mobile-selected-bridge {
     display: none;
   }
 
+  .home-hero-visual,
+  .home-method {
+    display: none;
+  }
+
   .home-atelier,
-  .home-method,
   .home-inventory {
     grid-template-columns: 1fr;
     padding: 48px 18px;
@@ -2397,14 +2460,15 @@ textarea {
     margin-bottom: 16px;
   }
 
-  .home-inventory h2,
   .home-inventory .desktop-copy,
   .home-inventory .mobile-copy {
     display: none;
   }
 
   .home-preview-heading {
-    align-items: flex-start;
+    display: grid;
+    gap: 16px;
+    align-items: start;
   }
 
   .home-section-copy h2,
@@ -2445,7 +2509,30 @@ textarea {
   }
 
   .home-preview-heading .home-wide-cta {
-    width: auto;
+    width: 100%;
+  }
+
+  .google-reviews {
+    padding: 46px 0;
+  }
+
+  .reviews-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding: 0 18px 24px;
+  }
+
+  .reviews-heading h2 {
+    max-width: 12ch;
+    font-size: clamp(36px, 11vw, 48px);
+  }
+
+  .reviews-heading .button {
+    width: 100%;
+  }
+
+  .reviews-track {
+    animation-duration: 30s;
   }
 
   .hero {
@@ -3025,9 +3112,7 @@ textarea {
   }
 
   .mobile-dock {
-    right: 8px;
-    bottom: 8px;
-    left: 8px;
+    display: none;
   }
 
   .mobile-dock a {

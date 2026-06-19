@@ -721,6 +721,20 @@ async function submitLead(event) {
   status.textContent = "Richiesta inviata. Ti ricontattiamo a breve.";
 }
 
+function alignHashTarget() {
+  const id = window.location.hash.slice(1);
+  if (!id || id.startsWith("auto-")) return;
+  const target = document.getElementById(id);
+  if (!target) return;
+  const scrollToTarget = () => {
+    const offset = document.querySelector(".site-header")?.offsetHeight || 0;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset - 8;
+    window.scrollTo({ top, behavior: "auto" });
+  };
+  requestAnimationFrame(scrollToTarget);
+  window.setTimeout(scrollToTarget, 700);
+}
+
 function initSite() {
   document.body.classList.add("is-ready");
   if (document.body.classList.contains("selected-page")) {
@@ -734,6 +748,7 @@ function initSite() {
   bindFilters();
   bindCarDetail();
   renderCars();
+  alignHashTarget();
   document.querySelectorAll("[data-form]").forEach((form) => form.addEventListener("submit", submitLead));
 }
 
