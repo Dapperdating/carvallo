@@ -2450,9 +2450,38 @@ textarea {
     display: none;
   }
 
-  .home-hero-visual,
   .home-method {
     display: none;
+  }
+
+  .home-hero-visual {
+    width: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 8px;
+    margin-top: 26px;
+  }
+
+  .home-hero-visual figure {
+    min-height: 0;
+    aspect-ratio: 1 / 0.78;
+    border-radius: 0;
+  }
+
+  .home-hero-visual figure:nth-child(n + 3) {
+    display: none;
+  }
+
+  .home-hero-visual img {
+    transform: scale(1.06);
+  }
+
+  .mosaic-tile figcaption {
+    left: 8px;
+    bottom: 8px;
+    padding: 7px 9px;
+    font-size: 9px;
   }
 
   .home-atelier,
