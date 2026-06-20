@@ -2387,7 +2387,7 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 0;
-    padding: 112px 18px 54px;
+    padding: 112px 18px 34px;
   }
 
   .home-page main,
@@ -2459,6 +2459,11 @@ textarea {
   .home-inventory {
     grid-template-columns: 1fr;
     padding: 48px 18px;
+  }
+
+  .home-atelier {
+    padding-top: 34px;
+    border-top: 1px solid rgba(15, 15, 16, 0.1);
   }
 
   .home-inventory {
