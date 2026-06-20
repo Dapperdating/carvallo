@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260619-mobile-slim">
+    <link rel="stylesheet" href="styles.css?v=20260620-delivery-qa2">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="data/cars.js?v=20260619-autoscout-motors"></script>
@@ -74,7 +74,7 @@
         ]
       }
     </script>
-    <script defer src="script.js?v=20260619-autoscout-links"></script>
+    <script defer src="script.js?v=20260620-delivery-qa2"></script>
   </head>
   <body class="home-page">
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -84,7 +84,6 @@
       </a>
       <nav aria-label="Navigazione principale">
         <a href="#azienda">Azienda</a>
-        <a href="auto.html">Motors</a>
         <a href="selected.html">Selected</a>
         <a href="auto.html">Auto</a>
         <a href="#valutazione">Valutazione</a>
@@ -95,11 +94,11 @@
         <summary>Menu</summary>
         <div class="mobile-menu-panel">
           <a href="#azienda">Azienda</a>
-          <a href="#divisioni">Motors e Selected</a>
-          <a href="#stock">Auto in anteprima</a>
+          <a href="#divisioni">Le due sezioni</a>
+          <a href="auto.html">Auto</a>
           <a href="#valutazione">Valuta auto</a>
           <a href="#recensioni">Recensioni</a>
-          <a href="auto.html">Catalogo Motors</a>
+          <a href="auto.html">Catalogo completo</a>
           <a href="selected.html">Selected</a>
         </div>
       </details>
@@ -119,16 +118,16 @@
       <section class="brand-landing" aria-label="Carvallo Motors">
         <div class="brand-landing-content">
           <img src="assets/logos/carvallo-motors-logo.png" alt="Carvallo Motors">
-          <p>Auto usate e speciali selezionate a Busto Arsizio.</p>
-          <a class="button primary" href="#azienda">Entra</a>
+          <p>Auto usate e speciali, selezionate a Busto Arsizio.</p>
+          <a class="button primary" href="#azienda">Scopri Carvallo</a>
         </div>
       </section>
 
       <section class="home-hero" id="azienda" data-animate="hero">
         <div class="home-hero-copy">
-          <p class="home-kicker">Carvallo Motors</p>
-          <h1>Auto usate selezionate, raccontate con chiarezza.</h1>
-          <p>Carvallo Motors nasce a Busto Arsizio per aiutarti a comprare, vendere o far valutare un'auto senza confusione. Selezioniamo vetture concrete per tutti i giorni e una linea separata per auto speciali.</p>
+          <p class="home-kicker">Come funziona</p>
+          <h1>Due percorsi, stessa chiarezza.</h1>
+          <p>Carvallo Motors nasce a Busto Arsizio per aiutarti a comprare, vendere o far valutare un'auto senza confusione. Separiamo le vetture quotidiane dalle auto speciali, cosi' trovi subito la strada giusta.</p>
           <div class="home-division-intro" aria-label="Divisioni Carvallo">
             <a href="auto.html">
               <span>Carvallo Motors</span>
@@ -142,7 +141,7 @@
             </a>
           </div>
           <div class="home-hero-actions">
-            <a class="button primary" href="#stock">Vedi anteprima auto</a>
+            <a class="button primary" href="auto.html">Vedi auto</a>
             <a class="button ghost" href="#valutazione">Fai valutare la tua auto</a>
           </div>
         </div>
@@ -216,8 +215,11 @@
 
       <section class="google-reviews reveal" id="recensioni" aria-labelledby="reviews-title">
         <div class="reviews-heading">
-          <p class="home-kicker">Recensioni Google</p>
-          <h2 id="reviews-title">Valutazione Google 5 su 5.</h2>
+          <img class="reviews-logo" src="assets/logos/carvallo-motors-logo.png" alt="Carvallo Motors">
+          <div>
+            <p class="home-kicker">Recensioni Google</p>
+            <h2 id="reviews-title">Valutazione Google 5 su 5.</h2>
+          </div>
           <a class="button ghost" href="https://share.google/Ryv4nAWKdtS04CgtL" target="_blank" rel="noopener noreferrer">Leggi su Google</a>
         </div>
         <div class="reviews-marquee" aria-label="Recensioni Google Carvallo Motors">

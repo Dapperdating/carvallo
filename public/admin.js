@@ -2,14 +2,17 @@ function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
     return null;
   }
-  return window.supabase.createClient(window.CARVALLO_SUPABASE_URL, window.CARVALLO_SUPABASE_ANON_KEY, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: false,
-      storageKey: "carvallo-admin-auth"
-    }
-  });
+  if (!window.CARVALLO_ADMIN_SUPABASE_CLIENT) {
+    window.CARVALLO_ADMIN_SUPABASE_CLIENT = window.supabase.createClient(window.CARVALLO_SUPABASE_URL, window.CARVALLO_SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: false,
+        storageKey: "carvallo-admin-auth"
+      }
+    });
+  }
+  return window.CARVALLO_ADMIN_SUPABASE_CLIENT;
 }
 
 const ALLOWED_ADMIN_EMAIL = "main@carvallo-motors.com";

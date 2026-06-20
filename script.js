@@ -15,7 +15,10 @@ function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
     return null;
   }
-  return window.supabase.createClient(window.CARVALLO_SUPABASE_URL, window.CARVALLO_SUPABASE_ANON_KEY);
+  if (!window.CARVALLO_SUPABASE_CLIENT) {
+    window.CARVALLO_SUPABASE_CLIENT = window.supabase.createClient(window.CARVALLO_SUPABASE_URL, window.CARVALLO_SUPABASE_ANON_KEY);
+  }
+  return window.CARVALLO_SUPABASE_CLIENT;
 }
 
 async function loadCars() {
@@ -31,11 +34,13 @@ async function loadCars() {
     .order("created_at", { ascending: false });
 
   if (error || !data || data.length === 0) return seedCars;
-  if (data.length < seedCars.length) {
-    const seedSlugs = new Set(seedCars.map((car) => car.slug));
-    return [...seedCars, ...data.filter((car) => !seedSlugs.has(car.slug))];
-  }
-  return data;
+
+  const merged = new Map(seedCars.map((car) => [car.slug || car.id, car]));
+  data.forEach((car) => {
+    const key = car.slug || car.id;
+    if (!merged.has(key)) merged.set(key, car);
+  });
+  return Array.from(merged.values());
 }
 
 function formatKm(value) {
@@ -465,11 +470,17 @@ async function renderCars() {
   const grid = document.querySelector("#car-grid");
   if (!grid) return;
 
+  const seedCars = window.CARVALLO_SEED_CARS || [];
+  const archiveGrid = document.querySelector("#archive-grid");
+  if (!archiveGrid && seedCars.length) {
+    renderGrid(grid, filterCars(seedCars, grid), "Nessuna auto trovata con questi filtri.");
+    bindCarCards();
+  }
+
   const cars = await loadCars();
   catalogCars = cars;
   updateCatalogStats(cars);
 
-  const archiveGrid = document.querySelector("#archive-grid");
   if (archiveGrid) {
     const activeCars = filterCatalogGroup(cars, false);
     const archivedCars = filterCatalogGroup(cars, true);

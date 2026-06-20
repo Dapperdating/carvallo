@@ -199,42 +199,56 @@ nav a:hover::after {
   pointer-events: auto;
 }
 
+.home-page .site-header:not(.is-scrolled) nav,
+.home-page .site-header:not(.is-scrolled) > .icon-button {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .brand-landing {
   min-height: 100svh;
   display: grid;
-  align-items: center;
-  padding: 96px clamp(20px, 6vw, 78px) 64px;
+  align-items: end;
+  padding: 120px clamp(20px, 6vw, 78px) clamp(54px, 8vw, 92px);
   color: var(--ink);
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.76) 38%, rgba(255, 255, 255, 0.18) 70%),
-    linear-gradient(180deg, rgba(15, 15, 16, 0.08), rgba(15, 15, 16, 0.26)),
+    radial-gradient(ellipse 48% 48% at 22% 76%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.84) 44%, rgba(255, 255, 255, 0.36) 64%, rgba(255, 255, 255, 0.04) 82%, rgba(255, 255, 255, 0) 100%),
+    linear-gradient(180deg, rgba(245, 242, 236, 0.26), rgba(245, 242, 236, 0.06) 36%, rgba(245, 242, 236, 0.56) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 32%),
     url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg") center right / cover;
-  border-bottom: 1px solid rgba(15, 15, 16, 0.12);
+  border-bottom: 0;
 }
 
 .brand-landing-content {
-  max-width: 560px;
+  max-width: 620px;
   display: grid;
-  gap: 26px;
+  gap: 22px;
   align-items: start;
 }
 
 .brand-landing-content img {
-  width: min(78vw, 460px);
+  width: min(76vw, 540px);
+  filter: drop-shadow(0 18px 36px rgba(255, 255, 255, 0.54));
 }
 
 .brand-landing-content p {
   max-width: 30rem;
   margin: 0;
-  color: #3f4449;
+  color: #303439;
   font-size: clamp(18px, 2.1vw, 25px);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.4;
+  text-shadow: 0 1px 18px rgba(255, 255, 255, 0.75);
 }
 
 .brand-landing-content .button {
   justify-self: start;
-  min-width: 160px;
+  min-width: 210px;
+}
+
+.brand-landing + .home-hero {
+  min-height: auto;
+  padding-top: clamp(56px, 7vw, 88px);
 }
 
 .mobile-headline {
@@ -346,13 +360,14 @@ nav a:hover::after {
 }
 
 .home-hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
   margin-top: 30px;
 }
 
 .home-hero-actions .button {
+  width: 100%;
   min-height: 48px;
   padding: 0 20px;
 }
@@ -669,16 +684,26 @@ nav a:hover::after {
 .google-reviews {
   padding: clamp(54px, 7vw, 96px) 0;
   overflow: hidden;
-  background: #111112;
-  color: var(--white);
+  color: var(--ink);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.96), rgba(245, 242, 236, 0.9) 58%, rgba(218, 210, 198, 0.46)),
+    #f5f2ec;
+  border-top: 1px solid rgba(15, 15, 16, 0.1);
+  border-bottom: 1px solid rgba(15, 15, 16, 0.1);
 }
 
 .reviews-heading {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 22px;
+  grid-template-columns: minmax(160px, 260px) minmax(0, 1fr) auto;
+  gap: clamp(22px, 4vw, 54px);
   align-items: end;
   padding: 0 clamp(18px, 5vw, 72px) 34px;
+}
+
+.reviews-logo {
+  width: min(100%, 250px);
+  height: auto;
+  align-self: center;
 }
 
 .reviews-heading h2 {
@@ -692,13 +717,14 @@ nav a:hover::after {
 }
 
 .reviews-heading .button {
-  color: var(--white);
-  border-color: rgba(255, 255, 255, 0.28);
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(15, 15, 16, 0.18);
 }
 
 .reviews-marquee {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(15, 15, 16, 0.1);
+  border-bottom: 1px solid rgba(15, 15, 16, 0.1);
 }
 
 .reviews-track {
@@ -713,9 +739,10 @@ nav a:hover::after {
   width: min(76vw, 340px);
   min-height: 150px;
   padding: 22px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(15, 15, 16, 0.12);
   border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(15, 15, 16, 0.06);
 }
 
 .reviews-track span {
@@ -733,14 +760,14 @@ nav a:hover::after {
 .reviews-track small {
   display: block;
   margin-top: 5px;
-  color: rgba(255, 255, 255, 0.48);
+  color: rgba(15, 15, 16, 0.48);
   font-size: 12px;
   font-weight: 700;
 }
 
 .reviews-track p {
   margin: 10px 0 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(15, 15, 16, 0.68);
   line-height: 1.55;
 }
 
@@ -1187,6 +1214,8 @@ h2 {
 
 .car-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1293,6 +1322,9 @@ h2 {
 }
 
 .car-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
 }
 
@@ -1381,9 +1413,11 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: auto;
 }
 
 .car-actions .button {
+  flex: 1 1 0;
   min-height: 42px;
   padding: 0 14px;
 }
@@ -2318,6 +2352,48 @@ textarea {
     display: none;
   }
 
+  .catalog-page,
+  .selected-page {
+    padding-bottom: 74px;
+  }
+
+  .catalog-page .mobile-dock,
+  .selected-page .mobile-dock {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    z-index: 54;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2px;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    background: rgba(15, 15, 16, 0.92);
+    box-shadow: 0 18px 46px rgba(15, 15, 16, 0.28);
+  }
+
+  .catalog-page .mobile-dock a,
+  .selected-page .mobile-dock a {
+    min-width: 0;
+    min-height: 46px;
+    display: grid;
+    place-items: center;
+    padding: 0 6px;
+    border-radius: 5px;
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .catalog-page .mobile-dock a:hover,
+  .selected-page .mobile-dock a:hover {
+    background: var(--motors);
+  }
+
   .desktop-copy {
     display: none;
   }
@@ -2339,9 +2415,10 @@ textarea {
   }
 
   .home-page .site-header {
-    background: rgba(255, 255, 255, 0);
+    background: transparent;
     border-bottom-color: transparent;
     box-shadow: none;
+    backdrop-filter: none;
   }
 
   .site-header.is-scrolled {
@@ -2380,31 +2457,55 @@ textarea {
   }
 
   .brand-landing {
-    min-height: 92svh;
-    align-items: end;
-    padding: 112px 18px 44px;
+    min-height: auto;
+    display: block;
+    padding: 0 18px 32px;
+    background: #f5f2ec;
+  }
+
+  .brand-landing::before {
+    height: 54svh;
+    min-height: 360px;
+    display: block;
+    margin: 0 -18px;
+    content: "";
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.76) 68%, #f5f2ec),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.06)),
+      linear-gradient(180deg, rgba(15, 15, 16, 0.08), rgba(15, 15, 16, 0.01) 42%, rgba(245, 242, 236, 0.68) 76%, #f5f2ec 100%),
       url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg") center top / cover;
   }
 
   .brand-landing-content {
-    gap: 18px;
+    position: relative;
+    z-index: 1;
+    gap: 16px;
+    margin-top: -54px;
+  }
+
+  .brand-landing-content::before {
+    position: absolute;
+    z-index: -1;
+    inset: -42px -18px -18px;
+    content: "";
+    background: linear-gradient(180deg, rgba(245, 242, 236, 0), #f5f2ec 34%, #f5f2ec 100%);
+    filter: blur(10px);
   }
 
   .brand-landing-content img {
-    width: min(86vw, 330px);
+    width: min(78vw, 300px);
   }
 
   .brand-landing-content p {
-    max-width: 24ch;
+    max-width: 26ch;
     font-size: 18px;
     line-height: 1.45;
   }
 
   .brand-landing-content .button {
     width: 100%;
+  }
+
+  .brand-landing + .home-hero {
+    padding-top: 70px;
   }
 
   .site-header > .icon-button {
@@ -2563,14 +2664,14 @@ textarea {
     width: 100%;
     min-height: 0;
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
     margin-top: 26px;
   }
 
   .home-hero-visual figure {
     min-height: 0;
-    aspect-ratio: 1 / 0.78;
+    aspect-ratio: 1 / 0.82;
     border-radius: 0;
   }
 
@@ -2579,7 +2680,12 @@ textarea {
   }
 
   .home-hero-visual img {
-    transform: scale(1.06);
+    transform: scale(1.03);
+  }
+
+  .motors-tile:first-child img,
+  .selected-tile:nth-child(2) img {
+    object-position: center;
   }
 
   .mosaic-tile figcaption {
@@ -2668,6 +2774,10 @@ textarea {
     grid-template-columns: 1fr;
     align-items: start;
     padding: 0 18px 24px;
+  }
+
+  .reviews-logo {
+    width: min(68vw, 240px);
   }
 
   .reviews-heading h2 {
@@ -2836,9 +2946,8 @@ textarea {
   .inventory-preview .car-grid {
     display: flex;
     gap: 16px;
-    margin-right: -18px;
-    margin-left: 0;
-    padding: 0 18px 2px 0;
+    margin: 0;
+    padding: 0 0 8px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-padding-left: 0;
@@ -2850,6 +2959,7 @@ textarea {
     flex: 0 0 min(82vw, 330px);
     width: min(82vw, 330px);
     min-width: min(82vw, 330px);
+    min-height: 650px;
     scroll-snap-align: start;
   }
 
@@ -2881,6 +2991,9 @@ textarea {
   }
 
   .car-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 18px;
   }
 
@@ -2890,13 +3003,24 @@ textarea {
   }
 
   .car-desc {
-    min-height: 0;
+    min-height: 76px;
+    display: -webkit-box;
+    overflow: hidden;
     font-size: 16px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
 
   .car-actions {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .car-actions .button {
+    min-height: 54px;
+    width: 100%;
   }
 
   .detail-panel {
@@ -3261,6 +3385,15 @@ textarea {
 
   .mobile-dock {
     display: none;
+  }
+
+  .catalog-page .mobile-dock,
+  .selected-page .mobile-dock {
+    display: grid;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    padding: 5px;
   }
 
   .mobile-dock a {
