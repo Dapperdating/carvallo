@@ -2365,49 +2365,12 @@ textarea {
 
   .catalog-page,
   .selected-page {
-    padding-bottom: 74px;
+    padding-bottom: 0;
   }
 
   .catalog-page .mobile-dock,
   .selected-page .mobile-dock {
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
-    left: 10px;
-    z-index: 54;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2px;
-    padding: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 8px;
-    background: rgba(15, 15, 16, 0.92);
-    box-shadow: 0 18px 46px rgba(15, 15, 16, 0.28);
-  }
-
-  .catalog-page .mobile-dock a,
-  .selected-page .mobile-dock a {
-    min-width: 0;
-    min-height: 46px;
-    display: grid;
-    place-items: center;
-    padding: 0 6px;
-    border-radius: 5px;
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 900;
-    line-height: 1.1;
-    text-align: center;
-  }
-
-  .catalog-page .mobile-dock a:hover,
-  .selected-page .mobile-dock a:hover {
-    background: var(--motors);
-  }
-
-  .catalog-page .mobile-dock a[aria-current="page"],
-  .selected-page .mobile-dock a[aria-current="page"] {
-    background: var(--motors);
+    display: none;
   }
 
   .desktop-copy {
@@ -3216,9 +3179,9 @@ textarea {
   }
 
   .catalog-hero h1 {
-    max-width: 100%;
-    font-size: clamp(42px, 15vw, 64px);
-    line-height: 0.92;
+    max-width: 11ch;
+    font-size: clamp(34px, 11.5vw, 46px);
+    line-height: 1;
   }
 
   .catalog-hero p:last-child {
@@ -3393,7 +3356,7 @@ textarea {
   }
 
   .catalog-hero h1 {
-    font-size: clamp(38px, 13.8vw, 54px);
+    font-size: clamp(32px, 10.5vw, 42px);
   }
 
   .catalog-hero p:last-child {
@@ -3405,22 +3368,9 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .mobile-dock {
-    display: none;
-  }
-
   .catalog-page .mobile-dock,
   .selected-page .mobile-dock {
-    display: grid;
-    right: 8px;
-    bottom: 8px;
-    left: 8px;
-    padding: 5px;
-  }
-
-  .mobile-dock a {
-    min-height: 44px;
-    font-size: 10px;
+    display: none;
   }
 
   .catalog-stats span {
