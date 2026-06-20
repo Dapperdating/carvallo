@@ -170,7 +170,71 @@ nav a:hover::after {
 }
 
 .home-page .site-header {
+  position: fixed;
+  right: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0);
+  border-bottom-color: rgba(255, 255, 255, 0);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.home-page .site-header.is-scrolled {
   background: rgba(255, 255, 255, 0.94);
+  border-bottom-color: var(--line);
+  box-shadow: 0 18px 45px rgba(15, 15, 16, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.home-page .site-header .brand {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+.home-page .site-header.is-scrolled .brand {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.brand-landing {
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding: 96px clamp(20px, 6vw, 78px) 64px;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.76) 38%, rgba(255, 255, 255, 0.18) 70%),
+    linear-gradient(180deg, rgba(15, 15, 16, 0.08), rgba(15, 15, 16, 0.26)),
+    url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg") center right / cover;
+  border-bottom: 1px solid rgba(15, 15, 16, 0.12);
+}
+
+.brand-landing-content {
+  max-width: 560px;
+  display: grid;
+  gap: 26px;
+  align-items: start;
+}
+
+.brand-landing-content img {
+  width: min(78vw, 460px);
+}
+
+.brand-landing-content p {
+  max-width: 30rem;
+  margin: 0;
+  color: #3f4449;
+  font-size: clamp(18px, 2.1vw, 25px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.brand-landing-content .button {
+  justify-self: start;
+  min-width: 160px;
 }
 
 .mobile-headline {
@@ -2274,10 +2338,23 @@ textarea {
     backdrop-filter: none;
   }
 
+  .home-page .site-header {
+    background: rgba(255, 255, 255, 0);
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+
   .site-header.is-scrolled {
     padding-top: 10px;
     padding-bottom: 10px;
     background: #fff;
+    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.12);
+    backdrop-filter: none;
+  }
+
+  .home-page .site-header.is-scrolled {
+    background: #fff;
+    border-bottom-color: rgba(15, 15, 16, 0.12);
     box-shadow: 0 12px 34px rgba(15, 15, 16, 0.12);
     backdrop-filter: none;
   }
@@ -2300,6 +2377,34 @@ textarea {
 
   .brand-logo {
     width: min(46vw, 166px);
+  }
+
+  .brand-landing {
+    min-height: 92svh;
+    align-items: end;
+    padding: 112px 18px 44px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.76) 68%, #f5f2ec),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.06)),
+      url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg") center top / cover;
+  }
+
+  .brand-landing-content {
+    gap: 18px;
+  }
+
+  .brand-landing-content img {
+    width: min(86vw, 330px);
+  }
+
+  .brand-landing-content p {
+    max-width: 24ch;
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .brand-landing-content .button {
+    width: 100%;
   }
 
   .site-header > .icon-button {

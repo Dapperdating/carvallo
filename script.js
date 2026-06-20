@@ -349,7 +349,9 @@ function updateScrollProgress(progress, maxScroll, scrollY) {
 }
 
 function updateHeaderState(headers, scrollY, previousState) {
-  const isScrolled = scrollY > 12;
+  const landing = document.querySelector(".brand-landing");
+  const threshold = landing ? Math.max(12, landing.offsetHeight - 96) : 12;
+  const isScrolled = scrollY > threshold;
   if (previousState.value === isScrolled) return;
   previousState.value = isScrolled;
   headers.forEach((header) => header.classList.toggle("is-scrolled", isScrolled));
