@@ -72,6 +72,7 @@ img {
   position: sticky;
   top: 0;
   z-index: 20;
+  min-height: 102px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -91,7 +92,8 @@ img {
 }
 
 .site-header.compact {
-  position: static;
+  position: sticky;
+  top: 0;
 }
 
 .brand {
@@ -181,10 +183,9 @@ nav a[aria-current="page"]::after {
   position: fixed;
   right: 0;
   left: 0;
-  background: rgba(255, 255, 255, 0);
-  border-bottom-color: rgba(255, 255, 255, 0);
-  box-shadow: none;
-  backdrop-filter: none;
+  background: rgba(244, 241, 236, 0.88);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(16px);
 }
 
 .home-page .site-header.is-scrolled {
@@ -195,9 +196,9 @@ nav a[aria-current="page"]::after {
 }
 
 .home-page .site-header .brand {
-  opacity: 0;
-  transform: translateY(-8px);
-  pointer-events: none;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
   transition: opacity 280ms ease, transform 280ms ease;
 }
 
@@ -209,8 +210,8 @@ nav a[aria-current="page"]::after {
 
 .home-page .site-header:not(.is-scrolled) nav,
 .home-page .site-header:not(.is-scrolled) > .icon-button {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .brand-landing {
@@ -1923,8 +1924,6 @@ h2 {
 }
 
 .selected-page .site-header.compact {
-  position: sticky;
-  top: 0;
   color: var(--white);
   background: var(--dark);
   border-bottom: 1px solid rgba(158, 27, 34, 0.72);
@@ -1944,7 +1943,7 @@ h2 {
 }
 
 .selected-header-logo {
-  width: min(38vw, 220px);
+  width: clamp(176px, 20vw, 260px);
 }
 
 .selected-hero {
@@ -2423,6 +2422,7 @@ textarea {
     position: fixed;
     right: 0;
     left: 0;
+    min-height: 68px;
     gap: 12px;
     padding: 10px 14px;
     background: #fff;
@@ -2431,10 +2431,15 @@ textarea {
     backdrop-filter: none;
   }
 
+  .site-header.compact {
+    position: fixed;
+    top: 0;
+  }
+
   .home-page .site-header {
-    background: transparent;
-    border-bottom-color: transparent;
-    box-shadow: none;
+    background: #fff;
+    border-bottom-color: rgba(15, 15, 16, 0.12);
+    box-shadow: 0 12px 34px rgba(15, 15, 16, 0.08);
     backdrop-filter: none;
   }
 
