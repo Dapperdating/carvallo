@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260620-delivery-qa2">
+    <link rel="stylesheet" href="styles.css?v=20260622-password-reset">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
-    <script defer src="admin.js?v=20260622-admin-access"></script>
+    <script defer src="admin.js?v=20260622-password-reset"></script>
   </head>
   <body class="admin-page">
     <header class="site-header compact">
@@ -35,11 +35,20 @@
         </div>
         <div class="admin-actions">
           <button class="button primary" id="login-button" type="button">Accedi</button>
-          <button class="button ghost" id="signup-button" type="button">Crea password</button>
+          <button class="button ghost" id="reset-button" type="button">Password dimenticata</button>
         </div>
         <button class="button ghost" id="logout-button" type="button" hidden>Esci</button>
         <p class="form-status" id="login-status">Accesso riservato.</p>
       </section>
+
+      <form class="admin-login" id="reset-password-form" hidden>
+        <div class="form-grid">
+          <label>Nuova password<input id="new-password" type="password" autocomplete="new-password"></label>
+          <label>Conferma password<input id="confirm-password" type="password" autocomplete="new-password"></label>
+        </div>
+        <button class="button primary" id="update-password-button" type="submit">Aggiorna password</button>
+        <p class="form-status" id="reset-status">Imposta una nuova password.</p>
+      </form>
 
       <form class="admin-form is-locked" id="car-form" hidden>
         <div class="form-grid">

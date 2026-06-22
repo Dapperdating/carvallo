@@ -7,7 +7,7 @@ function getSupabaseClient() {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
-        detectSessionInUrl: false,
+        detectSessionInUrl: true,
         storageKey: "carvallo-admin-auth"
       }
     });
@@ -21,8 +21,12 @@ const adminStatus = document.querySelector("#admin-status");
 const loginEmail = document.querySelector("#login-email");
 const loginPassword = document.querySelector("#login-password");
 const loginButton = document.querySelector("#login-button");
-const signupButton = document.querySelector("#signup-button");
+const resetButton = document.querySelector("#reset-button");
 const logoutButton = document.querySelector("#logout-button");
+const resetPasswordForm = document.querySelector("#reset-password-form");
+const newPassword = document.querySelector("#new-password");
+const confirmPassword = document.querySelector("#confirm-password");
+const resetStatus = document.querySelector("#reset-status");
 const carForm = document.querySelector("#car-form");
 const imageInput = document.querySelector("#car-images");
 
@@ -41,9 +45,10 @@ function slugify(value) {
 function setLocked(message) {
   carForm.hidden = true;
   carForm.classList.add("is-locked");
+  resetPasswordForm.hidden = true;
   logoutButton.hidden = !currentSession;
   loginButton.hidden = Boolean(currentSession);
-  signupButton.hidden = Boolean(currentSession);
+  resetButton.hidden = Boolean(currentSession);
   loginEmail.hidden = Boolean(currentSession);
   loginPassword.hidden = Boolean(currentSession);
   loginStatus.textContent = message;
@@ -52,12 +57,28 @@ function setLocked(message) {
 function setUnlocked(email) {
   carForm.hidden = false;
   carForm.classList.remove("is-locked");
+  resetPasswordForm.hidden = true;
   loginButton.hidden = true;
-  signupButton.hidden = true;
+  resetButton.hidden = true;
   loginEmail.hidden = true;
   loginPassword.hidden = true;
   logoutButton.hidden = false;
   loginStatus.textContent = `Accesso attivo: ${email}`;
+}
+
+function showPasswordRecovery() {
+  currentAdmin = null;
+  carForm.hidden = true;
+  carForm.classList.add("is-locked");
+  resetPasswordForm.hidden = false;
+  loginButton.hidden = true;
+  resetButton.hidden = true;
+  loginEmail.hidden = true;
+  loginPassword.hidden = true;
+  logoutButton.hidden = true;
+  loginStatus.textContent = "Imposta una nuova password.";
+  resetStatus.textContent = "Scegli una password di almeno 8 caratteri.";
+  newPassword.focus();
 }
 
 function normalizeEmail(value) {
@@ -75,6 +96,10 @@ function emailValue() {
     return null;
   }
   return email;
+}
+
+function resetRedirectUrl() {
+  return `${window.location.origin}${window.location.pathname}?reset=1`;
 }
 
 async function checkAdminAccess(session) {
@@ -158,28 +183,59 @@ loginButton.addEventListener("click", async () => {
   await refreshAuthState();
 });
 
-signupButton.addEventListener("click", async () => {
+resetButton.addEventListener("click", async () => {
   if (!client) {
     loginStatus.textContent = "Servizio non configurato.";
     return;
   }
 
   const email = emailValue();
-  const password = passwordValue();
   if (!email) return;
-  if (!password || password.length < 8) {
-    loginStatus.textContent = "Scegli una password di almeno 8 caratteri.";
-    return;
-  }
 
-  loginStatus.textContent = "Creo la password...";
-  const { error } = await client.auth.signUp({ email, password });
+  loginStatus.textContent = "Invio istruzioni di reset...";
+  const { error } = await client.auth.resetPasswordForEmail(email, {
+    redirectTo: resetRedirectUrl()
+  });
   if (error) {
-    loginStatus.textContent = error.message;
+    loginStatus.textContent = "Non riesco a inviare il reset. Riprova tra poco.";
     return;
   }
 
-  loginStatus.textContent = "Password creata. Ora puoi accedere.";
+  loginStatus.textContent = "Se l'email e' abilitata, riceverai un link per reimpostare la password.";
+});
+
+resetPasswordForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!client) {
+    resetStatus.textContent = "Servizio non configurato.";
+    return;
+  }
+
+  const password = newPassword.value;
+  const confirmation = confirmPassword.value;
+  if (!password || password.length < 8) {
+    resetStatus.textContent = "Scegli una password di almeno 8 caratteri.";
+    return;
+  }
+  if (password !== confirmation) {
+    resetStatus.textContent = "Le password non coincidono.";
+    return;
+  }
+
+  resetStatus.textContent = "Aggiornamento password...";
+  const { error } = await client.auth.updateUser({ password });
+  if (error) {
+    resetStatus.textContent = "Non riesco ad aggiornare la password. Riapri il link di reset.";
+    return;
+  }
+
+  newPassword.value = "";
+  confirmPassword.value = "";
+  await client.auth.signOut();
+  currentSession = null;
+  currentAdmin = null;
+  window.history.replaceState(null, "", window.location.pathname);
+  setLocked("Password aggiornata. Accedi con le nuove credenziali.");
 });
 
 logoutButton.addEventListener("click", async () => {
@@ -247,5 +303,11 @@ if (document.readyState === "loading") {
   refreshAuthState();
 }
 if (client) {
-  client.auth.onAuthStateChange(() => refreshAuthState());
+  client.auth.onAuthStateChange((event) => {
+    if (event === "PASSWORD_RECOVERY") {
+      showPasswordRecovery();
+      return;
+    }
+    refreshAuthState();
+  });
 }
