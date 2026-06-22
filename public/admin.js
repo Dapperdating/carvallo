@@ -30,6 +30,7 @@ const confirmPassword = document.querySelector("#confirm-password");
 const resetStatus = document.querySelector("#reset-status");
 const carForm = document.querySelector("#car-form");
 const imageInput = document.querySelector("#car-images");
+const ADMIN_PUBLIC_URL = "https://carvallo-motors.com/admin.html";
 
 let currentSession = null;
 let currentAdmin = null;
@@ -103,11 +104,11 @@ function emailValue() {
 }
 
 function resetRedirectUrl() {
-  return `${window.location.origin}${window.location.pathname}?reset=1`;
+  return `${ADMIN_PUBLIC_URL}?reset=1`;
 }
 
 function loginRedirectUrl() {
-  return `${window.location.origin}${window.location.pathname}?login=1`;
+  return `${ADMIN_PUBLIC_URL}?login=1`;
 }
 
 async function checkAdminAccess(session) {
