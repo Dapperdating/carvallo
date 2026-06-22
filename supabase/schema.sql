@@ -172,9 +172,6 @@ grant select, insert, update, delete on public.cars to authenticated;
 grant select on public.leads to authenticated;
 grant select on public.admin_users to authenticated;
 
-delete from public.admin_users
-where lower(email) <> 'main@carvallo-motors.com';
-
 insert into public.admin_users (email, role)
 values ('main@carvallo-motors.com', 'owner')
 on conflict (email) do update set role = excluded.role;

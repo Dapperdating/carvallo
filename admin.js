@@ -15,7 +15,6 @@ function getSupabaseClient() {
   return window.CARVALLO_ADMIN_SUPABASE_CLIENT;
 }
 
-const ALLOWED_ADMIN_EMAIL = "main@carvallo-motors.com";
 const client = getSupabaseClient();
 const loginStatus = document.querySelector("#login-status");
 const adminStatus = document.querySelector("#admin-status");
@@ -69,10 +68,10 @@ function passwordValue() {
   return loginPassword.value;
 }
 
-function guardAllowedEmail() {
+function emailValue() {
   const email = normalizeEmail(loginEmail.value);
-  if (email !== ALLOWED_ADMIN_EMAIL) {
-    loginStatus.textContent = `Accesso consentito solo a ${ALLOWED_ADMIN_EMAIL}.`;
+  if (!email) {
+    loginStatus.textContent = "Inserisci la tua email.";
     return null;
   }
   return email;
@@ -103,14 +102,6 @@ async function refreshAuthState() {
 
   if (!currentSession) {
     setLocked("Inserisci la password per accedere. La sessione resta salvata su questo browser.");
-    return;
-  }
-
-  if (normalizeEmail(currentSession.user.email || "") !== ALLOWED_ADMIN_EMAIL) {
-    await client.auth.signOut();
-    currentSession = null;
-    currentAdmin = null;
-    setLocked(`Accesso consentito solo a ${ALLOWED_ADMIN_EMAIL}.`);
     return;
   }
 
@@ -149,7 +140,7 @@ loginButton.addEventListener("click", async () => {
     return;
   }
 
-  const email = guardAllowedEmail();
+  const email = emailValue();
   const password = passwordValue();
   if (!email) return;
   if (!password) {
@@ -173,7 +164,7 @@ signupButton.addEventListener("click", async () => {
     return;
   }
 
-  const email = guardAllowedEmail();
+  const email = emailValue();
   const password = passwordValue();
   if (!email) return;
   if (!password || password.length < 8) {
