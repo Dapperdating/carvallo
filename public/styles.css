@@ -2377,12 +2377,46 @@ textarea {
 }
 
 .admin-table td:first-child {
-  min-width: 230px;
+  min-width: 310px;
 }
 
 .admin-table td:first-child strong,
 .admin-table td:first-child span {
   display: block;
+}
+
+.listing-cell {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+
+.listing-thumb {
+  width: 92px;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #e9e5dc;
+}
+
+.listing-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listing-thumb.is-empty::after {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--muted);
+  content: "Foto";
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .admin-table tr:last-child td {
@@ -3517,7 +3551,16 @@ textarea {
   }
 
   .admin-table {
-    min-width: 680px;
+    min-width: 760px;
+  }
+
+  .listing-cell {
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .listing-thumb {
+    width: 76px;
   }
 
   .image-preview-list {

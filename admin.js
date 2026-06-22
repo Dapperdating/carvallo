@@ -139,6 +139,11 @@ function titleForCar(car) {
   return `${car.make || ""} ${car.model || ""}`.trim() || car.slug || "Annuncio";
 }
 
+function dashboardImageUrl(car) {
+  const gallery = Array.isArray(car.gallery_urls) ? car.gallery_urls : [];
+  return car.image_url || gallery[0] || "";
+}
+
 function normalizeGalleryUrls(values) {
   return values
     .flat()
@@ -418,11 +423,19 @@ function renderDashboard() {
   listingsBody.innerHTML = dashboardCars.map((car) => {
     const slug = car.slug || car.id;
     const clicks = dashboardClicks.get(slug) || 0;
+    const image = dashboardImageUrl(car);
     return `
       <tr>
         <td>
-          <strong>${escapeHtml(titleForCar(car))}</strong>
-          <span>${escapeHtml(car.division === "selected" ? "Selected" : "Motors")} · ${escapeHtml(car.price_label || "Prezzo n/d")}</span>
+          <div class="listing-cell">
+            <figure class="listing-thumb ${image ? "" : "is-empty"}">
+              ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(titleForCar(car))}">` : ""}
+            </figure>
+            <div>
+              <strong>${escapeHtml(titleForCar(car))}</strong>
+              <span>${escapeHtml(car.division === "selected" ? "Selected" : "Motors")} · ${escapeHtml(car.price_label || "Prezzo n/d")}</span>
+            </div>
+          </div>
         </td>
         <td>${escapeHtml(statusLabel(car.status))}</td>
         <td><strong>${clicks}</strong></td>
