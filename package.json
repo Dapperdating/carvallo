@@ -1,0 +1,17 @@
+{
+  "name": "carvallo-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "sh scripts/sync-public.sh",
+    "deploy": "wrangler deploy",
+    "dev": "python3 -m http.server 4173",
+    "start": "python3 -m http.server 4173"
+  },
+  "devDependencies": {
+    "wrangler": "^4.34.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

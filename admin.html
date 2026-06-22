@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin | Carvallo Motors</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260622-site-map">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script defer src="admin.js?v=20260622-admin-dashboard"></script>
+  </head>
+  <body class="admin-page">
+    <header class="site-header compact">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="assets/logos/carvallo-motors-logo.png" alt="Carvallo Motors">
+      </a>
+      <a class="button ghost" href="index.html">Sito</a>
+    </header>
+    <main class="admin-shell">
+      <section class="admin-intro">
+        <p class="eyebrow">Catalogo</p>
+        <h1>Gestisci il catalogo</h1>
+        <p>Area riservata. Inserisci le credenziali fornite.</p>
+      </section>
+
+      <section class="admin-login" id="login-panel">
+        <div class="form-grid">
+          <label>Email<input id="login-email" type="email" autocomplete="username" placeholder="Email"></label>
+          <label>Password<input id="login-password" type="password" autocomplete="current-password"></label>
+        </div>
+        <div class="admin-actions">
+          <button class="button primary" id="login-button" type="button">Accedi</button>
+          <button class="button ghost" id="magic-link-button" type="button">Ricevi link di accesso</button>
+          <button class="button ghost" id="reset-button" type="button">Password dimenticata</button>
+        </div>
+        <button class="button ghost" id="logout-button" type="button" hidden>Esci</button>
+        <p class="form-status" id="login-status">Accesso riservato.</p>
+      </section>
+
+      <form class="admin-login" id="reset-password-form" hidden>
+        <div class="form-grid">
+          <label>Nuova password<input id="new-password" type="password" autocomplete="new-password"></label>
+          <label>Conferma password<input id="confirm-password" type="password" autocomplete="new-password"></label>
+        </div>
+        <button class="button primary" id="update-password-button" type="submit">Aggiorna password</button>
+        <p class="form-status" id="reset-status">Imposta una nuova password.</p>
+      </form>
+
+      <section class="admin-dashboard is-locked" id="admin-dashboard" hidden>
+        <div class="dashboard-head">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h2>Annunci</h2>
+          </div>
+          <button class="button ghost" id="new-car-button" type="button">Nuovo annuncio</button>
+        </div>
+        <div class="dashboard-stats" aria-label="Statistiche catalogo">
+          <article>
+            <span>Pubblicati</span>
+            <strong id="stat-published">0</strong>
+          </article>
+          <article>
+            <span>Disponibili</span>
+            <strong id="stat-available">0</strong>
+          </article>
+          <article>
+            <span>Click schede</span>
+            <strong id="stat-clicks">0</strong>
+          </article>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Annuncio</th>
+                <th>Stato</th>
+                <th>Click</th>
+                <th>Visibilita'</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="admin-listings"></tbody>
+          </table>
+        </div>
+        <p class="form-status" id="dashboard-status"></p>
+      </section>
+
+      <form class="admin-form is-locked" id="car-form" hidden>
+        <div class="form-section-title">
+          <div>
+            <p class="eyebrow">Editor</p>
+            <h2 id="form-title">Nuovo annuncio</h2>
+          </div>
+          <button class="button ghost" id="cancel-edit-button" type="button" hidden>Annulla modifica</button>
+        </div>
+        <div class="form-grid">
+          <label>Divisione
+            <select name="division">
+              <option value="motors">Motors</option>
+              <option value="selected">Selected</option>
+            </select>
+          </label>
+          <label>Stato
+            <select name="status">
+              <option value="available">Disponibile</option>
+              <option value="incoming">In arrivo</option>
+              <option value="unavailable">Non disponibile</option>
+              <option value="sold">Venduta</option>
+            </select>
+          </label>
+          <label>Marca<input name="make" required></label>
+          <label>Modello<input name="model" required></label>
+          <label>Anno<input name="year" type="number" min="1900" max="2100"></label>
+          <label>Km<input name="mileage_km" type="number" min="0"></label>
+          <label>Proprietari precedenti<input name="previous_owners" type="number" min="0" max="20" placeholder="1"></label>
+          <label>Cilindrata<input name="engine_size" placeholder="1.2, 1.6 TDI, V6 3.5..."></label>
+          <label>Alimentazione<input name="fuel"></label>
+          <label>Cambio<input name="transmission"></label>
+          <label>Prezzo<input name="price_label" placeholder="€ 32.900 oppure Prezzo su richiesta"></label>
+          <label>Slug<input name="slug" placeholder="bmw-m4-cs"></label>
+        </div>
+        <label>Immagini
+          <input id="car-images" name="images" type="file" accept="image/png,image/jpeg,image/webp" multiple>
+        </label>
+        <label>Immagine URL alternativa<input name="image_url" placeholder="https://..."></label>
+        <label>Gallery URL manuali<textarea name="gallery_urls_raw" rows="4" placeholder="Una URL immagine per riga"></textarea></label>
+        <div class="image-workbench">
+          <div class="image-workbench-head">
+            <strong>Ordine foto</strong>
+            <button class="button ghost" id="sync-gallery-preview" type="button">Aggiorna preview URL</button>
+          </div>
+          <div class="image-preview-list" id="image-preview-list" aria-label="Anteprima immagini ordinate"></div>
+          <p class="form-status">La prima foto diventa l'immagine principale. Trascina le anteprime o usa le frecce.</p>
+        </div>
+        <label>Link AutoScout annuncio singolo<input name="source_url" placeholder="https://www.autoscout24.it/annunci/..."></label>
+        <label>Manutenzione / tagliandi<input name="service_history" placeholder="Sempre tagliandata Fiat, service BMW, 11 tagliandi Mercedes..."></label>
+        <label>Punti forti per AI<textarea name="highlights" rows="3" placeholder="Unico proprietario, pochi km, condizioni impeccabili, uso sporadico..."></textarea></label>
+        <label>Descrizione breve<textarea name="short_description" rows="3"></textarea></label>
+        <label>Descrizione completa<textarea name="description" rows="5"></textarea></label>
+        <button class="button ghost ai-button" id="generate-description-button" type="button">Genera con AI</button>
+        <label class="checkbox"><input name="featured" type="checkbox"> In evidenza</label>
+        <label class="checkbox"><input name="is_published" type="checkbox" checked> Pubblica subito</label>
+        <button class="button primary" type="submit">Salva auto</button>
+        <p class="form-status" id="admin-status"></p>
+      </form>
+    </main>
+  </body>
+</html>
