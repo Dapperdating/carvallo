@@ -34,6 +34,7 @@ const ADMIN_PUBLIC_URL = "https://carvallo-motors.com/admin.html";
 
 let currentSession = null;
 let currentAdmin = null;
+let authEmailRequestPending = false;
 
 function slugify(value) {
   return value
@@ -109,6 +110,20 @@ function resetRedirectUrl() {
 
 function loginRedirectUrl() {
   return `${ADMIN_PUBLIC_URL}?login=1`;
+}
+
+function authEmailErrorMessage(error, fallback) {
+  const message = `${error?.message || ""} ${error?.code || ""}`.toLowerCase();
+  if (error?.status === 429 || message.includes("rate limit")) {
+    return "Troppe email richieste in poco tempo. Aspetta qualche minuto e riprova.";
+  }
+  return fallback;
+}
+
+function setAuthEmailButtonsDisabled(disabled) {
+  authEmailRequestPending = disabled;
+  magicLinkButton.disabled = disabled;
+  resetButton.disabled = disabled;
 }
 
 async function checkAdminAccess(session) {
@@ -197,24 +212,30 @@ magicLinkButton.addEventListener("click", async () => {
     loginStatus.textContent = "Servizio non configurato.";
     return;
   }
+  if (authEmailRequestPending) return;
 
   const email = emailValue();
   if (!email) return;
 
   loginStatus.textContent = "Invio link di accesso...";
-  const { error } = await client.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: loginRedirectUrl(),
-      shouldCreateUser: false
+  setAuthEmailButtonsDisabled(true);
+  try {
+    const { error } = await client.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: loginRedirectUrl(),
+        shouldCreateUser: false
+      }
+    });
+    if (error) {
+      loginStatus.textContent = authEmailErrorMessage(error, "Non riesco a inviare il link. Riprova tra poco.");
+      return;
     }
-  });
-  if (error) {
-    loginStatus.textContent = "Non riesco a inviare il link. Riprova tra poco.";
-    return;
-  }
 
-  loginStatus.textContent = "Se l'email e' abilitata, riceverai un link per entrare.";
+    loginStatus.textContent = "Se l'email e' abilitata, riceverai un link per entrare.";
+  } finally {
+    setAuthEmailButtonsDisabled(false);
+  }
 });
 
 resetButton.addEventListener("click", async () => {
@@ -222,20 +243,26 @@ resetButton.addEventListener("click", async () => {
     loginStatus.textContent = "Servizio non configurato.";
     return;
   }
+  if (authEmailRequestPending) return;
 
   const email = emailValue();
   if (!email) return;
 
   loginStatus.textContent = "Invio istruzioni di reset...";
-  const { error } = await client.auth.resetPasswordForEmail(email, {
-    redirectTo: resetRedirectUrl()
-  });
-  if (error) {
-    loginStatus.textContent = "Non riesco a inviare il reset. Riprova tra poco.";
-    return;
-  }
+  setAuthEmailButtonsDisabled(true);
+  try {
+    const { error } = await client.auth.resetPasswordForEmail(email, {
+      redirectTo: resetRedirectUrl()
+    });
+    if (error) {
+      loginStatus.textContent = authEmailErrorMessage(error, "Non riesco a inviare il reset. Riprova tra poco.");
+      return;
+    }
 
-  loginStatus.textContent = "Se l'email e' abilitata, riceverai un link per reimpostare la password.";
+    loginStatus.textContent = "Se l'email e' abilitata, riceverai un link per reimpostare la password.";
+  } finally {
+    setAuthEmailButtonsDisabled(false);
+  }
 });
 
 resetPasswordForm.addEventListener("submit", async (event) => {
