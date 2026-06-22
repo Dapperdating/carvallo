@@ -2171,7 +2171,8 @@ h2 {
 
 .lead-form,
 .admin-login,
-.admin-form {
+.admin-form,
+.admin-dashboard {
   display: grid;
   gap: 14px;
 }
@@ -2286,7 +2287,8 @@ textarea {
 }
 
 .admin-login,
-.admin-form {
+.admin-form,
+.admin-dashboard {
   padding: 22px;
   margin-bottom: 22px;
   background: var(--white);
@@ -2300,8 +2302,180 @@ textarea {
   gap: 10px;
 }
 
-.admin-form.is-locked {
+.admin-form.is-locked,
+.admin-dashboard.is-locked {
   display: none;
+}
+
+.dashboard-head,
+.form-section-title,
+.image-workbench-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.dashboard-head h2,
+.form-section-title h2 {
+  margin: 0;
+  font-size: clamp(26px, 3vw, 38px);
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dashboard-stats article {
+  min-height: 92px;
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #faf9f6;
+}
+
+.dashboard-stats span,
+.admin-table td span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dashboard-stats strong {
+  font-size: 32px;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.admin-table th {
+  background: #f7f6f2;
+  color: #363b40;
+}
+
+.admin-table td:first-child {
+  min-width: 230px;
+}
+
+.admin-table td:first-child strong,
+.admin-table td:first-child span {
+  display: block;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.table-actions button,
+.image-preview-item button {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.table-actions button {
+  padding: 0 9px;
+}
+
+.image-workbench {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #faf9f6;
+}
+
+.image-preview-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+  gap: 10px;
+}
+
+.empty-preview {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.image-preview-item {
+  position: relative;
+  min-height: 158px;
+  display: grid;
+  grid-template-rows: 96px auto;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.image-preview-item > span {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--white);
+  background: var(--motors);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.image-preview-item img {
+  width: 100%;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #e9e5dc;
+}
+
+.image-preview-item div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.ai-button {
+  justify-self: start;
 }
 
 .legal-page {
@@ -3313,8 +3487,41 @@ textarea {
 
   .lead-form,
   .admin-login,
-  .admin-form {
+  .admin-form,
+  .admin-dashboard {
     gap: 12px;
+  }
+
+  .admin-login,
+  .admin-form,
+  .admin-dashboard {
+    padding: 16px;
+  }
+
+  .dashboard-head,
+  .form-section-title,
+  .image-workbench-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dashboard-head .button,
+  .form-section-title .button,
+  .image-workbench-head .button,
+  .ai-button {
+    width: 100%;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-table {
+    min-width: 680px;
+  }
+
+  .image-preview-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   input,

@@ -10,6 +10,7 @@ let searchTerm = "";
 let catalogCars = [];
 let zoomTouchStartX = 0;
 let zoomTouchStartY = 0;
+const trackedOpenSlugs = new Set();
 
 function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
@@ -84,6 +85,20 @@ function carDetailUrl(car) {
   const slug = encodeURIComponent(car.slug || car.id || "");
   const basePath = window.location.pathname.includes("auto") ? window.location.pathname : "/auto.html";
   return `${window.location.origin}${basePath}#auto-${slug}`;
+}
+
+function trackCarEvent(car, eventType) {
+  const client = getSupabaseClient();
+  const slug = car?.slug || car?.id;
+  if (!client || !slug) return;
+
+  client.from("car_events").insert({
+    car_slug: slug,
+    event_type: eventType,
+    page_path: window.location.pathname,
+    referrer: document.referrer || null,
+    user_agent: navigator.userAgent || null
+  }).then(() => {}).catch(() => {});
 }
 
 function carWhatsappUrl(car) {
@@ -174,8 +189,11 @@ function detailRows(car) {
     ["Modello", car.model || "n/d"],
     ["Anno", car.year || "n/d"],
     ["Chilometri", formatKm(car.mileage_km)],
+    ["Proprietari", car.previous_owners ? String(car.previous_owners) : "n/d"],
+    ["Cilindrata", car.engine_size || "n/d"],
     ["Alimentazione", car.fuel || "n/d"],
-    ["Cambio", car.transmission || "n/d"]
+    ["Cambio", car.transmission || "n/d"],
+    ["Manutenzione", car.service_history || "n/d"]
   ];
 }
 
@@ -244,6 +262,10 @@ function openCarDetail(slug) {
   dialog.hidden = false;
   document.body.classList.add("detail-open");
   window.history.replaceState(null, "", `#auto-${encodeURIComponent(car.slug || car.id)}`);
+  if (!trackedOpenSlugs.has(String(car.slug || car.id))) {
+    trackedOpenSlugs.add(String(car.slug || car.id));
+    trackCarEvent(car, "open_detail");
+  }
   requestAnimationFrame(() => {
     dialog.querySelector(".detail-panel")?.scrollTo({ top: 0, left: 0 });
   });
@@ -602,7 +624,26 @@ function bindCarDetail() {
     const call = event.target.closest("[data-call-url]");
     if (call) {
       event.preventDefault();
+      const slug = window.location.hash.startsWith("#auto-") ? decodeURIComponent(window.location.hash.replace("#auto-", "")) : "";
+      const car = catalogCars.find((item) => String(item.slug || item.id) === String(slug));
+      trackCarEvent(car, "call_click");
       window.location.href = call.dataset.callUrl;
+      return;
+    }
+
+    const whatsapp = event.target.closest(".whatsapp-action");
+    if (whatsapp) {
+      const slug = window.location.hash.startsWith("#auto-") ? decodeURIComponent(window.location.hash.replace("#auto-", "")) : "";
+      const car = catalogCars.find((item) => String(item.slug || item.id) === String(slug));
+      trackCarEvent(car, "whatsapp_click");
+      return;
+    }
+
+    const autoscout = event.target.closest(".autoscout-action");
+    if (autoscout) {
+      const slug = window.location.hash.startsWith("#auto-") ? decodeURIComponent(window.location.hash.replace("#auto-", "")) : "";
+      const car = catalogCars.find((item) => String(item.slug || item.id) === String(slug));
+      trackCarEvent(car, "autoscout_click");
       return;
     }
 

@@ -12,14 +12,18 @@ create table if not exists public.cars (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
   division text not null check (division in ('motors', 'selected')),
-  status text not null default 'available' check (status in ('available', 'incoming', 'sold')),
+  status text not null default 'available' check (status in ('available', 'incoming', 'unavailable', 'sold')),
   make text not null,
   model text not null,
   year integer,
   mileage_km integer,
+  previous_owners integer,
+  engine_size text,
   fuel text,
   transmission text,
   price_label text,
+  service_history text,
+  highlights text,
   short_description text,
   description text,
   image_url text,
@@ -29,6 +33,23 @@ create table if not exists public.cars (
   is_published boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
+);
+
+alter table public.cars drop constraint if exists cars_status_check;
+alter table public.cars add constraint cars_status_check check (status in ('available', 'incoming', 'unavailable', 'sold'));
+alter table public.cars add column if not exists previous_owners integer;
+alter table public.cars add column if not exists engine_size text;
+alter table public.cars add column if not exists service_history text;
+alter table public.cars add column if not exists highlights text;
+
+create table if not exists public.car_events (
+  id uuid primary key default gen_random_uuid(),
+  car_slug text not null,
+  event_type text not null default 'open_detail' check (event_type in ('open_detail', 'whatsapp_click', 'call_click', 'autoscout_click')),
+  page_path text,
+  referrer text,
+  user_agent text,
+  created_at timestamptz not null default now()
 );
 
 create table if not exists public.leads (
@@ -72,6 +93,7 @@ for each row execute function public.touch_updated_at();
 
 alter table public.admin_users enable row level security;
 alter table public.cars enable row level security;
+alter table public.car_events enable row level security;
 alter table public.leads enable row level security;
 
 drop policy if exists "Admins can see their admin row" on public.admin_users;
@@ -111,6 +133,21 @@ with check (public.current_user_is_admin());
 drop policy if exists "Admins delete cars" on public.cars;
 create policy "Admins delete cars"
 on public.cars for delete
+to authenticated
+using (public.current_user_is_admin());
+
+drop policy if exists "Public can create car events" on public.car_events;
+create policy "Public can create car events"
+on public.car_events for insert
+to anon, authenticated
+with check (
+  char_length(trim(car_slug)) between 1 and 160
+  and event_type in ('open_detail', 'whatsapp_click', 'call_click', 'autoscout_click')
+);
+
+drop policy if exists "Admins read car events" on public.car_events;
+create policy "Admins read car events"
+on public.car_events for select
 to authenticated
 using (public.current_user_is_admin());
 
@@ -168,7 +205,9 @@ using (bucket_id = 'car-images' and public.current_user_is_admin());
 grant usage on schema public to anon, authenticated;
 grant select on public.cars to anon, authenticated;
 grant insert on public.leads to anon, authenticated;
+grant insert on public.car_events to anon, authenticated;
 grant select, insert, update, delete on public.cars to authenticated;
+grant select on public.car_events to authenticated;
 grant select on public.leads to authenticated;
 grant select on public.admin_users to authenticated;
 
