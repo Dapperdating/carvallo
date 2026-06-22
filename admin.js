@@ -93,7 +93,7 @@ async function checkAdminAccess(session) {
 
 async function refreshAuthState() {
   if (!client) {
-    setLocked("Configura prima Supabase in config.js.");
+    setLocked("Servizio non configurato.");
     return;
   }
 
@@ -101,13 +101,13 @@ async function refreshAuthState() {
   currentSession = data.session;
 
   if (!currentSession) {
-    setLocked("Inserisci la password per accedere. La sessione resta salvata su questo browser.");
+    setLocked("Inserisci le credenziali per accedere.");
     return;
   }
 
   currentAdmin = await checkAdminAccess(currentSession);
   if (!currentAdmin) {
-    setLocked("Accesso effettuato, ma questa email non e' autorizzata a caricare auto.");
+    setLocked("Accesso non autorizzato.");
     return;
   }
 
@@ -136,7 +136,7 @@ async function uploadImages(files, slug) {
 
 loginButton.addEventListener("click", async () => {
   if (!client) {
-    loginStatus.textContent = "Configura prima Supabase in config.js.";
+    loginStatus.textContent = "Servizio non configurato.";
     return;
   }
 
@@ -151,7 +151,7 @@ loginButton.addEventListener("click", async () => {
   loginStatus.textContent = "Accesso in corso...";
   const { error } = await client.auth.signInWithPassword({ email, password });
   if (error) {
-    loginStatus.textContent = error.message;
+    loginStatus.textContent = "Credenziali non valide.";
     return;
   }
   loginPassword.value = "";
@@ -160,7 +160,7 @@ loginButton.addEventListener("click", async () => {
 
 signupButton.addEventListener("click", async () => {
   if (!client) {
-    loginStatus.textContent = "Configura prima Supabase in config.js.";
+    loginStatus.textContent = "Servizio non configurato.";
     return;
   }
 
@@ -179,7 +179,7 @@ signupButton.addEventListener("click", async () => {
     return;
   }
 
-  loginStatus.textContent = "Password creata. Se Supabase richiede conferma email, conferma l'account dalla dashboard o dalla mail ricevuta, poi accedi.";
+  loginStatus.textContent = "Password creata. Ora puoi accedere.";
 });
 
 logoutButton.addEventListener("click", async () => {
@@ -192,7 +192,7 @@ logoutButton.addEventListener("click", async () => {
 carForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!client || !currentSession || !currentAdmin) {
-    adminStatus.textContent = "Devi accedere con una email autorizzata.";
+    adminStatus.textContent = "Devi accedere con credenziali autorizzate.";
     return;
   }
 

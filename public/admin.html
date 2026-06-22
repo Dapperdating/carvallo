@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="styles.css?v=20260620-delivery-qa2">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
-    <script defer src="admin.js"></script>
+    <script defer src="admin.js?v=20260622-admin-access"></script>
   </head>
   <body class="admin-page">
     <header class="site-header compact">
@@ -25,12 +25,12 @@
       <section class="admin-intro">
         <p class="eyebrow">Catalogo</p>
         <h1>Carica una vettura</h1>
-        <p>Accedi con una email autorizzata in Supabase. Se e' il primo accesso, crea prima la password.</p>
+        <p>Area riservata. Inserisci le credenziali fornite.</p>
       </section>
 
       <section class="admin-login" id="login-panel">
         <div class="form-grid">
-          <label>Email<input id="login-email" type="email" autocomplete="username" placeholder="nome@azienda.com"></label>
+          <label>Email<input id="login-email" type="email" autocomplete="username" placeholder="Email"></label>
           <label>Password<input id="login-password" type="password" autocomplete="current-password"></label>
         </div>
         <div class="admin-actions">
@@ -38,7 +38,7 @@
           <button class="button ghost" id="signup-button" type="button">Crea password</button>
         </div>
         <button class="button ghost" id="logout-button" type="button" hidden>Esci</button>
-        <p class="form-status" id="login-status">Sessione salvata su questo browser dopo il primo accesso.</p>
+        <p class="form-status" id="login-status">Accesso riservato.</p>
       </section>
 
       <form class="admin-form is-locked" id="car-form" hidden>
