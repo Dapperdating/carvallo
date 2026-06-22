@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260622-password-reset">
+    <link rel="stylesheet" href="styles.css?v=20260622-login-link">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
-    <script defer src="admin.js?v=20260622-password-reset"></script>
+    <script defer src="admin.js?v=20260622-login-link"></script>
   </head>
   <body class="admin-page">
     <header class="site-header compact">
@@ -35,6 +35,7 @@
         </div>
         <div class="admin-actions">
           <button class="button primary" id="login-button" type="button">Accedi</button>
+          <button class="button ghost" id="magic-link-button" type="button">Ricevi link di accesso</button>
           <button class="button ghost" id="reset-button" type="button">Password dimenticata</button>
         </div>
         <button class="button ghost" id="logout-button" type="button" hidden>Esci</button>

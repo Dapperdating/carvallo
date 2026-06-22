@@ -21,6 +21,7 @@ const adminStatus = document.querySelector("#admin-status");
 const loginEmail = document.querySelector("#login-email");
 const loginPassword = document.querySelector("#login-password");
 const loginButton = document.querySelector("#login-button");
+const magicLinkButton = document.querySelector("#magic-link-button");
 const resetButton = document.querySelector("#reset-button");
 const logoutButton = document.querySelector("#logout-button");
 const resetPasswordForm = document.querySelector("#reset-password-form");
@@ -48,6 +49,7 @@ function setLocked(message) {
   resetPasswordForm.hidden = true;
   logoutButton.hidden = !currentSession;
   loginButton.hidden = Boolean(currentSession);
+  magicLinkButton.hidden = Boolean(currentSession);
   resetButton.hidden = Boolean(currentSession);
   loginEmail.hidden = Boolean(currentSession);
   loginPassword.hidden = Boolean(currentSession);
@@ -59,6 +61,7 @@ function setUnlocked(email) {
   carForm.classList.remove("is-locked");
   resetPasswordForm.hidden = true;
   loginButton.hidden = true;
+  magicLinkButton.hidden = true;
   resetButton.hidden = true;
   loginEmail.hidden = true;
   loginPassword.hidden = true;
@@ -72,6 +75,7 @@ function showPasswordRecovery() {
   carForm.classList.add("is-locked");
   resetPasswordForm.hidden = false;
   loginButton.hidden = true;
+  magicLinkButton.hidden = true;
   resetButton.hidden = true;
   loginEmail.hidden = true;
   loginPassword.hidden = true;
@@ -100,6 +104,10 @@ function emailValue() {
 
 function resetRedirectUrl() {
   return `${window.location.origin}${window.location.pathname}?reset=1`;
+}
+
+function loginRedirectUrl() {
+  return `${window.location.origin}${window.location.pathname}?login=1`;
 }
 
 async function checkAdminAccess(session) {
@@ -181,6 +189,31 @@ loginButton.addEventListener("click", async () => {
   }
   loginPassword.value = "";
   await refreshAuthState();
+});
+
+magicLinkButton.addEventListener("click", async () => {
+  if (!client) {
+    loginStatus.textContent = "Servizio non configurato.";
+    return;
+  }
+
+  const email = emailValue();
+  if (!email) return;
+
+  loginStatus.textContent = "Invio link di accesso...";
+  const { error } = await client.auth.signInWithOtp({
+    email,
+    options: {
+      emailRedirectTo: loginRedirectUrl(),
+      shouldCreateUser: false
+    }
+  });
+  if (error) {
+    loginStatus.textContent = "Non riesco a inviare il link. Riprova tra poco.";
+    return;
+  }
+
+  loginStatus.textContent = "Se l'email e' abilitata, riceverai un link per entrare.";
 });
 
 resetButton.addEventListener("click", async () => {
