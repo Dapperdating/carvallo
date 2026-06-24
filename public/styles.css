@@ -80,7 +80,7 @@ img {
   position: sticky;
   top: 0;
   z-index: 20;
-  min-height: 102px;
+  min-height: 110px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,7 +112,9 @@ img {
 
 .brand-logo {
   width: clamp(176px, 20vw, 260px);
-  height: auto;
+  height: 72px;
+  object-fit: contain;
+  object-position: left center;
 }
 
 nav {
@@ -2208,7 +2210,7 @@ h2 {
 }
 
 .motors-hero {
-  min-height: 720px;
+  min-height: calc(100svh - 110px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
   gap: clamp(28px, 5vw, 70px);
@@ -2227,26 +2229,12 @@ h2 {
   max-width: 760px;
 }
 
-.motors-page-logo {
-  width: min(72vw, 410px);
-  margin-bottom: 30px;
-  padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.94);
-  border-radius: 6px;
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
-}
-
 .motors-hero .eyebrow {
   color: #e7d8c4;
 }
 
 .motors-hero h1 {
-  max-width: 11ch;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(54px, 7vw, 98px);
-  font-weight: 600;
-  line-height: 0.94;
-  text-transform: none;
+  max-width: 12ch;
 }
 
 .motors-hero p:not(.eyebrow) {
@@ -2278,10 +2266,10 @@ h2 {
 .motors-showcase-copy h2 {
   max-width: 10ch;
   margin: 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(46px, 5.6vw, 82px);
-  font-weight: 600;
-  line-height: 0.98;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(37px, 4.5vw, 66px);
+  font-weight: 700;
+  line-height: 1;
   text-transform: none;
 }
 
@@ -2310,7 +2298,7 @@ h2 {
   background: rgba(255, 255, 255, 0.72);
   color: var(--motors);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   text-align: center;
   text-transform: uppercase;
 }
@@ -2347,7 +2335,7 @@ h2 {
   border: 1px solid rgba(255, 255, 255, 0.26);
   border-radius: 999px;
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -2364,10 +2352,10 @@ h2 {
 
 .motors-story h2 {
   max-width: 10ch;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(44px, 5.4vw, 76px);
-  font-weight: 600;
-  line-height: 0.98;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(35px, 4.3vw, 61px);
+  font-weight: 700;
+  line-height: 1;
   text-transform: none;
 }
 
@@ -2402,14 +2390,14 @@ h2 {
 .motors-specialties span {
   color: var(--motors);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
 .motors-specialties h2 {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(36px, 4vw, 58px);
-  font-weight: 600;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(29px, 3.2vw, 46px);
+  font-weight: 700;
   line-height: 1;
   text-transform: none;
 }
@@ -2426,12 +2414,21 @@ h2 {
   align-items: start;
 }
 
+.motors-catalog-heading h2,
+.selected-stock .section-heading h2 {
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(34px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .compact-heading {
   margin-bottom: 22px;
 }
 
 .compact-heading h2 {
-  font-size: clamp(30px, 4vw, 54px);
+  font-size: clamp(24px, 3.2vw, 43px);
 }
 
 .archive-group {
@@ -2489,14 +2486,30 @@ h2 {
   width: clamp(176px, 20vw, 260px);
 }
 
+.motors-page-logo,
+.selected-page-logo {
+  width: min(72vw, 410px);
+  height: 129px;
+  object-fit: contain;
+  object-position: left center;
+  margin-bottom: 30px;
+}
+
+.motors-page-logo {
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 6px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+}
+
 .selected-hero {
   position: relative;
-  min-height: 690px;
+  min-height: calc(100svh - 110px);
   display: grid;
-  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1fr);
-  gap: clamp(28px, 5vw, 72px);
-  align-items: center;
-  padding: clamp(72px, 9vw, 124px) clamp(18px, 5vw, 72px) clamp(46px, 6vw, 86px);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
+  gap: clamp(28px, 5vw, 70px);
+  align-items: end;
+  padding: clamp(126px, 12vw, 168px) clamp(18px, 5vw, 72px) clamp(48px, 6vw, 82px);
   overflow: hidden;
   color: var(--white);
   background:
@@ -2519,30 +2532,29 @@ h2 {
 .selected-hero-copy {
   position: relative;
   z-index: 1;
-  max-width: 680px;
+  max-width: 760px;
 }
 
-.selected-page-logo {
-  width: min(360px, 76vw);
-  height: auto;
-  margin-bottom: 34px;
-}
-
+.motors-hero h1,
 .selected-hero h1 {
-  max-width: 9ch;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(54px, 7vw, 96px);
-  font-weight: 600;
-  line-height: 0.95;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(43px, 5.1vw, 74px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0;
   text-transform: none;
 }
 
+.selected-hero h1 {
+  max-width: 12ch;
+}
+
 .selected-hero p:not(.eyebrow) {
-  max-width: 36rem;
+  max-width: 40rem;
   margin: 24px 0 0;
   color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(17px, 1.6vw, 21px);
-  line-height: 1.62;
+  font-size: clamp(18px, 1.6vw, 23px);
+  line-height: 1.55;
 }
 
 .selected-proof {
@@ -2564,7 +2576,7 @@ h2 {
   color: var(--silver);
   background: rgba(15, 15, 16, 0.72);
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
   text-align: center;
   text-transform: uppercase;
 }
@@ -2581,8 +2593,10 @@ h2 {
 
 .selected-story h2 {
   max-width: 11ch;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 600;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(35px, 4.3vw, 61px);
+  font-weight: 700;
+  line-height: 1;
   text-transform: none;
 }
 
@@ -2614,13 +2628,14 @@ h2 {
 .selected-specialties span {
   color: var(--motors);
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .selected-specialties h2 {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(28px, 4vw, 50px);
-  font-weight: 600;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(22px, 3.2vw, 40px);
+  font-weight: 700;
+  line-height: 1;
   text-transform: none;
 }
 
@@ -3236,6 +3251,7 @@ textarea {
 
   .brand-logo {
     width: min(46vw, 166px);
+    height: 46px;
   }
 
   .brand-landing {
@@ -4026,15 +4042,20 @@ textarea {
     background-size: cover;
   }
 
-  .motors-page-logo {
+  .motors-page-logo,
+  .selected-page-logo {
     width: min(72vw, 270px);
+    height: 86px;
     margin-bottom: 22px;
+  }
+
+  .motors-page-logo {
     padding: 10px 12px;
   }
 
   .motors-hero h1 {
     max-width: 10ch;
-    font-size: clamp(42px, 13vw, 58px);
+    font-size: clamp(34px, 10.4vw, 46px);
     line-height: 0.96;
   }
 
@@ -4056,7 +4077,7 @@ textarea {
 
   .motors-showcase-copy h2 {
     max-width: 10ch;
-    font-size: clamp(38px, 11vw, 52px);
+    font-size: clamp(30px, 8.8vw, 42px);
   }
 
   .motors-showcase-copy > p:not(.eyebrow) {
@@ -4101,7 +4122,7 @@ textarea {
   }
 
   .motors-story h2 {
-    font-size: clamp(38px, 11vw, 52px);
+    font-size: clamp(30px, 8.8vw, 42px);
   }
 
   .motors-story > p {
@@ -4197,14 +4218,9 @@ textarea {
     background-size: cover;
   }
 
-  .selected-page-logo {
-    width: min(72vw, 260px);
-    margin-bottom: 22px;
-  }
-
   .selected-hero h1 {
     max-width: 100%;
-    font-size: clamp(44px, 14vw, 58px);
+    font-size: clamp(34px, 10.4vw, 46px);
     line-height: 0.96;
     overflow-wrap: normal;
   }
