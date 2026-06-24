@@ -75,8 +75,8 @@
         <a href="motors.html">Motors</a>
         <a href="selected.html" aria-current="page">Selected</a>
         <a href="auto.html">Auto</a>
-        <a href="motors.html#valutazione">Valutazione</a>
-        <a href="motors.html#recensioni">Recensioni</a>
+        <a href="#valutazione">Valutazione</a>
+        <a href="#recensioni">Recensioni</a>
         <a href="#contatti">Contatti</a>
       </nav>
       <details class="mobile-menu">
@@ -86,8 +86,8 @@
           <a href="motors.html">Motors</a>
           <a href="selected.html" aria-current="page">Selected</a>
           <a href="auto.html">Auto</a>
-          <a href="motors.html#valutazione">Valutazione</a>
-          <a href="motors.html#recensioni">Recensioni</a>
+          <a href="#valutazione">Valutazione</a>
+          <a href="#recensioni">Recensioni</a>
           <a href="#contatti">Contatti</a>
         </div>
       </details>
@@ -177,6 +177,44 @@
             </div>
           </div>
           <div class="car-grid archive-grid" id="archive-grid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="valuation selected-valuation reveal" id="valutazione">
+        <div>
+          <p class="eyebrow">Valutazione gratuita</p>
+          <h2>Mandaci i dati della tua auto.</h2>
+          <p>Inserisci pochi dati essenziali. Ti ricontattiamo noi per capire insieme valore e tempi.</p>
+        </div>
+        <form class="lead-form" data-form="valuation">
+          <label>Nome<input name="name" autocomplete="name" required></label>
+          <label>Telefono<input name="phone" autocomplete="tel" required></label>
+          <label>Email<input type="email" name="email" autocomplete="email"></label>
+          <label>Auto<textarea name="message" rows="4" placeholder="Marca, modello, anno, km, condizioni"></textarea></label>
+          <button class="button primary" type="submit">Invia richiesta</button>
+          <p class="form-status" role="status"></p>
+        </form>
+      </section>
+
+      <section class="google-reviews selected-reviews reveal" id="recensioni" aria-labelledby="reviews-title">
+        <div class="reviews-heading">
+          <img class="reviews-logo" src="assets/logos/carvallo-selected-logo.png" alt="Carvallo Selected">
+          <div>
+            <p class="home-kicker">Recensioni Google</p>
+            <h2 id="reviews-title">Valutazione Google 5 su 5.</h2>
+          </div>
+          <a class="button ghost" href="https://share.google/Ryv4nAWKdtS04CgtL" target="_blank" rel="noopener noreferrer">Leggi su Google</a>
+        </div>
+        <div class="reviews-marquee" aria-label="Recensioni Google Carvallo Selected">
+          <div class="reviews-track">
+            <article><span>★★★★★</span><strong>Michelangelo Agostinelli</strong><small>7 mesi fa</small><p>Riccardo, ragazzo molto disponibile, gentile e solare.</p></article>
+            <article><span>★★★★★</span><strong>fabio</strong><small>4 mesi fa</small><p>Ottime condizioni, team sempre disponibile.</p></article>
+            <article><span>★★★★★</span><strong>Stefano Bongi</strong><small>4 settimane fa</small><p>Ottima serieta', puntuali, trasparenti, cordiali.</p></article>
+            <article><span>★★★★★</span><strong>a fox</strong><small>8 mesi fa</small><p>Ho apprezzato la professionalita' di Riccardo.</p></article>
+            <article><span>★★★★★</span><strong>Davide Grampa</strong><small>7 mesi fa</small><p>Ragazzi esperti e preparati. Consiglio vivamente.</p></article>
+            <article><span>★★★★★</span><strong>Nicolo Galiotto</strong><small>8 mesi fa</small><p>Affidabili, professionali, veloci. Tutto quello che cercavo.</p></article>
+            <article><span>★★★★★</span><strong>paolo piccardoni</strong><small>3 mesi fa</small><p>Esperienza positiva, molte domande e molte risposte.</p></article>
+          </div>
         </div>
       </section>
     </main>

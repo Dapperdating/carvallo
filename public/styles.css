@@ -859,10 +859,10 @@ nav a[aria-current="page"]::after {
 .reviews-heading h2 {
   max-width: 16ch;
   margin: 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(38px, 4.8vw, 70px);
-  font-weight: 600;
-  line-height: 1;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(30px, 3.8vw, 50px);
+  font-weight: 700;
+  line-height: 1.04;
   text-transform: none;
 }
 
@@ -1233,6 +1233,16 @@ h2 {
   color: var(--muted);
   font-size: clamp(18px, 2vw, 25px);
   line-height: 1.45;
+}
+
+.valuation h2 {
+  max-width: 12ch;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(34px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 .selected-band {
@@ -2692,6 +2702,68 @@ h2 {
 
 .selected-stock .archive-group {
   border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.selected-page .selected-valuation {
+  color: var(--white);
+  background: #0f0f10;
+  border-top: 1px solid rgba(158, 27, 34, 0.55);
+  border-bottom: 1px solid rgba(158, 27, 34, 0.55);
+}
+
+.selected-page .selected-valuation p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.selected-page .selected-valuation label {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.selected-page .selected-valuation input,
+.selected-page .selected-valuation textarea {
+  color: var(--white);
+  background: #0d0d0e;
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+.selected-page .selected-valuation input:focus,
+.selected-page .selected-valuation textarea:focus {
+  outline: 2px solid rgba(158, 27, 34, 0.7);
+  outline-offset: 2px;
+}
+
+.selected-page .selected-valuation input::placeholder,
+.selected-page .selected-valuation textarea::placeholder {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.selected-page .selected-reviews {
+  color: var(--white);
+  background: #0f0f10;
+  border-top: 0;
+  border-bottom: 1px solid rgba(158, 27, 34, 0.55);
+}
+
+.selected-page .selected-reviews .reviews-heading .button {
+  color: var(--white);
+  background: #0d0d0e;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.selected-page .selected-reviews .reviews-marquee {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.selected-page .selected-reviews .reviews-track article {
+  color: var(--white);
+  background: #121214;
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+}
+
+.selected-page .selected-reviews .reviews-track small,
+.selected-page .selected-reviews .reviews-track p {
+  color: rgba(255, 255, 255, 0.68);
 }
 
 @media (max-width: 1100px) and (min-width: 881px) {
