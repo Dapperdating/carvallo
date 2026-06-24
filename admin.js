@@ -127,6 +127,12 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function escapeCssUrl(value) {
+  return String(value ?? "")
+    .replaceAll("\\", "\\\\")
+    .replaceAll("\"", "\\\"");
+}
+
 function statusLabel(status) {
   return {
     available: "Disponibile",
@@ -142,7 +148,14 @@ function titleForCar(car) {
 
 function dashboardImageUrl(car) {
   const gallery = Array.isArray(car.gallery_urls) ? car.gallery_urls : [];
-  return car.image_url || gallery[0] || "";
+  return adminAssetUrl(car.image_url || gallery[0] || "");
+}
+
+function adminAssetUrl(value) {
+  if (!value) return "";
+  const url = String(value).trim();
+  if (/^(https?:|data:|blob:)/i.test(url)) return url;
+  return `${window.location.origin}/${url.replace(/^\/+/, "")}`;
 }
 
 function normalizeGalleryUrls(values) {
@@ -456,7 +469,7 @@ function renderDashboard() {
       <tr>
         <td>
           <div class="listing-cell">
-            <figure class="listing-thumb ${image ? "" : "is-empty"}">
+            <figure class="listing-thumb ${image ? "" : "is-empty"}" ${image ? `style="background-image: url(&quot;${escapeHtml(escapeCssUrl(image))}&quot;)"` : ""}>
               ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(titleForCar(car))}">` : ""}
             </figure>
             <div>

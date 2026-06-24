@@ -3197,6 +3197,9 @@ textarea {
   border: 1px solid var(--line);
   border-radius: 6px;
   background: #e9e5dc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .listing-thumb img {
