@@ -3202,7 +3202,8 @@ textarea {
 .listing-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
 }
 
 .listing-thumb.is-empty::after {
@@ -3294,7 +3295,8 @@ textarea {
 .image-preview-item img {
   width: 100%;
   height: 96px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   border-radius: 6px;
   background: #e9e5dc;
 }

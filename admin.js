@@ -43,6 +43,7 @@ const statPublished = document.querySelector("#stat-published");
 const statAvailable = document.querySelector("#stat-available");
 const statClicks = document.querySelector("#stat-clicks");
 const ADMIN_PUBLIC_URL = "https://carvallo-motors.com/admin.html";
+const DB_SCHEMA_FIX_PATH = "supabase/admin-cars-schema-fix.sql";
 
 let currentSession = null;
 let currentAdmin = null;
@@ -51,6 +52,16 @@ let imageQueue = [];
 let dashboardCars = [];
 let dashboardClicks = new Map();
 let editingSlug = "";
+const LEGACY_ARCHIVE_SLUGS = new Set([
+  "mini-one",
+  "mini-one-5-porte",
+  "audi-q3-s-tronic",
+  "fiat-500x-2015-1-3-mjt-lounge",
+  "bmw-z4-3-0i-e85-automatica",
+  "toyota-yaris",
+  "mini-cooper-cabrio",
+  "fiat-panda-archivio"
+]);
 
 function uniqueId(prefix) {
   const random = window.crypto?.randomUUID ? window.crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -197,6 +208,33 @@ function appendManualUrlsToQueue() {
     .filter((url) => !queuedUrls.includes(url));
   urls.forEach((url) => imageQueue.push({ id: uniqueId("url"), type: "url", url }));
   renderImagePreview();
+}
+
+function missingColumnName(error) {
+  const message = `${error?.message || ""} ${error?.details || ""} ${error?.hint || ""}`;
+  const direct = message.match(/column\s+cars\.([a-z0-9_]+)\s+does\s+not\s+exist/i);
+  if (direct) return direct[1];
+
+  const schemaCache = message.match(/'([a-z0-9_]+)'\s+column\s+of\s+'cars'/i);
+  return schemaCache ? schemaCache[1] : "";
+}
+
+async function upsertCarPayload(payload) {
+  const cleanPayload = { ...payload };
+  const skippedColumns = [];
+
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    const { error } = await client.from("cars").upsert(cleanPayload, { onConflict: "slug" });
+    if (!error) return skippedColumns;
+
+    const column = missingColumnName(error);
+    if (!column || !(column in cleanPayload)) throw error;
+
+    delete cleanPayload[column];
+    skippedColumns.push(column);
+  }
+
+  throw new Error(`Schema Supabase non allineato. Applica ${DB_SCHEMA_FIX_PATH} e riprova.`);
 }
 
 function moveImageQueueItem(id, direction) {
@@ -459,6 +497,7 @@ async function loadDashboard() {
   const { data, error } = await client
     .from("cars")
     .select("*")
+    .not("status", "in", "(sold,unavailable)")
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -466,7 +505,7 @@ async function loadDashboard() {
     return;
   }
 
-  dashboardCars = data || [];
+  dashboardCars = (data || []).filter((car) => !LEGACY_ARCHIVE_SLUGS.has(car.slug || car.id));
   await loadClickCounts();
   renderDashboard();
   if (!dashboardStatus.textContent.includes("Metriche")) {
@@ -784,14 +823,21 @@ carForm.addEventListener("submit", async (event) => {
   }
 
   adminStatus.textContent = "Salvataggio auto...";
-  const { error } = await client.from("cars").upsert(payload, { onConflict: "slug" });
-  if (error) {
-    adminStatus.textContent = error.message;
+  let skippedColumns = [];
+  try {
+    skippedColumns = await upsertCarPayload(payload);
+  } catch (error) {
+    const column = missingColumnName(error);
+    adminStatus.textContent = column
+      ? `Colonna Supabase mancante: ${column}. Applica ${DB_SCHEMA_FIX_PATH} e riprova.`
+      : error.message;
     return;
   }
 
   resetEditor();
-  adminStatus.textContent = "Auto salvata e catalogo aggiornabile.";
+  adminStatus.textContent = skippedColumns.length
+    ? `Auto salvata, ma Supabase non ha ancora queste colonne: ${skippedColumns.join(", ")}. Applica ${DB_SCHEMA_FIX_PATH}.`
+    : "Auto salvata e catalogo aggiornabile.";
   await loadDashboard();
 });
 

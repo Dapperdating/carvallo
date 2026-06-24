@@ -11,6 +11,16 @@ let catalogCars = [];
 let zoomTouchStartX = 0;
 let zoomTouchStartY = 0;
 const trackedOpenSlugs = new Set();
+const LEGACY_ARCHIVE_SLUGS = new Set([
+  "mini-one",
+  "mini-one-5-porte",
+  "audi-q3-s-tronic",
+  "fiat-500x-2015-1-3-mjt-lounge",
+  "bmw-z4-3-0i-e85-automatica",
+  "toyota-yaris",
+  "mini-cooper-cabrio",
+  "fiat-panda-archivio"
+]);
 
 function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
@@ -35,13 +45,7 @@ async function loadCars() {
     .order("created_at", { ascending: false });
 
   if (error || !data || data.length === 0) return seedCars;
-
-  const merged = new Map(seedCars.map((car) => [car.slug || car.id, car]));
-  data.forEach((car) => {
-    const key = car.slug || car.id;
-    if (!merged.has(key)) merged.set(key, car);
-  });
-  return Array.from(merged.values());
+  return data.filter((car) => !LEGACY_ARCHIVE_SLUGS.has(car.slug || car.id));
 }
 
 function formatKm(value) {
@@ -496,7 +500,7 @@ async function renderCars() {
 
   const seedCars = window.CARVALLO_SEED_CARS || [];
   const archiveGrid = document.querySelector("#archive-grid");
-  if (!archiveGrid && seedCars.length) {
+  if (!archiveGrid && seedCars.length && !getSupabaseClient()) {
     renderGrid(grid, filterCars(seedCars, grid), "Nessuna auto trovata con questi filtri.");
     bindCarCards();
   }
