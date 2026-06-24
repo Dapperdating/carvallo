@@ -2328,12 +2328,12 @@ h2 {
 }
 
 .motors-hero {
-  min-height: calc(100svh - 110px);
+  min-height: calc(100svh - 82px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
   gap: clamp(28px, 5vw, 70px);
   align-items: end;
-  padding: clamp(126px, 12vw, 168px) clamp(18px, 5vw, 72px) clamp(48px, 6vw, 82px);
+  padding: clamp(86px, 8vw, 118px) clamp(18px, 5vw, 72px) clamp(40px, 5vw, 68px);
   color: var(--white);
   background:
     linear-gradient(90deg, rgba(15, 15, 16, 0.88), rgba(15, 15, 16, 0.58) 48%, rgba(15, 15, 16, 0.28)),
@@ -2605,6 +2605,25 @@ h2 {
   width: clamp(176px, 20vw, 260px);
 }
 
+@media (min-width: 881px) {
+  .motors-page .site-header.compact,
+  .selected-page .site-header.compact {
+    min-height: 82px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .motors-page .brand-logo,
+  .selected-page .brand-logo {
+    width: clamp(148px, 16vw, 210px);
+    height: 58px;
+  }
+
+  .selected-header-logo {
+    width: clamp(148px, 16vw, 210px);
+  }
+}
+
 .motors-page-logo,
 .selected-page-logo {
   width: min(72vw, 410px);
@@ -2623,12 +2642,12 @@ h2 {
 
 .selected-hero {
   position: relative;
-  min-height: calc(100svh - 110px);
+  min-height: calc(100svh - 82px);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
   gap: clamp(28px, 5vw, 70px);
   align-items: end;
-  padding: clamp(126px, 12vw, 168px) clamp(18px, 5vw, 72px) clamp(48px, 6vw, 82px);
+  padding: clamp(86px, 8vw, 118px) clamp(18px, 5vw, 72px) clamp(40px, 5vw, 68px);
   overflow: hidden;
   color: var(--white);
   background:
