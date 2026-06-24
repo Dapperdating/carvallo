@@ -497,7 +497,6 @@ async function loadDashboard() {
   const { data, error } = await client
     .from("cars")
     .select("*")
-    .not("status", "in", "(sold,unavailable)")
     .order("created_at", { ascending: false });
 
   if (error) {
