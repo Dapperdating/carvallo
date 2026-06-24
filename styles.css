@@ -2661,28 +2661,30 @@ h2 {
   border-color: rgba(255, 255, 255, 0.28);
 }
 
-.selected-catalog-tools {
+.selected-stock .selected-catalog-tools {
   color: var(--white);
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: #0d0d0e;
+  border: 1px solid rgba(158, 27, 34, 0.72);
+  backdrop-filter: none;
 }
 
-.selected-catalog-tools input {
+.selected-stock .selected-catalog-tools input {
   color: var(--white);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: #0f0f10;
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
-.selected-catalog-tools input::placeholder {
-  color: rgba(255, 255, 255, 0.42);
+.selected-stock .selected-catalog-tools input::placeholder {
+  color: rgba(255, 255, 255, 0.58);
 }
 
-.selected-catalog-tools .filter {
-  color: rgba(255, 255, 255, 0.72);
-  border-color: rgba(255, 255, 255, 0.18);
+.selected-stock .selected-catalog-tools .filter {
+  color: var(--white);
+  background: #0f0f10;
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
-.selected-catalog-tools .filter.active {
+.selected-stock .selected-catalog-tools .filter.active {
   color: var(--white);
   background: var(--motors);
   border-color: var(--motors);
