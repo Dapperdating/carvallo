@@ -2415,6 +2415,7 @@ h2 {
 }
 
 .motors-catalog-heading h2,
+.selected-catalog-heading h2,
 .selected-stock .section-heading h2 {
   font-family: Montserrat, Arial, sans-serif;
   font-size: clamp(34px, 4.5vw, 56px);
@@ -2658,6 +2659,37 @@ h2 {
 .selected-stock .button.ghost {
   color: var(--white);
   border-color: rgba(255, 255, 255, 0.28);
+}
+
+.selected-catalog-tools {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.selected-catalog-tools input {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.selected-catalog-tools input::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.selected-catalog-tools .filter {
+  color: rgba(255, 255, 255, 0.72);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.selected-catalog-tools .filter.active {
+  color: var(--white);
+  background: var(--motors);
+  border-color: var(--motors);
+}
+
+.selected-stock .archive-group {
+  border-top-color: rgba(255, 255, 255, 0.14);
 }
 
 @media (max-width: 1100px) and (min-width: 881px) {
