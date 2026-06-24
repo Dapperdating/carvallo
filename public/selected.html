@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260624-home-entry">
+    <link rel="stylesheet" href="styles.css?v=20260624-catalog-align">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="data/cars.js?v=20260624-autoscout-gallery"></script>
@@ -64,7 +64,7 @@
     </script>
     <script defer src="script.js?v=20260622-site-map"></script>
   </head>
-  <body class="selected-page">
+  <body class="catalog-page selected-page">
     <div class="scroll-progress" aria-hidden="true"></div>
     <header class="site-header compact">
       <a class="brand" href="selected.html" aria-label="Carvallo Selected home">
@@ -143,12 +143,12 @@
       </section>
 
       <section class="inventory full-catalog selected-stock reveal" id="selected-stock">
-        <div class="section-heading selected-catalog-heading">
+        <div class="section-heading motors-catalog-heading selected-catalog-heading">
           <div>
-            <p class="eyebrow">Selezione auto</p>
+            <p class="eyebrow">Catalogo Selected</p>
             <h2>Auto Selected disponibili</h2>
           </div>
-          <a class="button ghost" href="auto.html">Vedi catalogo completo</a>
+          <a class="button ghost" href="auto.html">Vedi tutte le auto</a>
         </div>
         <div class="catalog-tools selected-catalog-tools">
           <label class="search-label">Cerca auto
@@ -166,6 +166,7 @@
             <div>
               <p class="eyebrow">Archivio</p>
               <h2>Vendute o non disponibili</h2>
+              <p class="section-copy">Auto Selected segnate come vendute o non disponibili dall'area admin.</p>
             </div>
           </div>
           <div class="car-grid archive-grid" id="archive-grid" aria-live="polite"></div>

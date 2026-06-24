@@ -1333,7 +1333,7 @@ h2 {
   padding: 28px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 8px;
-  background-image: linear-gradient(rgba(15, 15, 16, 0.2), rgba(15, 15, 16, 0.76)), url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_20e01a5f-fb24-408c-b0c9-f31a4cf04ba3.jpg/1280x960.webp");
+  background-image: linear-gradient(rgba(15, 15, 16, 0.2), rgba(15, 15, 16, 0.76)), url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_7380e9a9-47e1-4613-83d3-04d2d2045512.jpg/1280x960.jpg");
   background-size: cover;
   background-position: center;
   box-shadow: 0 34px 80px rgba(0, 0, 0, 0.34);
@@ -1532,7 +1532,6 @@ h2 {
   background: var(--anthracite);
   color: var(--white);
   border: 1px solid var(--motors);
-  font-style: italic;
 }
 
 .car-title {
@@ -2789,6 +2788,11 @@ h2 {
   background: #0f0f10;
 }
 
+.selected-page .full-catalog {
+  color: var(--white);
+  background: #0f0f10;
+}
+
 .selected-stock .section-copy {
   color: rgba(255, 255, 255, 0.68);
 }
@@ -2829,6 +2833,12 @@ h2 {
 
 .selected-stock .archive-group {
   border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.selected-page .catalog-group {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(158, 27, 34, 0.34);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
 }
 
 .selected-page .selected-valuation {
@@ -4299,6 +4309,20 @@ textarea {
     background-size: cover;
   }
 
+  .motors-hero .hero-actions,
+  .selected-hero .hero-actions {
+    width: 100%;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .motors-hero .hero-actions .button,
+  .selected-hero .hero-actions .button {
+    min-height: 46px;
+    padding: 0 14px;
+    font-size: 14px;
+  }
+
   .motors-page-logo,
   .selected-page-logo {
     display: none;
@@ -4403,7 +4427,7 @@ textarea {
 
   .motors-catalog-heading .button {
     width: 100%;
-    margin-top: 18px;
+    margin-top: 24px;
   }
 
   .catalog-tools,
@@ -4472,7 +4496,7 @@ textarea {
     grid-template-columns: 1fr;
     gap: 18px;
     min-height: 520px;
-    padding: 96px 18px 30px;
+    padding: 96px 18px 28px;
     background:
       linear-gradient(180deg, rgba(15, 15, 16, 0.46), rgba(15, 15, 16, 0.92)),
       url("https://prod.pictures.autoscout24.net/listing-images/8186140f-0989-4cac-bba2-b41fccc98dbd_be878e94-f9f6-4cd4-98c6-c8dd0fd3ef1b.jpg/1280x960.jpg");
@@ -4495,16 +4519,7 @@ textarea {
   }
 
   .selected-proof {
-    display: flex;
-    gap: 8px;
-    width: calc(100vw - 36px);
-    margin-top: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    border: 0;
-    background: transparent;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
+    display: none;
   }
 
   .selected-proof span {
@@ -4600,6 +4615,71 @@ textarea {
   .selected-page .catalog-group .car-actions .button {
     min-height: 46px;
     font-size: 13px;
+  }
+
+  .motors-hero p:not(.eyebrow),
+  .selected-hero p:not(.eyebrow),
+  .catalog-hero p:last-child,
+  .section-heading .section-copy,
+  .motors-showcase-copy > p:not(.eyebrow),
+  .motors-story > p,
+  .selected-story > p,
+  .valuation > div > p:not(.eyebrow),
+  .contact-band > div > p:not(.eyebrow) {
+    display: none;
+  }
+
+  h1 {
+    font-size: clamp(31px, 9vw, 43px);
+  }
+
+  h2 {
+    font-size: clamp(27px, 8.1vw, 41px);
+  }
+
+  .home-hero h1 {
+    font-size: clamp(34px, 9.45vw, 43px);
+  }
+
+  .home-section-copy h2,
+  .home-method h2 {
+    font-size: clamp(34px, 10.8vw, 50px);
+  }
+
+  .reviews-heading h2 {
+    font-size: clamp(32px, 9.9vw, 43px);
+  }
+
+  .catalog-hero h1 {
+    font-size: clamp(31px, 10.35vw, 41px);
+  }
+
+  .auto-page .catalog-hero h1 {
+    font-size: clamp(31px, 8.82vw, 40px);
+  }
+
+  .auto-page .section-heading h2 {
+    font-size: clamp(25px, 7.38vw, 34px);
+  }
+
+  .motors-hero h1,
+  .selected-hero h1 {
+    font-size: clamp(29px, 8.28vw, 38px);
+  }
+
+  .motors-showcase-copy h2,
+  .motors-story h2 {
+    font-size: clamp(27px, 7.92vw, 38px);
+  }
+
+  .motors-catalog-heading h2,
+  .selected-catalog-heading h2,
+  .selected-stock .section-heading h2 {
+    font-size: clamp(31px, 8.1vw, 50px);
+  }
+
+  .compact-heading h2 {
+    font-size: clamp(22px, 7.2vw, 34px);
   }
 
   .form-grid {
