@@ -11,16 +11,6 @@ let catalogCars = [];
 let zoomTouchStartX = 0;
 let zoomTouchStartY = 0;
 const trackedOpenSlugs = new Set();
-const LEGACY_ARCHIVE_SLUGS = new Set([
-  "mini-one",
-  "mini-one-5-porte",
-  "audi-q3-s-tronic",
-  "fiat-500x-2015-1-3-mjt-lounge",
-  "bmw-z4-3-0i-e85-automatica",
-  "toyota-yaris",
-  "mini-cooper-cabrio",
-  "fiat-panda-archivio"
-]);
 
 function getSupabaseClient() {
   if (!window.supabase || !window.CARVALLO_SUPABASE_URL || !window.CARVALLO_SUPABASE_ANON_KEY) {
@@ -45,7 +35,7 @@ async function loadCars() {
     .order("created_at", { ascending: false });
 
   if (error || !data || data.length === 0) return seedCars;
-  return data.filter((car) => !LEGACY_ARCHIVE_SLUGS.has(car.slug || car.id));
+  return data;
 }
 
 function formatKm(value) {

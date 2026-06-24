@@ -52,16 +52,6 @@ let imageQueue = [];
 let dashboardCars = [];
 let dashboardClicks = new Map();
 let editingSlug = "";
-const LEGACY_ARCHIVE_SLUGS = new Set([
-  "mini-one",
-  "mini-one-5-porte",
-  "audi-q3-s-tronic",
-  "fiat-500x-2015-1-3-mjt-lounge",
-  "bmw-z4-3-0i-e85-automatica",
-  "toyota-yaris",
-  "mini-cooper-cabrio",
-  "fiat-panda-archivio"
-]);
 
 function uniqueId(prefix) {
   const random = window.crypto?.randomUUID ? window.crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -504,7 +494,7 @@ async function loadDashboard() {
     return;
   }
 
-  dashboardCars = (data || []).filter((car) => !LEGACY_ARCHIVE_SLUGS.has(car.slug || car.id));
+  dashboardCars = data || [];
   await loadClickCounts();
   renderDashboard();
   if (!dashboardStatus.textContent.includes("Metriche")) {
