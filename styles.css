@@ -117,6 +117,10 @@ img {
   object-position: left center;
 }
 
+.group-brand-logo {
+  width: clamp(190px, 21vw, 278px);
+}
+
 nav {
   display: flex;
   gap: clamp(12px, 1.5vw, 22px);
@@ -249,6 +253,10 @@ nav a[aria-current="page"]::after {
 .home-page .brand-logo {
   width: clamp(150px, 16vw, 210px);
   height: 58px;
+}
+
+.home-page .group-brand-logo {
+  width: clamp(180px, 18vw, 250px);
 }
 
 .split-entry {
@@ -3054,6 +3062,12 @@ textarea {
   box-shadow: 0 16px 38px rgba(0, 0, 0, 0.24);
 }
 
+.group-footer-logo {
+  width: 280px;
+  padding: 0;
+  background: transparent;
+}
+
 .footer-links {
   display: grid;
   gap: 10px;
@@ -3505,6 +3519,10 @@ textarea {
   .brand-logo {
     width: min(46vw, 166px);
     height: 46px;
+  }
+
+  .group-brand-logo {
+    width: min(58vw, 190px);
   }
 
   .brand-landing {
@@ -4782,6 +4800,12 @@ textarea {
     max-width: 210px;
     padding: 8px 10px;
     border-radius: 5px;
+  }
+
+  .group-footer-logo {
+    width: min(70vw, 240px);
+    max-width: 240px;
+    padding: 0;
   }
 
   .footer-links {
